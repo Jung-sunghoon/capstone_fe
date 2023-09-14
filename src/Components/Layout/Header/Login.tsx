@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-// 로그인 API 응답 데이터에 대한 TypeScript 인터페이스를 정의합니다.
-// interface LoginResponse {
-//   token: string;
-//   userId: string;
-//   // 필요한 다른 응답 데이터도 여기에 추가할 수 있습니다.
-// }
+import "./login.css";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -36,29 +30,37 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleLogin();
+  };
+
   return (
     <div>
-      <h2>로그인</h2>
-      <div>
-        <label htmlFor="username">사용자 이름:</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">비밀번호:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button onClick={handleLogin}>로그인</button>
-      <p style={{ color: "red", fontSize: "18px" }}>{message}</p>
+      <form onSubmit={handleSubmit}>
+        <div className="input__box">
+          <input
+            type="text"
+            id="username"
+            placeholder="아이디"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="username">아이디</label>
+        </div>
+        <div className="input__box">
+          <input
+            type="password"
+            id="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label htmlFor="password">비밀번호</label>
+        </div>
+        <input type="submit" onClick={handleLogin} value={"로그인"} />
+      </form>
+      <p className="error__m">{message}</p>
     </div>
   );
 };
