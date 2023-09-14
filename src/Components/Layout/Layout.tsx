@@ -1,19 +1,22 @@
-import Footer from "./Footer/Footer"
-import Header from "./Header/Header"
+import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
 
-const Layout = (props: {
-  children: React.ReactNode
-}) => {
+const Layout = ({ children }: any) => {
   return (
     <div>
-       <Header /> 
+      <Header />
 
-      <main>
-        {props.children}
+      <main
+        style={{
+          marginTop: "60px",
+        }}
+      >
+        {children}
       </main>
-    <Footer />
-    </div>
-  )
-}
 
-export default Layout
+      {/* <Footer /> */}
+    </div>
+  );
+};
+
+export default Layout;
