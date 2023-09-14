@@ -58,7 +58,7 @@ const Login: React.FC = () => {
         />
       </div>
       <button onClick={handleLogin}>로그인</button>
-      <p>{message}</p>
+      <p style={{ color: "red", fontSize: "18px" }}>{message}</p>
     </div>
   );
 };
