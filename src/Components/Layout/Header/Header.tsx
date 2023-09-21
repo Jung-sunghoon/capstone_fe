@@ -25,7 +25,7 @@ const Header = () => {
             <li>
               {isLoggedIn ? (
                 <button onClick={logout} className="logout__btn">
-                  <Link to="/service-info" className="h__link">
+                  <Link to="/login" className="h__link">
                     로그아웃
                   </Link>
                 </button>
