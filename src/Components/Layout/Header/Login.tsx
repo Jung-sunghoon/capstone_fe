@@ -4,38 +4,33 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { Link } from "react-router-dom";
 import Logo from "./logo.png";
-import { useAuth } from "../../../AuthContext"; // useAuth 추가
+import { useAuth } from "../../../AuthContext";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login }: any = useAuth(); // useAuth를 통해 로그인 함수에 접근
+  const { login }: { login: () => void } = useAuth();
 
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleLogin = async () => {
-    // Swagger에서 생성된 로그인 API 엔드포인트 URL을 입력하세요.
     const apiUrl = "http://localhost:8080/api/login";
 
     if (!userId || !password) {
-      // 아이디 또는 비밀번호가 비어있는 경우
       setMessage("아이디와 비밀번호를 입력하세요.");
-      return; // 로그인 시도를 하지 않음
+      return;
     }
 
     try {
-      // Axios를 사용하여 API를 호출하고 응답을 받습니다.
       const response = await axios.post(apiUrl, {
         userId,
         password,
       });
 
-      // 로그인 성공 시 처리
-      login(); // 로그인 함수 호출
+      login();
       navigate("/service-info");
     } catch (error) {
-      // 로그인 실패 시 처리
       console.error("로그인 오류:", error);
       setMessage("아이디 또는 비밀번호가 잘못되었습니다.");
     }

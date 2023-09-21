@@ -1,10 +1,25 @@
-// AuthContext.js 파일
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+// 컨텍스트의 타입 정의
+interface AuthContextType {
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+}
 
-const AuthContext = createContext({});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: any) {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

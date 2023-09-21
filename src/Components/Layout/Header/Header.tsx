@@ -2,10 +2,11 @@ import React from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
 import Logo from "./logo.png";
-import { useAuth } from "../../../AuthContext"; // useAuth 추가
+import { useAuth } from "../../../AuthContext";
 
-const Header = () => {
-  const { isLoggedIn, logout }: any = useAuth(); // isLoggedIn, logout 및 logoutMessage 추가
+const Header: React.FC = () => {
+  const { isLoggedIn, logout }: { isLoggedIn: boolean; logout: () => void } =
+    useAuth();
 
   return (
     <header id="header">
