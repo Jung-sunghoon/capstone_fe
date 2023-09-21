@@ -18,6 +18,12 @@ const Login: React.FC = () => {
     // Swagger에서 생성된 로그인 API 엔드포인트 URL을 입력하세요.
     const apiUrl = "http://localhost:8080/api/login";
 
+    if (!userId || !password) {
+      // 아이디 또는 비밀번호가 비어있는 경우
+      setMessage("아이디와 비밀번호를 입력하세요.");
+      return; // 로그인 시도를 하지 않음
+    }
+
     try {
       // Axios를 사용하여 API를 호출하고 응답을 받습니다.
       const response = await axios.post(apiUrl, {

@@ -5,7 +5,7 @@ import Logo from "./logo.png";
 import { useAuth } from "../../../AuthContext"; // useAuth 추가
 
 const Header = () => {
-  const { isLoggedIn, logout, logoutMessage }: any = useAuth(); // isLoggedIn, logout 및 logoutMessage 추가
+  const { isLoggedIn, logout }: any = useAuth(); // isLoggedIn, logout 및 logoutMessage 추가
 
   return (
     <header id="header">
