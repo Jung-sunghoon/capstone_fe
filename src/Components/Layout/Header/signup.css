@@ -1,0 +1,38 @@
+.Signup__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 10px;
+}
+
+.Su__t__box {
+  border-radius: 10px;
+  position: relative;
+  margin: 10px 0;
+  align-items: center;
+  border: 1px solid black;
+  display: block;
+  margin-top: 8px;
+  background: transparent;
+  padding: 0px 0px 5px 0px;
+  font-size: 14pt;
+  width: 400px;
+  height: 40px;
+}
+
+.Signup__btn {
+  width: 400px;
+  height: 50px;
+  background-color: #ba55d3;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.2s;
+  margin-top: 10px;
+  font-size: 14pt;
+  color: white;
+}
+.Signup__btn:hover {
+  box-shadow: 5px 5px 10px #888888;
+}

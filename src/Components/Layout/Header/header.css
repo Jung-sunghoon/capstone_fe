@@ -6,11 +6,16 @@
   z-index: 10000;
 }
 
+.h__logo__img {
+  width: 120px;
+  height: 40px;
+}
+
 .header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(160, 11, 160, 0.7);
+  background-color: #ba55d3;
   backdrop-filter: blur(15px);
   min-height: 60px;
 }
@@ -24,4 +29,9 @@
   padding: 14px;
   position: relative;
   color: black;
+}
+
+.logout__btn {
+  background-color: #ba55d3;
+  border: none;
 }

@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
+import { Link } from "react-router-dom";
+import Logo from "./logo.png";
+import { useAuth } from "../../../AuthContext"; // useAuth 추가
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { login }: any = useAuth(); // useAuth를 통해 로그인 함수에 접근
 
-  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -17,11 +21,12 @@ const Login: React.FC = () => {
     try {
       // Axios를 사용하여 API를 호출하고 응답을 받습니다.
       const response = await axios.post(apiUrl, {
-        userId: username,
+        userId,
         password,
       });
 
       // 로그인 성공 시 처리
+      login(); // 로그인 함수 호출
       navigate("/service-info");
     } catch (error) {
       // 로그인 실패 시 처리
@@ -37,16 +42,19 @@ const Login: React.FC = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login__form">
+        <img src={Logo} alt="로고 이미지" className="logo__img"></img>
         <div className="input__box">
           <input
             type="text"
-            id="username"
+            id="userId"
             placeholder="아이디"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
           />
-          <label htmlFor="username">아이디</label>
+          <label htmlFor="userId" className="log_label">
+            아이디
+          </label>
         </div>
         <div className="input__box">
           <input
@@ -56,11 +64,24 @@ const Login: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label htmlFor="password">비밀번호</label>
+          <label htmlFor="password" className="log_label">
+            비밀번호
+          </label>
         </div>
-        <input type="submit" onClick={handleLogin} value={"로그인"} />
+        <p className="error__m">{message}</p>
+        <input
+          type="submit"
+          onClick={handleLogin}
+          value={"로그인"}
+          className="login__btn"
+        />
+        <div className="login__sign__up">
+          계정이 없으신가요?{" "}
+          <Link to="/sign-up" className="signup__link">
+            회원가입
+          </Link>
+        </div>
       </form>
-      <p className="error__m">{message}</p>
     </div>
   );
 };

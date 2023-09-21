@@ -4,6 +4,7 @@ import Header from "./Components/Layout/Header/Header";
 import Login from "./Components/Layout/Header/Login";
 import SignUp from "./Components/Layout/Header/SignUp";
 import ServiceInfo from "./Components//Layout/Header/ServiceInfo";
+import Board from "./Components/Board/Board";
 
 const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ const AppRouter = () => {
         <Route path="/login/*" element={<Login />} />
         <Route path="/sign-up/*" element={<SignUp />} />
         <Route path="/service-info/*" element={<ServiceInfo />} />
+        <Route path="/board/*" element={<Board />} />
       </Routes>
     </Router>
   );
