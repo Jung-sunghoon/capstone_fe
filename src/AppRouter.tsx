@@ -5,6 +5,7 @@ import Login from "./Components/Layout/Header/Login";
 import SignUp from "./Components/Layout/Header/SignUp";
 import ServiceInfo from "./Components//Layout/Header/ServiceInfo";
 import Board from "./Components/Board/Board";
+import Generate from "./Components/Board/Generate";
 
 const AppRouter = () => {
   return (
@@ -15,6 +16,7 @@ const AppRouter = () => {
         <Route path="/sign-up/*" element={<SignUp />} />
         <Route path="/service-info/*" element={<ServiceInfo />} />
         <Route path="/board/*" element={<Board />} />
+        <Route path="/generate/*" element={<Generate />} />
       </Routes>
     </Router>
   );

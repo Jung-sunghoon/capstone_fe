@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { List } from "antd";
+import { List, Pagination, Button } from "antd";
+import { Link } from "react-router-dom";
 import "./board.css";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
 import Filter from "./Filter";
+import Generate from "./Generate";
 
 // 프로젝트 데이터의 타입 정의
 interface ProjectData {
-  projectTitle: string; // title을 projectTitle로 변경
-  description: string; // content를 description으로 변경
-  readCnt: number;
-  likes: number;
-  generateDate: string; // createdAt를 generateDate로 변경
+  projectTitle: string; //프로젝트 이름
+  description: string; //프로젝트 설명
+  readCnt: number; //조회수
+  likes: number; //좋아요 수
+  generateDate: string; //생성 날짜
   status: "진행 중" | "완료";
-  // projectId: number; // 새로운 필드 projectId 추가
-  // creatorId: string; // 새로운 필드 creatorId 추가
-  // recruitmentStatus: string; // 새로운 필드 recruitmentStatus 추가
-  // recruitmentCount: number; // 새로운 필드 recruitmentCount 추가
-  // acceptedID: string; // 새로운 필드 acceptedID 추가
+  // projectId: number; //프로젝트Id
+  // creatorId: string; //제작자 Id
+  // recruitmentStatus: string; //구인 상태(O , X)
+  // recruitmentCount: number; //구인 명 수
+  // acceptedID: string; //구인된 Id
 }
 
 // 가상의 프로젝트 데이터
@@ -68,6 +70,21 @@ const Board: React.FC = () => {
   // 현재 선택된 상태(진행 중 또는 완료)를 저장하는 상태 변수
   const [currentStatus, setCurrentStatus] = useState<"진행 중" | "완료">(
     "진행 중"
+  );
+
+  // 페이지네이션을 위한 상태 변수
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(16); // 한 페이지당 보일 항목 수
+
+  // 페이지네이션 변경 핸들러 함수
+  const handlePageChange = (page: number, pageSize?: number) => {
+    setCurrentPage(page);
+  };
+
+  // 현재 페이지에 맞게 데이터를 잘라서 보여줌
+  const slicedData = filteredData.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
   );
 
   // 검색어 입력 핸들러 함수
@@ -189,12 +206,20 @@ const Board: React.FC = () => {
         {/* 카드 리스트 */}
         <List
           grid={{ gutter: 16, column: 4 }}
-          dataSource={filteredData}
+          dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
           renderItem={(item: ProjectData) => (
             <List.Item>
               <ProjectCard projectData={item} />
             </List.Item>
           )}
+        />
+        <Pagination
+          className="Board__page"
+          current={currentPage}
+          total={filteredData.length}
+          pageSize={pageSize}
+          showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
+          onChange={handlePageChange}
         />
       </div>
     </div>

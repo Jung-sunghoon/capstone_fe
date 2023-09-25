@@ -28,11 +28,20 @@ const Login: React.FC = () => {
         password,
       });
 
-      login();
-      navigate("/service-info");
+      if (response.status === 200) {
+        // 로그인 성공 시
+        localStorage.setItem("userId", userId); // userId를 로컬 스토리지에 저장
+        login();
+        navigate("/service-info");
+      } else {
+        // 로그인 실패 시
+        console.error("로그인 오류: 로그인 실패");
+        setMessage("아이디 또는 비밀번호가 잘못되었습니다.");
+      }
     } catch (error) {
+      // 로그인 요청 오류 시
       console.error("로그인 오류:", error);
-      setMessage("아이디 또는 비밀번호가 잘못되었습니다.");
+      setMessage("로그인 중 오류가 발생했습니다.");
     }
   };
 
