@@ -36,3 +36,8 @@
 .Signup__btn:hover {
   box-shadow: 5px 5px 10px #888888;
 }
+
+.error__m {
+  color: red;
+  font-size: 18px;
+}

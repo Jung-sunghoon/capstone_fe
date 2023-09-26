@@ -56,6 +56,22 @@ const data: ProjectData[] = [
     generateDate: "2023-09-04", // 날짜 형식 변경
     status: "완료",
   },
+  {
+    projectTitle: "프로젝트 제목5",
+    description: "안녕하세요",
+    readCnt: 900,
+    likes: 3,
+    generateDate: "2023-09-27", // 날짜 형식 변경
+    status: "진행 중",
+  },
+  {
+    projectTitle: "프로젝트 제목6",
+    description: "사랑합니다",
+    readCnt: 8900,
+    likes: 89,
+    generateDate: "2023-09-29", // 날짜 형식 변경
+    status: "진행 중",
+  },
 ];
 
 const Board: React.FC = () => {

@@ -5,6 +5,7 @@ import "./signup.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [message, setMessage] = useState<string>("");
 
   const [userData, setUserData] = useState({
     userId: "",
@@ -22,6 +23,20 @@ const SignUp = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    // 필요한 정보가 입력되었는지 검증
+    if (
+      !userData.userId ||
+      !userData.password ||
+      !userData.name ||
+      !userData.nickname ||
+      !userData.email ||
+      !userData.gitAddress
+    ) {
+      setMessage("모든 회원 정보를 입력하세요.");
+      return; // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
+    }
+
     try {
       // 회원가입 API 호출
       const response = await axios.post(
@@ -101,6 +116,7 @@ const SignUp = () => {
             onChange={handleChange}
           />
         </div>
+        <p className="error__m">{message}</p>
         <button type="submit" className="Signup__btn">
           회원가입
         </button>
