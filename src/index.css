@@ -115,7 +115,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -130,7 +130,6 @@ a {
 a:link,
 a:visited,
 a:active {
-  color: inherit; /* 링크 텍스트의 색을 상속받아 현재 텍스트 색으로 설정합니다. */
   text-decoration: none; /* 밑줄을 제거합니다. */
 }
 

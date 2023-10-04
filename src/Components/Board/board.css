@@ -1,11 +1,9 @@
 .B__sort__menu {
   display: flex;
-  margin-top: 30px;
-  margin-bottom: 0px;
 }
 .B__sort__menu li {
   display: inline;
-  padding-left: 10px;
+  padding-right: 10px;
 }
 .B__sort__menu li:first-child {
   padding-left: 0;

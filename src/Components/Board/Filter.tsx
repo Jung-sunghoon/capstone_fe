@@ -1,22 +1,22 @@
 // Filter 컴포넌트
-import React, { useEffect } from "react";
-import { Menu, Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import React, { useEffect } from 'react'
+import { Menu, Dropdown } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
 
 interface FilterProps {
-  onFilter: (filterOption: string) => void;
-  currentStatus: "진행 중" | "완료";
+  onFilter: (filterOption: string) => void
+  currentStatus: '진행 중' | '완료'
 }
 
 const Filter: React.FC<FilterProps> = ({ onFilter, currentStatus }) => {
   useEffect(() => {
     // 최초 렌더링 시 "최신순"으로 설정
-    onFilter("latest");
-  }, []);
+    onFilter('latest')
+  }, [])
 
   const handleMenuClick = (e: { key: string }) => {
-    onFilter(e.key);
-  };
+    onFilter(e.key)
+  }
 
   const menu = (
     <Menu onClick={handleMenuClick}>
@@ -24,17 +24,17 @@ const Filter: React.FC<FilterProps> = ({ onFilter, currentStatus }) => {
       <Menu.Item key="popular">조회순</Menu.Item>
       <Menu.Item key="likes">좋아요순</Menu.Item>
     </Menu>
-  );
+  )
 
   return (
     <div>
-      <Dropdown overlay={menu} trigger={["click"]}>
+      <Dropdown overlay={menu} trigger={['click']}>
         <span>
           정렬 <DownOutlined />
         </span>
       </Dropdown>
     </div>
-  );
-};
+  )
+}
 
-export default Filter;
+export default Filter
