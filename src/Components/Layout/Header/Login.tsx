@@ -55,20 +55,22 @@ const Login: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit} className="login__form">
         <img src={Logo} alt="로고 이미지" className="logo__img"></img>
-        <div className="input__box">
+        <div>
           <Input
             type="text"
             id="userId"
             placeholder="아이디"
+            className="input__box"
             value={userId}
             onChange={e => setUserId(e.target.value)}
           />
         </div>
-        <div className="input__box">
+        <div>
           <Input
             type="password"
             id="password"
             placeholder="비밀번호"
+            className="input__box"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
