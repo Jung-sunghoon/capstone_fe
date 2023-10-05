@@ -5,7 +5,7 @@ export interface ProjectData {
   views: number //조회수
   likes: number //좋아요 수
   generateDate: string //생성 날짜
-  ProjectStatus: '진행 중' | '완료'
+  projectStatus: 'Ps_pr' | 'Ps_co'
   imgSrc?: string
   // projectId: number; //프로젝트Id
   // userId: string; //제작자 Id

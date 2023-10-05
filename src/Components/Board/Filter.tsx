@@ -5,10 +5,10 @@ import { DownOutlined } from '@ant-design/icons'
 
 interface FilterProps {
   onFilter: (filterOption: string) => void
-  currentStatus: '진행 중' | '완료'
+  currentProjectStatus: 'Ps_pr' | 'Ps_co'
 }
 
-const Filter: React.FC<FilterProps> = ({ onFilter, currentStatus }) => {
+const Filter: React.FC<FilterProps> = ({ onFilter, currentProjectStatus }) => {
   useEffect(() => {
     // 최초 렌더링 시 "최신순"으로 설정
     onFilter('latest')

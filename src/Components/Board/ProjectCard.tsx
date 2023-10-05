@@ -8,7 +8,7 @@ interface ProjectData {
   views: number
   likes: number
   generateDate: string // createdAt를 generateDate로 변경
-  ProjectStatus: '진행 중' | '완료'
+  projectStatus: 'Ps_pr' | 'Ps_co'
   imgSrc?: string
   // projectId: number;
   // userId: string;

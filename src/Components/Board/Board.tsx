@@ -31,9 +31,9 @@ const Board: React.FC = () => {
   // 검색어 입력 필드를 표시할지 여부를 저장하는 상태 변수
   const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
   // 현재 선택된 상태(진행 중 또는 완료)를 저장하는 상태 변수
-  const [currentStatus, setCurrentStatus] = useState<'진행 중' | '완료'>(
-    '진행 중',
-  )
+  const [currentProjectStatus, setCurrentProjectStatus] = useState<
+    'Ps_pr' | 'Ps_co'
+  >('Ps_pr')
 
   // 페이지네이션을 위한 상태 변수
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -73,7 +73,7 @@ const Board: React.FC = () => {
   const performSearchAndSort = () => {
     // 검색어를 기반으로 데이터 필터링
     let filtered = boardList
-      .filter(item => item.ProjectStatus === currentStatus) // 현재 상태에 따라 필터링
+      .filter(item => item.projectStatus === currentProjectStatus) // 현재 상태에 따라 필터링
       .filter(item =>
         item.projectTitle.toLowerCase().includes(searchText.toLowerCase()),
       )
@@ -94,14 +94,14 @@ const Board: React.FC = () => {
   }
 
   // "진행 중", "완료" 버튼 클릭 핸들러 함수
-  const handleStatusClick = (status: any) => {
-    setCurrentStatus(status)
+  const handleProjectStatusClick = (status: any) => {
+    setCurrentProjectStatus(status)
     performSearchAndSort()
   }
   // 컴포넌트가 처음 렌더링될 때 초기 데이터 설정
   useEffect(() => {
     performSearchAndSort()
-  }, [sortOption, currentStatus, searchText])
+  }, [sortOption, currentProjectStatus, searchText])
 
   // sort 버튼 생성 코드
   const sortOptions = [
@@ -113,7 +113,7 @@ const Board: React.FC = () => {
   useEffect(() => {
     fetchBoardData() // 서버에서 데이터를 가져오는 함수 호출
     performSearchAndSort()
-  }, [sortOption, currentStatus, searchText])
+  }, [sortOption, currentProjectStatus, searchText])
 
   return (
     <div>
@@ -143,12 +143,26 @@ const Board: React.FC = () => {
             {['진행 중', '완료'].map(status => (
               <li
                 key={status}
-                onClick={() => handleStatusClick(status)}
-                className={`${status === '진행 중' ? 'pr' : 'co'}__board ${
-                  currentStatus === status ? 'active' : ''
+                onClick={() =>
+                  handleProjectStatusClick(
+                    status === '진행 중' ? 'Ps_pr' : 'Ps_co',
+                  )
+                }
+                className={`${
+                  currentProjectStatus ===
+                  (status === '진행 중' ? 'Ps_pr' : 'Ps_co')
+                    ? 'active'
+                    : ''
                 }`}
               >
-                <Button type={currentStatus === status ? 'primary' : 'default'}>
+                <Button
+                  type={
+                    currentProjectStatus ===
+                    (status === '진행 중' ? 'Ps_pr' : 'Ps_co')
+                      ? 'primary'
+                      : 'default'
+                  }
+                >
                   {status}
                 </Button>
               </li>
