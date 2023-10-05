@@ -12,11 +12,9 @@
   cursor: pointer;
 }
 
-/* CSS 파일 또는 스타일 코드에 추가 */
 .pr__board.active,
 .co__board.active {
-  text-decoration: underline; /* 언더라인 스타일 적용 */
-  /* 다른 스타일도 추가할 수 있습니다. */
+  text-decoration: underline;
 }
 
 .Board__page {

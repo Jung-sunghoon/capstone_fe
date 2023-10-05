@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { List, Pagination, Button } from 'antd'
+import { List, Pagination, Button, Select } from 'antd'
 import { ProjectData } from './types'
 import './board.css'
 import ProjectCard from './ProjectCard'
@@ -8,14 +8,28 @@ import Filter from './Filter'
 import Generate from './Generate'
 import { boardList } from './mock/boardList'
 import { SearchOutlined } from '@ant-design/icons'
+import { sortOptionEnums } from '../../enums/enums'
+import axios from 'axios'
+
+const { Option } = Select
 
 const Board: React.FC = () => {
+  const fetchBoardData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/project_list')
+      // 서버에서 받아온 데이터를 상태 변수에 설정
+      setFilteredData(response.data) // 예제에서는 response.data가 게시물 목록을 담고 있는 배열로 가정합니다.
+    } catch (error) {
+      console.error('게시물 목록을 가져오는 중 오류 발생:', error)
+    }
+  }
+
   // 검색어 상태를 저장하는 상태 변수
   const [searchText, setSearchText] = useState<string>('')
   // 검색 및 정렬 결과 데이터를 저장하는 상태 변수
   const [filteredData, setFilteredData] = useState<ProjectData[]>(boardList)
   // 검색어 입력 필드를 표시할지 여부를 저장하는 상태 변수
-  const [sortOption, setSortOption] = useState<string>('latest')
+  const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
   // 현재 선택된 상태(진행 중 또는 완료)를 저장하는 상태 변수
   const [currentStatus, setCurrentStatus] = useState<'진행 중' | '완료'>(
     '진행 중',
@@ -23,7 +37,7 @@ const Board: React.FC = () => {
 
   // 페이지네이션을 위한 상태 변수
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(16) // 한 페이지당 보일 항목 수
+  const [pageSize, setPageSize] = useState<number>(12) // 한 페이지당 보일 항목 수
 
   // 페이지네이션 변경 핸들러 함수
   const handlePageChange = (page: number, pageSize?: number) => {
@@ -51,7 +65,7 @@ const Board: React.FC = () => {
       const dateB = new Date(b.generateDate)
       return dateB.getTime() - dateA.getTime()
     },
-    popular: (a, b) => b.readCnt - a.readCnt,
+    views: (a, b) => b.views - a.views,
     likes: (a, b) => b.likes - a.likes,
   }
 
@@ -59,7 +73,7 @@ const Board: React.FC = () => {
   const performSearchAndSort = () => {
     // 검색어를 기반으로 데이터 필터링
     let filtered = boardList
-      .filter(item => item.status === currentStatus) // 현재 상태에 따라 필터링
+      .filter(item => item.ProjectStatus === currentStatus) // 현재 상태에 따라 필터링
       .filter(item =>
         item.projectTitle.toLowerCase().includes(searchText.toLowerCase()),
       )
@@ -74,7 +88,7 @@ const Board: React.FC = () => {
   }
 
   // 정렬 옵션 메뉴 클릭 핸들러 함수
-  const handleFilterClick = (filterOption: string) => {
+  const handleFilterChange = (filterOption: string) => {
     setSortOption(filterOption)
     performSearchAndSort()
   }
@@ -91,10 +105,15 @@ const Board: React.FC = () => {
 
   // sort 버튼 생성 코드
   const sortOptions = [
-    { key: 'latest', label: '최신순' },
-    { key: 'popular', label: '조회순' },
-    { key: 'likes', label: '좋아요순' },
+    { key: sortOptionEnums.latest, label: '최신순' },
+    { key: sortOptionEnums.views, label: '조회순' },
+    { key: sortOptionEnums.likes, label: '좋아요순' },
   ]
+
+  useEffect(() => {
+    fetchBoardData() // 서버에서 데이터를 가져오는 함수 호출
+    performSearchAndSort()
+  }, [sortOption, currentStatus, searchText])
 
   return (
     <div>
@@ -102,29 +121,25 @@ const Board: React.FC = () => {
         <div
           style={{
             display: 'flex',
-            alignItems: 'center',
+            justifyContent: 'space-between',
             marginLeft: '30px',
+            marginRight: '30px',
             paddingTop: '20px',
           }}
         >
           <ul className="B__sort__menu">
-            {/* <li className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-              
-              <Filter
-                onFilter={handleMenuClick}
-                currentStatus={currentStatus}
-              />
-            </li> */}
-            {sortOptions.map(option => (
-              <Button
-                key={option.key}
-                style={{ marginRight: '10px' }}
-                onClick={() => handleFilterClick(option.key)}
-                type={sortOption === option.key ? 'primary' : 'default'}
-              >
-                {option.label}
-              </Button>
-            ))}
+            <Select
+              defaultValue={sortOptionEnums.latest}
+              style={{ width: 120, marginRight: '10px' }}
+              onChange={handleFilterChange}
+            >
+              {sortOptions.map(option => (
+                <Option key={option.key} value={option.key}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
+
             {['진행 중', '완료'].map(status => (
               <li
                 key={status}
@@ -149,8 +164,9 @@ const Board: React.FC = () => {
           style={{
             marginTop: '30px',
             marginLeft: '30px',
+            marginRight: '30px',
           }}
-          grid={{ gutter: 16, column: 4 }}
+          grid={{ gutter: 12, column: 3 }}
           dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
           renderItem={(item: ProjectData) => (
             <List.Item>

@@ -1,6 +1,6 @@
 // Filter 컴포넌트
 import React, { useEffect } from 'react'
-import { Menu, Dropdown } from 'antd'
+import { Menu, Dropdown, Select } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 interface FilterProps {
@@ -21,7 +21,7 @@ const Filter: React.FC<FilterProps> = ({ onFilter, currentStatus }) => {
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="latest">최신순</Menu.Item>
-      <Menu.Item key="popular">조회순</Menu.Item>
+      <Menu.Item key="views">조회순</Menu.Item>
       <Menu.Item key="likes">좋아요순</Menu.Item>
     </Menu>
   )

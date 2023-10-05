@@ -5,14 +5,14 @@ import { LikeFilled, EyeFilled } from '@ant-design/icons'
 interface ProjectData {
   projectTitle: string // title을 projectTitle로 변경
   description: string // content를 description으로 변경
-  readCnt: number
+  views: number
   likes: number
   generateDate: string // createdAt를 generateDate로 변경
-  status: '진행 중' | '완료'
+  ProjectStatus: '진행 중' | '완료'
   imgSrc?: string
-  // projectId: number; // 새로운 필드 projectId 추가
-  // creatorId: string; // 새로운 필드 creatorId 추가
-  // recruitmentStatus: string; // 새로운 필드 recruitmentStatus 추가
+  // projectId: number;
+  // userId: string;
+  // status: string;
   // recruitmentCount: number; // 새로운 필드 recruitmentCount 추가
   // acceptedID: string; // 새로운 필드 acceptedID 추가
 }
@@ -67,7 +67,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
               fontSize: '18px',
             }}
           />
-          {`${projectData.readCnt}`}
+          {`${projectData.views}`}
         </div>,
         <div
           style={{

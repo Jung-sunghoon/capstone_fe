@@ -1,28 +1,39 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import "./signup.css";
+import React, { useState, ChangeEvent, FormEvent } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import './signup.css'
+import { Button, Input, Space } from 'antd'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
-const SignUp = () => {
-  const navigate = useNavigate();
-  const [message, setMessage] = useState<string>("");
+interface UserData {
+  userId: string
+  password: string
+  name: string
+  nickname: string
+  email: string
+  gitAddress: string
+}
 
-  const [userData, setUserData] = useState({
-    userId: "",
-    password: "",
-    name: "",
-    nickname: "",
-    email: "",
-    gitAddress: "",
-  });
+const SignUp: React.FC = () => {
+  const navigate = useNavigate()
+  const [message, setMessage] = useState<string>('')
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
-  };
+  const [userData, setUserData] = useState<UserData>({
+    userId: '',
+    password: '',
+    name: '',
+    nickname: '',
+    email: '',
+    gitAddress: '',
+  })
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setUserData({ ...userData, [name]: value })
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
     // 필요한 정보가 입력되었는지 검증
     if (
@@ -33,52 +44,62 @@ const SignUp = () => {
       !userData.email ||
       !userData.gitAddress
     ) {
-      setMessage("모든 회원 정보를 입력하세요.");
-      return; // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
+      setMessage('모든 회원 정보를 입력하세요.')
+      return // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
     }
 
     try {
       // 회원가입 API 호출
       const response = await axios.post(
-        "http://localhost:8080/api/sign_up",
-        userData
-      );
+        'http://localhost:8080/api/sign_up',
+        userData,
+      )
 
       // 회원가입 성공 시 처리
-      console.log("회원가입 성공:", response.data);
-      navigate("/login");
+      console.log('회원가입 성공:', response.data)
+      navigate('/login')
     } catch (error) {
       // 회원가입 실패 시 처리
-      console.error("회원가입 오류:", error);
+      console.error('회원가입 오류:', error)
     }
-  };
+  }
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="Signup__form">
         <div>
           <label>아이디</label>
-          <input
-            type="text"
-            name="userId"
-            className="Su__t__box"
-            value={userData.userId}
-            onChange={handleChange}
-          />
+          <div className="container">
+            <Space direction="horizontal">
+              <Input
+                placeholder="아이디를 입력하시오"
+                type="text"
+                name="userId"
+                className="Su__t__box"
+                value={userData.userId}
+                onChange={handleChange}
+              />
+              <Button style={{ width: 80 }}>중복확인</Button>
+            </Space>
+          </div>
         </div>
         <div>
           <label>비밀번호</label>
-          <input
-            type="password"
+          <Input.Password
+            placeholder="비밀번호를 입력하시오"
             name="password"
             className="Su__t__box"
             value={userData.password}
             onChange={handleChange}
+            iconRender={visible =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
           />
         </div>
         <div>
           <label>이름</label>
-          <input
+          <Input
+            placeholder="이름을 입력하시오"
             type="text"
             name="name"
             className="Su__t__box"
@@ -88,17 +109,24 @@ const SignUp = () => {
         </div>
         <div>
           <label>닉네임</label>
-          <input
-            type="text"
-            name="nickname"
-            className="Su__t__box"
-            value={userData.nickname}
-            onChange={handleChange}
-          />
+          <div className="container">
+            <Space direction="horizontal">
+              <Input
+                placeholder="닉네임을 입력하시오"
+                type="text"
+                name="nickname"
+                className="Su__t__box"
+                value={userData.nickname}
+                onChange={handleChange}
+              />
+              <Button style={{ width: 80 }}>중복확인</Button>
+            </Space>
+          </div>
         </div>
         <div>
           <label>이메일</label>
-          <input
+          <Input
+            placeholder="이메일을 입력하시오"
             type="email"
             name="email"
             className="Su__t__box"
@@ -108,7 +136,8 @@ const SignUp = () => {
         </div>
         <div>
           <label>Git 주소</label>
-          <input
+          <Input
+            placeholder="Git 주소를 입력하시오"
             type="text"
             name="gitAddress"
             className="Su__t__box"
@@ -117,12 +146,12 @@ const SignUp = () => {
           />
         </div>
         <p className="error__m">{message}</p>
-        <button type="submit" className="Signup__btn">
+        <Button type="primary" htmlType="submit" className="Signup__btn">
           회원가입
-        </button>
+        </Button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
