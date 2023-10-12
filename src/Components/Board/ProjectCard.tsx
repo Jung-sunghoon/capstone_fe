@@ -9,7 +9,7 @@ interface ProjectData {
   likes: number
   generateDate: string // createdAt를 generateDate로 변경
   projectStatus: 'Ps_pr' | 'Ps_co'
-  imgSrc?: string
+  thumbnail?: string
   // projectId: number;
   // userId: string;
   // status: string;
@@ -24,6 +24,16 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
+  console.log('projectData', projectData)
+  const info = projectData?.projectInfo
+
+  function formatDate(date: any) {
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0') // 월은 0부터 시작하므로 1을 더하고 2자리 숫자로 만듭니다.
+    const day = date.getDate().toString().padStart(2, '0') // 일을 2자리 숫자로 만듭니다.
+    return `${year}-${month}-${day}`
+  }
+
   return (
     <Card
       style={{
@@ -32,14 +42,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
       }}
       // cover={<img alt="example" src="URL_OF_YOUR_THUMBNAIL_IMAGE" />}
       cover={
-        projectData.imgSrc ? (
+        info?.thumbnail ? (
           <img
             height={120}
             style={{
               objectFit: 'cover',
             }}
             alt="example"
-            src={projectData.imgSrc}
+            src={info?.thumbnail}
           />
         ) : (
           <Image
@@ -67,7 +77,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
               fontSize: '18px',
             }}
           />
-          {`${projectData.views}`}
+          {`${info?.views}`}
         </div>,
         <div
           style={{
@@ -82,15 +92,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
               fontSize: '18px',
             }}
           />
-          {`${projectData.likes}`}
+          {`${info?.likes}`}
         </div>,
-        <div>{`${projectData.generateDate.toString()}`}</div>,
+        <div>{`${formatDate(new Date(info?.generateDate))}`}</div>,
       ]}
     >
-      <Meta
-        title={projectData.projectTitle}
-        description={projectData.description}
-      />
+      <Meta title={info?.projectTitle} description={info?.description} />
     </Card>
   )
 }

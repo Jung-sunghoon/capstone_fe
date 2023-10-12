@@ -4,19 +4,21 @@ import { ProjectData } from './types'
 import './board.css'
 import ProjectCard from './ProjectCard'
 import Search from './Search'
-import Filter from './Filter'
-import Generate from './Generate'
 import { boardList } from './mock/boardList'
-import { SearchOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
 import { sortOptionEnums } from '../../enums/enums'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom' // React Router에서 useHistory 불러오기
 
 const { Option } = Select
 
 const Board: React.FC = () => {
+  const navigate = useNavigate()
   const fetchBoardData = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/project_list')
+      const response = await axios.get(
+        'http://localhost:8080/api/projects_list',
+      )
       // 서버에서 받아온 데이터를 상태 변수에 설정
       setFilteredData(response.data) // 예제에서는 response.data가 게시물 목록을 담고 있는 배열로 가정합니다.
     } catch (error) {
@@ -115,6 +117,10 @@ const Board: React.FC = () => {
     performSearchAndSort()
   }, [sortOption, currentProjectStatus, searchText])
 
+  const handleNewPost = () => {
+    navigate('/Generate') // '/Generate' 경로로 이동
+  }
+
   return (
     <div>
       <div>
@@ -168,6 +174,14 @@ const Board: React.FC = () => {
               </li>
             ))}
           </ul>
+
+          <div className="floating-button">
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={handleNewPost}
+            />
+          </div>
 
           {/* 검색 컴포넌트를 렌더링하고 검색어 입력 핸들러 함수를 전달 */}
           <Search onSearch={handleSearch} />

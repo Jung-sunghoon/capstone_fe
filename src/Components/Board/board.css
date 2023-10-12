@@ -20,3 +20,10 @@
 .Board__page {
   text-align: center;
 }
+
+.floating-button {
+  position: fixed;
+  bottom: 30px;
+  right: 35px;
+  z-index: 5;
+}

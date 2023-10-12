@@ -9,7 +9,7 @@ export const boardList: ProjectData[] = [
     likes: 20,
     generateDate: '2023-09-01',
     projectStatus: 'Ps_co',
-    imgSrc: 'src/assets/images/boardImg/1인의만찬.png',
+    thumbnail: 'src/assets/images/boardImg/1인의만찬.png',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -18,7 +18,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/79551913-4c9d7b80-80d5-11ea-9701-0c033dba81c7.jpg',
   },
   {
@@ -28,7 +28,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/79566508-a316b400-80ed-11ea-9402-3bf20edcfdbf.jpg',
   },
   {
@@ -38,7 +38,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/80935943-f6854380-8e09-11ea-85b9-b41e78390b92.jpg',
   },
   {
@@ -48,7 +48,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/83968654-b3852700-a905-11ea-9f6b-611f79a122cc.png',
   },
   {
@@ -58,7 +58,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/104651996-c792d180-56fb-11eb-867c-5b55dbe21833.png',
   },
   {
@@ -68,7 +68,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/110477817-f8551d00-8126-11eb-8fad-191ceb4846f9.jpg',
   },
   {
@@ -78,7 +78,7 @@ export const boardList: ProjectData[] = [
     likes: 125,
     generateDate: '2023-09-22',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/113881927-d61eef80-97f7-11eb-9d80-c8a33fdf224f.jpg',
   },
   {
@@ -88,7 +88,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/115144475-ddf85280-a087-11eb-85ae-8f41f6a15a9a.png',
   },
   {
@@ -98,7 +98,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/115145682-c623cd00-a08d-11eb-9b94-f1369b7a7c56 (1).png',
   },
   {
@@ -108,7 +108,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/115145682-c623cd00-a08d-11eb-9b94-f1369b7a7c56.png',
   },
   {
@@ -118,7 +118,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-10-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/126065328-70124e21-f0c2-4e9b-a0f8-b4e3086f31b6.jpg',
   },
   {
@@ -128,7 +128,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/127765454-d9abca84-093f-46b9-b31c-e73e3ef4090c.png',
   },
   {
@@ -138,7 +138,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-10-03',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/134624457-fadbbf0a-f218-4269-8a91-e00e97de69ee.png',
   },
   {
@@ -148,7 +148,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/142584682-f8739599-0dd1-4c7d-b1c2-34beb0670477.png',
   },
   {
@@ -158,7 +158,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/144202575-eaa96e56-508c-48b2-917f-b7e543454c44.png',
   },
   {
@@ -168,7 +168,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/144370579-763a962c-5076-413c-9ea6-1043985791f6.png',
   },
   {
@@ -178,7 +178,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/147246107-7fb42286-cb86-490c-abed-561591447fa9.png',
   },
   {
@@ -188,7 +188,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/147661848-c7f0dd4e-22ce-449a-a355-a968afbf8956.png',
   },
   {
@@ -198,7 +198,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/147752990-8dab19c0-05c2-40fc-8fb4-8ea6e815dc2e.png',
   },
   {
@@ -208,7 +208,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/148496611-9414791c-4d9d-466d-9c76-eec5aba17f5c.png',
   },
   {
@@ -218,7 +218,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/149097250-3fcf4762-940a-4fda-bd3d-a40f62fa9e75 (1).png',
   },
   {
@@ -228,7 +228,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/149097250-3fcf4762-940a-4fda-bd3d-a40f62fa9e75.png',
   },
   {
@@ -238,7 +238,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/150468385-c6d46f9c-5d0c-4d2e-84e0-41c00d7f5798.png',
   },
   {
@@ -248,7 +248,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/151510203-f8649aa5-5a9b-410c-a108-5b9524ede555.png',
   },
   {
@@ -258,7 +258,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/68747470733a2f2f696d67312e6461756d63646e2e6e65742f7468756d622f523132383078302f3f73636f64653d6d746973746f72793226666e616d653d6874747073253341253246253246626c6f672e6b616b616f63646e2e6e6574253246646e253246725177667a253246627471557644716155705.jpeg',
   },
   {
@@ -268,7 +268,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f54683357616c6c2f6173736574732d63646e2f46616b65666c69782f46616b65666c69785f726561646d652e706e67.png',
   },
   {
@@ -278,7 +278,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/웨일_스크린샷02.jpg',
+    thumbnail: 'src/assets/images/boardImg/웨일_스크린샷02.jpg',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -287,7 +287,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/cover-image.png',
+    thumbnail: 'src/assets/images/boardImg/cover-image.png',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -296,7 +296,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/ddongule-simple-portfolio.png',
+    thumbnail: 'src/assets/images/boardImg/ddongule-simple-portfolio.png',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -305,7 +305,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/image_processing20200406-28881-1chrlvy.png',
   },
   {
@@ -315,7 +315,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc:
+    thumbnail:
       'src/assets/images/boardImg/KakaoTalk_Photo_2021-11-15-22-34-01 001.png',
   },
   {
@@ -325,7 +325,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/logo (1).png',
+    thumbnail: 'src/assets/images/boardImg/logo (1).png',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -334,7 +334,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/main.png',
+    thumbnail: 'src/assets/images/boardImg/main.png',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -343,7 +343,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_co',
-    imgSrc: 'src/assets/images/boardImg/onbording.png',
+    thumbnail: 'src/assets/images/boardImg/onbording.png',
   },
   {
     projectTitle: '프로젝트 제목2',
@@ -352,7 +352,7 @@ export const boardList: ProjectData[] = [
     likes: 15,
     generateDate: '2023-09-02',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/thumb.jpg',
+    thumbnail: 'src/assets/images/boardImg/thumb.jpg',
   },
   {
     projectTitle: '프로젝트 제목3',
@@ -361,7 +361,7 @@ export const boardList: ProjectData[] = [
     likes: 30,
     generateDate: '2023-09-03',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/thumbnail_image_0e38ff5d.jpg',
+    thumbnail: 'src/assets/images/boardImg/thumbnail_image_0e38ff5d.jpg',
   },
   {
     projectTitle: '프로젝트 제목4',
@@ -370,7 +370,7 @@ export const boardList: ProjectData[] = [
     likes: 10,
     generateDate: '2023-09-04',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/thumbnail_image_789f9007.jpg',
+    thumbnail: 'src/assets/images/boardImg/thumbnail_image_789f9007.jpg',
   },
   {
     projectTitle: '프로젝트 제목5',
@@ -379,7 +379,7 @@ export const boardList: ProjectData[] = [
     likes: 3,
     generateDate: '2023-09-27',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/thumbnail_image_c4aa8c0f.png',
+    thumbnail: 'src/assets/images/boardImg/thumbnail_image_c4aa8c0f.png',
   },
   {
     projectTitle: '프로젝트 제목6',
@@ -388,6 +388,6 @@ export const boardList: ProjectData[] = [
     likes: 89,
     generateDate: '2023-09-29',
     projectStatus: 'Ps_pr',
-    imgSrc: 'src/assets/images/boardImg/thumbnail_image_f3915d35.png',
+    thumbnail: 'src/assets/images/boardImg/thumbnail_image_f3915d35.png',
   },
 ]
