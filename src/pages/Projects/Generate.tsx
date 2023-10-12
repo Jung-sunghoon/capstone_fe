@@ -118,12 +118,6 @@ const Generate: React.FC = () => {
                 html={''}
               />
             </div>
-            {/* <Input.TextArea style={{ height: '400px' }} /> */}
-            {/* <Editor
-              value={description}
-              onChange={handleEditorChange}
-              renderHTML={renderHTML}
-            /> */}
           </Form.Item>
         </div>
         <div
