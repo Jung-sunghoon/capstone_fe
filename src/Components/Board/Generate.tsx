@@ -3,13 +3,9 @@ import { Form, Input, Button, message, Upload } from 'antd'
 import axios from 'axios'
 import { UploadChangeParam, UploadFile } from 'antd/es/upload'
 import { UploadListType } from 'antd/es/upload/interface'
-// import Editor from 'react-markdown-editor-lite'
-// import 'react-markdown-editor-lite/lib/index.css'
-// import * as marked from 'marked'
 
 const Generate: React.FC = () => {
   const [form] = Form.useForm()
-  const [description, setDescription] = useState<string>('')
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
   useEffect(() => {
@@ -27,7 +23,7 @@ const Generate: React.FC = () => {
 
       const projectData = {
         projectTitle: values.projectTitle,
-        description,
+        description: values.description,
         userId: values.userId,
         recruitmentCount: values.recruitmentCount,
         projectIId: null,
@@ -47,7 +43,6 @@ const Generate: React.FC = () => {
       if (response.status === 201) {
         message.success('프로젝트가 성공적으로 생성되었습니다.')
         form.resetFields()
-        setDescription('') // Markdown 내용 초기화
         setFileList([]) // 이미지 목록 초기화
       } else {
         message.error('프로젝트 생성 중 오류가 발생했습니다.')
@@ -57,15 +52,6 @@ const Generate: React.FC = () => {
       console.error('프로젝트 생성 중 오류:', error)
     }
   }
-
-  const handleEditorChange = ({ text }: any) => {
-    setDescription(text)
-  }
-
-  // const renderHTML = (text: string) => {
-  //   const html = marked(text)
-  //   return <div dangerouslySetInnerHTML={{ __html: html }} />
-  // }
 
   const uploadProps = {
     action: 'http://localhost:8080/api/upload_image',
