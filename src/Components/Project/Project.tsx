@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Image } from 'antd'
 import { LikeFilled, EyeFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import { ProjectType } from '@src/types/types'
+import { ProjectType } from '@src/types'
 import { formatDate } from '@src/utils/common'
 
 const { Meta } = Card

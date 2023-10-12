@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { PlusOutlined } from '@ant-design/icons'
 
-import { ProjectsType, ProjectType } from '@src/types/types'
+import { ProjectsType, ProjectType } from '@src/types'
 import Project from '@src/Components/Project'
 import Search from './Search'
 import { sortOptionEnums } from '../../enums/enums'
