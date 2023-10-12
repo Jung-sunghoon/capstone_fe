@@ -69,7 +69,7 @@ const SignUp: React.FC = () => {
       <form onSubmit={handleSubmit} className="Signup__form">
         <div className="Signup__form_div">
           <label>아이디</label>
-          <div className="container">
+          <div className="su__container">
             <Space direction="horizontal">
               <Input
                 placeholder="아이디를 입력하시오"
@@ -109,7 +109,7 @@ const SignUp: React.FC = () => {
         </div>
         <div className="Signup__form_div">
           <label>닉네임</label>
-          <div className="container">
+          <div className="su__container">
             <Space direction="horizontal">
               <Input
                 placeholder="닉네임을 입력하시오"

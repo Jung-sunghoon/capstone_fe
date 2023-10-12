@@ -42,10 +42,10 @@
   font-size: 18px;
 }
 
-.container {
+.su__container {
   display: flex;
   align-items: center;
 }
-.container .Su__t__box {
+.su__container .Su__t__box {
   width: 310px;
 }

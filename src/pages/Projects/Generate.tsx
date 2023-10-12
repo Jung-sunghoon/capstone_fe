@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Card, message, Upload } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import axios from 'axios'
-import { UploadChangeParam, UploadFile } from 'antd/es/upload'
-import { UploadListType } from 'antd/es/upload/interface'
 import TextEditor from '@src/Components/TextEditor'
+import { useNavigate } from 'react-router-dom'
 
 const Generate: React.FC = () => {
   const [form] = Form.useForm()
-  const [fileList, setFileList] = useState<UploadFile[]>([])
   const [textEditor, setTextEditor] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     const savedUserId = localStorage.getItem('userId')
@@ -43,7 +42,7 @@ const Generate: React.FC = () => {
       if (response.status === 201) {
         message.success('프로젝트가 성공적으로 생성되었습니다.')
         form.resetFields()
-        setFileList([]) // 이미지 목록 초기화
+        navigate('/projects')
       } else {
         message.error('프로젝트 생성 중 오류가 발생했습니다.')
       }
@@ -51,17 +50,6 @@ const Generate: React.FC = () => {
       message.error('프로젝트 생성 중 오류가 발생했습니다.')
       console.error('프로젝트 생성 중 오류:', error)
     }
-  }
-
-  const uploadProps = {
-    action: 'http://localhost:8080/api/upload_image',
-    listType: 'picture' as UploadListType,
-    fileList,
-    onChange(info: UploadChangeParam<UploadFile>) {
-      if (info.file.status === 'done') {
-        setFileList([...fileList, info.file])
-      }
-    },
   }
 
   return (
@@ -103,13 +91,7 @@ const Generate: React.FC = () => {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            name="description"
-            label="프로젝트 내용"
-            // rules={[
-            //   { required: true, message: '프로젝트 설명을 입력해주세요' },
-            // ]}
-          >
+          <Form.Item name="description" label="프로젝트 내용">
             <div>
               <TextEditor
                 isNew={true}
