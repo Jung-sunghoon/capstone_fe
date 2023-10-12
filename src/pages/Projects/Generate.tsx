@@ -108,11 +108,6 @@ const Generate: React.FC = () => {
             ]}
           >
             <Input.TextArea style={{ height: '400px' }} />
-            {/* <Editor
-              value={description}
-              onChange={handleEditorChange}
-              renderHTML={renderHTML}
-            /> */}
             {fileList.map(file => (
               <div key={file.uid}>
                 <img
