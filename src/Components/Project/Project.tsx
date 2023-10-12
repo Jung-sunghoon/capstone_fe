@@ -2,39 +2,17 @@ import React from 'react'
 import { Card, Image } from 'antd'
 import { LikeFilled, EyeFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-
-// 프로젝트 데이터의 타입 정의
-interface ProjectData {
-  projectTitle: string // title을 projectTitle로 변경
-  description: string // content를 description으로 변경
-  views: number
-  likes: number
-  generateDate: string // createdAt를 generateDate로 변경
-  projectStatus: 'Ps_pr' | 'Ps_co'
-  thumbnail?: string
-  // projectId: number;
-  // userId: string;
-  // status: string;
-  // recruitmentCount: number; // 새로운 필드 recruitmentCount 추가
-  // acceptedID: string; // 새로운 필드 acceptedID 추가
-}
+import { ProjectType } from '@src/types/types'
+import { formatDate } from '@src/utils/common'
 
 const { Meta } = Card
 
-interface ProjectCardProps {
-  projectData: ProjectData
+interface ProjectProps {
+  projectData: ProjectType
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
-  console.log('projectData', projectData)
+const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const info = projectData?.projectInfo
-
-  function formatDate(date: any) {
-    const year = date.getFullYear()
-    const month = (date.getMonth() + 1).toString().padStart(2, '0') // 월은 0부터 시작하므로 1을 더하고 2자리 숫자로 만듭니다.
-    const day = date.getDate().toString().padStart(2, '0') // 일을 2자리 숫자로 만듭니다.
-    return `${year}-${month}-${day}`
-  }
 
   return (
     <Link to={`/project/${info?.projectId}`}>
@@ -45,6 +23,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
         }}
         // cover={<img alt="example" src="URL_OF_YOUR_THUMBNAIL_IMAGE" />}
         cover={
+          //@ts-ignore
           info?.thumbnail ? (
             <img
               height={120}
@@ -52,6 +31,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
                 objectFit: 'cover',
               }}
               alt="example"
+              //@ts-ignore
               src={info?.thumbnail}
             />
           ) : (
@@ -106,4 +86,4 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ projectData }) => {
   )
 }
 
-export default ProjectCard
+export default Project

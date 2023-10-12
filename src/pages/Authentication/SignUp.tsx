@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import './signup.css'
+import './SignUp.css'
 import { Button, Input, Space } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
@@ -67,7 +67,7 @@ const SignUp: React.FC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="Signup__form">
-        <div>
+        <div className="Signup__form_div">
           <label>아이디</label>
           <div className="container">
             <Space direction="horizontal">
@@ -83,7 +83,7 @@ const SignUp: React.FC = () => {
             </Space>
           </div>
         </div>
-        <div>
+        <div className="Signup__form_div">
           <label>비밀번호</label>
           <Input.Password
             placeholder="비밀번호를 입력하시오"
@@ -96,7 +96,7 @@ const SignUp: React.FC = () => {
             }
           />
         </div>
-        <div>
+        <div className="Signup__form_div">
           <label>이름</label>
           <Input
             placeholder="이름을 입력하시오"
@@ -107,7 +107,7 @@ const SignUp: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="Signup__form_div">
           <label>닉네임</label>
           <div className="container">
             <Space direction="horizontal">
@@ -123,7 +123,7 @@ const SignUp: React.FC = () => {
             </Space>
           </div>
         </div>
-        <div>
+        <div className="Signup__form_div">
           <label>이메일</label>
           <Input
             placeholder="이메일을 입력하시오"
@@ -134,7 +134,7 @@ const SignUp: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="Signup__form_div">
           <label>Git 주소</label>
           <Input
             placeholder="Git 주소를 입력하시오"

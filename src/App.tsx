@@ -1,17 +1,14 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from './Components/Layout/Layout'
-import SignUp from './Components/Layout/Header/SignUp'
-import ServiceInfo from './Components/Layout/Header/ServiceInfo'
-import Login from './Components/Layout/Header/Login'
-import Board from './Components/Board/Board'
+import SignUp from './pages/Authentication/SignUp'
+import ServiceInfo from './pages/ServiceInfo/ServiceInfo'
+import Login from './pages/Authentication/Login'
+import Projects from './pages/Projects/Projects'
 import ProjectDetails from './pages/Projects/ProjectDetails'
 import { AuthProvider } from './AuthContext' // AuthProvider 추가
-import Generate from './Components/Board/Generate'
+import Generate from './pages/Projects/Generate'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <AuthProvider>
       <Layout>
@@ -19,7 +16,7 @@ function App() {
           <Route path="/login/*" element={<Login />} />
           <Route path="/sign-up/*" element={<SignUp />} />
           <Route path="/service-info/*" element={<ServiceInfo />} />
-          <Route path="/board/*" element={<Board />} />
+          <Route path="/projects/*" element={<Projects />} />
           <Route path="/project/*" element={<ProjectDetails />} />
           <Route path="/generate/*" element={<Generate />} />
         </Routes>

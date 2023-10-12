@@ -20,19 +20,17 @@ const Generate: React.FC = () => {
   const onFinish = async (values: any) => {
     try {
       localStorage.setItem('userId', values.userId)
-
       const projectData = {
+        projectId: null,
         projectTitle: values.projectTitle,
         description: values.description,
         userId: values.userId,
-        recruitmentCount: values.recruitmentCount,
-        projectIId: null,
-        ProjectStatus: 'Ps_pr',
+        projectStatus: 'Ps_pr',
         status: 'S_pr',
+        recruitmentCount: values.recruitmentCount,
+        generateDate: new Date().toISOString(),
         likes: 0,
         views: 0,
-        generateData: new Date().toISOString(),
-        images: fileList.map((file: UploadFile) => file.url), // 이미지 URL 목록
       }
 
       const response = await axios.post(

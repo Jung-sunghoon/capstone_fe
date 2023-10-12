@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import './login.css'
+import './Login.css'
 import { Link } from 'react-router-dom'
-import Logo from './logo.png'
-import { useAuth } from '../../../AuthContext'
+import Logo from '@assets/images/Login/logo.png'
+import { useAuth } from '../../AuthContext'
 import { Input } from 'antd'
 
 const Login: React.FC = () => {

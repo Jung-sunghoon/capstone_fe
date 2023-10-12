@@ -4,7 +4,13 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  gap: 10px;
+  gap: 20px;
+}
+
+.Signup__form_div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .Su__t__box {

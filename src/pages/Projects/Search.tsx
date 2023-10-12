@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Input } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import './search.css'
+import './Search.css'
 
 interface SearchProps {
   onSearch: (text: string, isSearchVisible: boolean) => void

@@ -1,18 +1,18 @@
-import React from "react";
-import "./header.css";
-import { Link } from "react-router-dom";
-import Logo from "./logo.png";
-import { useAuth } from "../../../AuthContext";
+import React from 'react'
+import './header.css'
+import { Link } from 'react-router-dom'
+import Logo from '@assets/images/Login/logo.png'
+import { useAuth } from '../../../AuthContext'
 
 const Header: React.FC = () => {
   const { isLoggedIn, logout }: { isLoggedIn: boolean; logout: () => void } =
-    useAuth();
+    useAuth()
 
   return (
     <header id="header">
       <div className="header__inner">
         <div className="header__logo">
-          <Link to="/board">
+          <Link to="/projects">
             <img src={Logo} alt="로고 이미지" className="h__logo__img"></img>
           </Link>
         </div>
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
