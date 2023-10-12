@@ -2,7 +2,9 @@
   "compilerOptions": {
     "types": [
       // ... your other types
-      "node"
+      "node",
+      "jquery",
+      "summernote"
     ],
     "baseUrl": ".",
     "paths": {

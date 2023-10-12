@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, message, Upload } from 'antd'
+import { Form, Input, Button, Card, message, Upload } from 'antd'
 import axios from 'axios'
 import { UploadChangeParam, UploadFile } from 'antd/es/upload'
 import { UploadListType } from 'antd/es/upload/interface'
+import TextEditor from '@src/Components/TextEditor'
 
 const Generate: React.FC = () => {
   const [form] = Form.useForm()
   const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [textEditor, setTextEditor] = useState('')
 
   useEffect(() => {
     const savedUserId = localStorage.getItem('userId')
@@ -23,7 +25,7 @@ const Generate: React.FC = () => {
       const projectData = {
         projectId: null,
         projectTitle: values.projectTitle,
-        description: values.description,
+        description: textEditor,
         userId: values.userId,
         projectStatus: 'Ps_pr',
         status: 'S_pr',
@@ -100,37 +102,28 @@ const Generate: React.FC = () => {
           >
             <Input />
           </Form.Item>
+
           <Form.Item
             name="description"
             label="프로젝트 내용"
-            rules={[
-              { required: true, message: '프로젝트 설명을 입력해주세요' },
-            ]}
+            // rules={[
+            //   { required: true, message: '프로젝트 설명을 입력해주세요' },
+            // ]}
           >
-            <Input.TextArea style={{ height: '400px' }} />
+            <div>
+              <TextEditor
+                isNew={true}
+                edit={true}
+                setTextEditor={setTextEditor}
+                html={''}
+              />
+            </div>
+            {/* <Input.TextArea style={{ height: '400px' }} /> */}
             {/* <Editor
               value={description}
               onChange={handleEditorChange}
               renderHTML={renderHTML}
             /> */}
-            {fileList.map(file => (
-              <div key={file.uid}>
-                <img
-                  src={file.url}
-                  alt="이미지"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '200px',
-                    margin: '10px 0',
-                  }}
-                />
-              </div>
-            ))}
-          </Form.Item>
-          <Form.Item label="프로젝트 이미지">
-            <Upload {...uploadProps} showUploadList={true}>
-              <Button>이미지 업로드</Button>
-            </Upload>
           </Form.Item>
         </div>
         <div
