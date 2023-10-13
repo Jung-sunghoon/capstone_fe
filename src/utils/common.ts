@@ -25,3 +25,33 @@ export function formatDate(date: Date) {
   const day = date.getDate().toString().padStart(2, '0') // 일을 2자리 숫자로 만듭니다.
   return `${year}-${month}-${day}`
 }
+
+/**
+ * 프로젝트 상태에 따른 한글명 전환
+ */
+export function convertprojectStatus(status: string | undefined) {
+  let result = ''
+  switch (status) {
+    case 'Ps_pr':
+      result = '진행 중'
+      break
+    case 'Ps_co':
+      result = '완료'
+  }
+  return result
+}
+
+/**
+ * 프로젝트 모집 상태에 따른 한글명 전환
+ */
+export function convertStatus(status: string | undefined) {
+  let result = ''
+  switch (status) {
+    case 'S_pr':
+      result = '모집 중'
+      break
+    case 'S_co':
+      result = '완료'
+  }
+  return result
+}

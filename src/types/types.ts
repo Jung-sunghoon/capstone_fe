@@ -1,7 +1,7 @@
 export interface ProjectInfoType {
   projectId: number
   projectTitle: string
-  description: string
+  description: string | any
   userId: string
   projectStatus: string
   status: string
@@ -13,7 +13,7 @@ export interface ProjectInfoType {
 
 export interface ProjectType {
   projectInfo: ProjectInfoType
-  techIds: number[]
+  techNames: string[]
 }
 
 export type ProjectsType = ProjectType[]

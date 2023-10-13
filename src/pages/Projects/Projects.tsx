@@ -35,7 +35,7 @@ const Projects: React.FC = () => {
   const fetchBoardData = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:8080/api/projects_list',
+        `${import.meta.env.VITE_API_ENDPOINT}/api/projects_list`,
       )
       setProjects(response.data)
     } catch (error) {

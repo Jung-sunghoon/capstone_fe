@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Image } from 'antd'
+import { Card, Image, Tag } from 'antd'
 import { LikeFilled, EyeFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { ProjectType } from '@src/types'
@@ -80,7 +80,18 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
           <div>{`${formatDate(new Date(info?.generateDate))}`}</div>,
         ]}
       >
-        <Meta title={info?.projectTitle} description={info?.description} />
+        <Meta
+          title={info?.projectTitle}
+          description={projectData?.techNames.map(
+            (name: string, index: number) => {
+              return (
+                <Tag key={'tag_' + name + index} color="magenta">
+                  {name}
+                </Tag>
+              )
+            },
+          )}
+        />
       </Card>
     </Link>
   )
