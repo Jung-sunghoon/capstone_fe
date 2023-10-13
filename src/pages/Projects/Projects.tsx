@@ -31,18 +31,6 @@ const Projects: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(12)
 
-  // Data Fetching
-  const fetchBoardData = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/projects_list`,
-      )
-      setProjects(response.data)
-    } catch (error) {
-      console.error('게시물 목록을 가져오는 중 오류 발생:', error)
-    }
-  }
-
   // Handlers
   const handleSearch = (text: string) => setSearchText(text)
   const handlePageChange = (page: number) => setCurrentPage(page)
@@ -93,6 +81,24 @@ const Projects: React.FC = () => {
 
   // Effects
   useEffect(() => {
+    // Data Fetching
+    const fetchBoardData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/projects_list`,
+        )
+
+        if (response.status === 200) {
+          // 가져온 프로젝트 목록을 설정
+          setProjects(response.data)
+        } else {
+          setProjects([])
+        }
+      } catch (error) {
+        console.error('게시물 목록을 가져오는 중 오류 발생:', error)
+      }
+    }
+
     fetchBoardData()
   }, [])
 

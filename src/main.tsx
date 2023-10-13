@@ -6,17 +6,15 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#ba55d3',
-        },
-      }}
-    >
-      <Router>
-        <App />
-      </Router>
-    </ConfigProvider>
-  </React.StrictMode>,
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#ba55d3',
+      },
+    }}
+  >
+    <Router>
+      <App />
+    </Router>
+  </ConfigProvider>,
 )
