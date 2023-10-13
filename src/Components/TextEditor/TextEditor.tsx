@@ -18,6 +18,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
   useEffect(() => {
     const selector = isNew ? '.add' : '.rte'
     if (edit) {
+      //@ts-ignore
       initializeSummernote(selector, setTextEditor)
     } else {
       displayContent(selector, html)
@@ -25,6 +26,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
 
     return () => {
       // Destroy summernote on component unmount
+      //@ts-ignore
       $(selector).summernote('destroy')
     }
   }, [edit, isNew, html, setTextEditor])
@@ -33,6 +35,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
     selector: string,
     OnSave: React.Dispatch<React.SetStateAction<string>>,
   ) => {
+    //@ts-ignore
     $(selector).summernote({
       height: 600,
       dialogsInBody: true,
@@ -54,6 +57,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
   }
 
   const displayContent = (selector: string, content: string) => {
+    //@ts-ignore
     $(selector).summernote('code', content || '')
   }
 
