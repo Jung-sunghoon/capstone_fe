@@ -39,7 +39,7 @@ const Generate: React.FC = () => {
         projectData,
       )
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         message.success('프로젝트가 성공적으로 생성되었습니다.')
         form.resetFields()
         navigate('/projects')
