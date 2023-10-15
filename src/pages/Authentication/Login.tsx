@@ -16,7 +16,7 @@ const Login: React.FC = () => {
   const [message, setMessage] = useState<string>('')
 
   const handleLogin = async () => {
-    const apiUrl = 'http://localhost:8080/api/login'
+    const apiUrl = `${import.meta.env.VITE_API_ENDPOINT}/api/login`
 
     if (!userId || !password) {
       setMessage('아이디와 비밀번호를 입력하세요.')

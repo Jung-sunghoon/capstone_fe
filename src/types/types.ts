@@ -9,6 +9,7 @@ export interface ProjectInfoType {
   generateDate: string
   likes: number
   views: number
+  thumbnail: string
 }
 
 export interface ProjectType {

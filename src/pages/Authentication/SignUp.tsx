@@ -51,7 +51,7 @@ const SignUp: React.FC = () => {
     try {
       // 회원가입 API 호출
       const response = await axios.post(
-        'http://localhost:8080/api/sign_up',
+        `${import.meta.env.VITE_API_ENDPOINT}/api/sign_up`,
         userData,
       )
 

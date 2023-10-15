@@ -35,7 +35,7 @@ const Generate: React.FC = () => {
       }
 
       const response = await axios.post(
-        'http://localhost:8080/api/generate_project',
+        `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
         projectData,
       )
 

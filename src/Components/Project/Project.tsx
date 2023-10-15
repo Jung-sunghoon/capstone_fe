@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Image, Tag } from 'antd'
 import { LikeFilled, EyeFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
