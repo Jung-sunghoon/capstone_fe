@@ -4529,4 +4529,335 @@ export const mockProjects = [
     techNames: ['Nodejs', 'Express'],
     thumbnail: 'thumbnail20',
   },
+  {
+    projectInfo: {
+      projectId: 21,
+      projectTitle: '👨‍👨‍👧 원라인코스(One-Line Course)',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <p><a href="https://github.com/JuHyun419/one-line-course/actions/workflows/github-action.yml" target="_blank"><img src="https://github.com/JuHyun419/one-line-course/actions/workflows/github-action.yml/badge.svg" alt="GitHub-Action with Java Maven" style="max-width: 100%;"></a></p>
+      <h2>👨&zwj;👨&zwj;👧 원라인코스(One-Line Course)</h2>
+      <ul>
+        <li>본인에게 적합한 개발 관련 온라인 강의를 통합해 검색할 수 있는 개인형 강의 추천 사이트</li>
+      </ul><br>
+      <h2>🤷&zwj;♂️ 사용자</h2>
+      <ul>
+        <li>인프런, 유튜브, 유데미 등의 온라인 강의 플랫폼에서 강의를 검색하고자 하는 유저</li>
+        <li>비슷한 강의들을 검색 &amp; 비교하여 본인에게 적합한 강의를 선택하고자 하는 유저</li>
+      </ul><br>
+      <h2>📆 기간</h2>
+      <ul>
+        <li>2021.04 ~ 2021.05</li>
+      </ul><br>
+      <h2>📗 기술 스택</h2>
+      <ul>
+        <li>Front End - <a href="https://github.com/olcw78" target="_blank"><code>이윤상</code></a>
+          <ul>
+            <li>Typescript, React, SCSS</li>
+          </ul>
+        </li>
+        <li>Back End - <a href="https://github.com/bsy3764" target="_blank"><code>방소연</code></a>, <a href="https://github.com/JuHyun419" target="_blank"><code>이주현</code></a>
+          <ul>
+            <li>Java, Python(크롤링)</li>
+            <li>SpringBoot, Spring Data JPA, MySQL, AWS</li>
+          </ul>
+        </li>
+      </ul><br>
+      <h2>✏ 기획 &amp; 설계</h2>
+      <ul>
+        <li>
+          <p><a href="https://github.com/JuHyun419/one-line-course/projects/1" target="_blank"><code>프로젝트 칸반(Kanban)</code></a></p>
+        </li>
+        <li>
+          <p><a href="https://www.notion.so/16d5feb864d5481285a5ff3c2ae9c2c6" target="_blank"><code>기능 명세서</code></a></p>
+        </li>
+        <li>
+          <p><a href="https://whimsical.com/EJVQx82R8nCTGsRbzWGyH8" target="_blank"><code>UI 페이지 기획</code></a></p>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/50076031/113499953-26c2ee00-9555-11eb-8556-05d918647848.png" alt="image" style="max-width: 100%;">
+      </p>
+      <p><br><br></p>
+      <ul>
+        <li><a href="https://www.notion.so/DB-1f0520006f2a4ca582e0cef0a34623ae" target="_blank"><code>DB 설계</code></a></li>
+      </ul>
+      <img width="520" alt="ERD 다이어그램 최종" src="https://user-images.githubusercontent.com/50076031/116420336-da7b7d00-a878-11eb-9e8d-b3225e363ff1.PNG" style="max-width: 100%;"><br>
+      <ul>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/8" target="_blank"><code>DB 스키마</code></a></li>
+      </ul><br>
+      <ul>
+        <li><a href="https://www.notion.so/API-5f3c607a8217420495aa60182f90a2c5" target="_blank"><code>RESTful API 설계</code></a></li>
+      </ul><br>
+      <ul>
+        <li><a href="http://15.165.229.191:8080/swagger-ui.html" target="_blank"><code>Swagger API 문서</code></a></li>
+      </ul><br>
+      <h2>🐱&zwj;💻 백엔드 역할 분담</h2>
+      <ul>
+        <li>주현
+          <ul class="contains-task-list">
+            <li class="task-list-item"><input type="checkbox" disabled="" checked=""> 강의(Lecture)</li>
+            <li class="task-list-item"><input type="checkbox" disabled="" checked=""> 댓글(Comment)</li>
+            <li class="task-list-item"><input type="checkbox" disabled="" checked=""> 인프라</li>
+          </ul>
+        </li>
+        <li>소연
+          <ul class="contains-task-list">
+            <li class="task-list-item"><input type="checkbox" disabled="" checked=""> 북마크(Bookmark)</li>
+            <li class="task-list-item"><input type="checkbox" disabled="" checked=""> 유저(User)</li>
+          </ul>
+        </li>
+      </ul><br>
+      <h2>✨ 프로젝트 실행 방법</h2>
+      <h3>데이터베이스 및 스키마 설정</h3>
+      <ul>
+        <li>먼저 application.properties 파일에 본인의 DB 정보로 수정합니다.
+          <ul>
+            <li>url, username, password 를 설정합니다.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/50076031/123538420-ccaa8100-d76f-11eb-922a-6229c8ed2168.png" alt="image" style="max-width: 100%;">
+      </p><br>
+      <ul>
+        <li>데이터베이스 스키마 설정은 로컬에 직접 설정 및 프로젝트 실행 시 자동으로 설정하는 두 가지 방법이 있습니다. (아래 참고)</li>
+        <li>src/main/resources 경로의 schema.sql 파일에 작성된 스키마를 직접 복사해서 로컬 DB에서 생성합니다.</li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/50076031/115238733-f97f5e00-a158-11eb-9aac-9ebde3bbf699.png" alt="image" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>application.properties 파일의 schema 주석 부분을 해제한 후 애플리케이션을 실행하면 스키마 설정이 됩니다.</li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/50076031/115238802-1156e200-a159-11eb-9ef8-c8b57b43240f.png" alt="image" style="max-width: 100%;">
+      </p><br>
+      <h3>프로젝트 실행하기</h3>
+      <pre><code class="language-html">$ git clone https://github.com/JuHyun419/one-line-course.git
+      $ cd one-line-course/back
+      $ chmod +x mvnw
+      $ ./mvnw clean package 
+      $ cd target
+      $ java -jar oneline-course-0.0.1-SNAPSHOT.jar 
+      </code></pre><br>
+      <h2>🎵 <a href="https://github.com/JuHyun419/one-line-course/wiki/Git-%EC%BB%A4%EB%B0%8B-%EB%A9%94%EC%8B%9C%EC%A7%80-%EA%B7%9C%EC%B9%99" target="_blank">Git 커밋 메시지 규칙</a></h2><br>
+      <h2>💡 Issues</h2>
+      <ul>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/38" target="_blank"><code>서로 다른 OS(Mac, Window)에서 함께 Git 작업할 시 발생하는 LF, CRLF 문제</code></a></li>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/8" target="_blank"><code>MySQL 😢이모지(utf8mb4) 스키마 설정</code></a></li>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/50" target="_blank"><code>Parcel 번들러 에서 ENV 파일 사용</code></a></li>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/8" target="_blank"><code>MySQL referencing column and referenced column are incompatible</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/328" target="_blank"><code>MySQL 8.0 대소문자 구분 문제(MySQL 5 버전으로 변경)</code></a></li>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/62" target="_blank"><code>Java의 LocalDateTime과 MySQL의 datetime 사이의 시차 문제(9시간)</code></a></li>
+        <li><a href="https://github.com/JuHyun419/one-line-course/issues/89" target="_blank"><code>Google oAuth access_token vs id_token</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/331" target="_blank"><code>도메인 연결 80 -&gt; 8080 포트포워딩 삽질</code></a></li>
+        <li><a href="https://stackoverflow.com/questions/63521181/java-file-outside-of-source-root-intellij/64340331" target="_blank"><code>인텔리제이 Java file outside of source root</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/332" target="_blank"><code>Caused by: java.lang.IllegalArgumentException: invalid target release: 11</code></a></li>
+        <li><a href="https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80" target="_blank"><code>@RequestBody에 왜 기본 생성자는 필요하고, Setter는 필요없을까?</code></a></li>
+        <li><a href="https://github.com/JuHyun419/one-line-course/pull/118" target="_blank"><code>CORS의 default Method로는 GET, POST, HEAD만 allowed 되기 때문에 DELETE 메서드로 요청하면 CORS요청에 의해 막히게 된다</code></a></li>
+      </ul><br>
+      <h2>📝 Posting</h2>
+      <ul>
+        <li><a href="https://zzang9ha.tistory.com/337" target="_blank"><code>Jsoup을 이용한 크롤링(feat. 인프런)</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/325?category=954133" target="_blank"><code>AWS RDS 외부접속</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/329?category=954133" target="_blank"><code>AWS EC2 인스턴스 생성하기</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/331?category=954133" target="_blank"><code>AWS EC2 iptables 서버 포트포워딩(80 -&gt; 8080)</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/338?category=954133" target="_blank"><code>AWS EC2 서버 접속하기</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/339?category=954133" target="_blank"><code>GitHub Action을 통한 Build 자동화(SpringBoot + Maven)</code></a></li>
+        <li><a href="https://zzang9ha.tistory.com/348" target="_blank"><code>Spring Boot Maven profile 운영 &amp; 개발 분리(AWS EC2)</code></a></li>
+      </ul><br>
+      <h2>📜 TODO.</h2>
+      <ul>
+        <li><del>환경 변수(application.properties) 관리(외부 노출 X)</del></li>
+        <li><del>테스트 코드(통합 테스트, 단위 테스트) 추가</del></li>
+        <li><del>예외처리(Exception Handling) - 유저, 댓글, 강의 등등 추가</del></li>
+        <li>HTTP -&gt; HTTPS 적용</li>
+        <li>CI/CD 적용</li>
+      </ul>
+      <p><br><br></p>
+      <h3>🖥 References</h3>
+      <h4>RESTful API</h4>
+      <ul>
+        <li><a href="https://sas-study.tistory.com/265" target="_blank">https://sas-study.tistory.com/265</a></li>
+        <li><a href="https://m.blog.naver.com/genycho/221309436556" target="_blank">https://m.blog.naver.com/genycho/221309436556</a></li>
+      </ul><br>
+      <h4>Git</h4>
+      <ul>
+        <li><a href="https://medium.com/hashbox/git-commit-%EB%A9%94%EC%84%B8%EC%A7%80-%EA%B7%9C%EC%B9%99-conventional-commits-71710f7f53c" target="_blank">https://medium.com/hashbox/git-commit-%EB%A9%94%EC%84%B8%EC%A7%80-%EA%B7%9C%EC%B9%99-conventional-commits-71710f7f53c</a></li>
+        <li><a href="https://meetup.toast.com/posts/106" target="_blank">https://meetup.toast.com/posts/106</a></li>
+        <li><a href="https://javakong.tistory.com/217" target="_blank">https://javakong.tistory.com/217</a></li>
+      </ul><br>
+      <h4>AWS</h4>
+      <ul>
+        <li><a href="https://aws.amazon.com/ko/getting-started/hands-on/create-mysql-db/" target="_blank">https://aws.amazon.com/ko/getting-started/hands-on/create-mysql-db/</a></li>
+        <li><a href="https://leveloper.tistory.com/18" target="_blank">https://leveloper.tistory.com/18</a></li>
+        <li><a href="https://twofootdog.tistory.com/41" target="_blank">https://twofootdog.tistory.com/41</a></li>
+        <li><a href="https://miniminis.github.io/2019/10/13/spring/springboot-deploy/" target="_blank">https://miniminis.github.io/2019/10/13/spring/springboot-deploy/</a></li>
+      </ul>
+      </div>`,
+      userId: 'test21',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 3,
+      generateDate: '2023-01-01 13:34',
+      likes: 7849,
+      views: 63498,
+      thumbnail: 'thumbnail21',
+    },
+    techNames: ['React', 'Spring Boot', 'JPA', 'Typescript', 'SCSS'],
+    thumbnail: 'thumbnail21',
+  },
+  {
+    projectInfo: {
+      projectId: 22,
+      projectTitle: '곽철용 짤 생성기',
+      description: ``,
+      userId: 'test22',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2022-01-05 13:34',
+      likes: 1012,
+      views: 1238763,
+      thumbnail: 'thumbnail22',
+    },
+    techNames: ['Vue.js', 'JavaScript', 'HTML', 'CSS'],
+    thumbnail: 'thumbnail22',
+  },
+  {
+    projectInfo: {
+      projectId: 23,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 24,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 25,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 26,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 27,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 28,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 29,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
+  {
+    projectInfo: {
+      projectId: 30,
+      projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+      description: '',
+      userId: 'test1',
+      projectStatus: 'Ps_co',
+      status: 'S_co',
+      recruitmentCount: 2,
+      generateDate: '2023-10-06 13:34',
+      likes: 10,
+      views: 123,
+      thumbnail: 'thumbnail1',
+    },
+    techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+    thumbnail: 'thumbnail1',
+  },
 ]

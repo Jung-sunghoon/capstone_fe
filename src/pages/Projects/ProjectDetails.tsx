@@ -130,7 +130,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <span className="projectDetails__commentCount"></span>
             </div>
             <div className="projectDetails__commentContainer">
-              {project?.projectInfo.userId}
+              {localStorage.userId}
               <textarea
                 className="projectDetails__commentText"
                 placeholder="댓글을 입력하세요."
