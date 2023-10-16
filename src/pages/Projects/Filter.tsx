@@ -1,14 +1,13 @@
 // Filter 컴포넌트
 import React, { useEffect } from 'react'
-import { Menu, Dropdown, Select } from 'antd'
+import { Menu, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
 interface FilterProps {
   onFilter: (filterOption: string) => void
-  currentProjectStatus: 'Ps_pr' | 'Ps_co'
 }
 
-const Filter: React.FC<FilterProps> = ({ onFilter, currentProjectStatus }) => {
+const Filter: React.FC<FilterProps> = ({ onFilter }) => {
   useEffect(() => {
     // 최초 렌더링 시 "최신순"으로 설정
     onFilter('latest')

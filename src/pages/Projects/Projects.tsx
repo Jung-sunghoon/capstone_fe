@@ -29,7 +29,7 @@ const Projects: React.FC = () => {
   const [currentProjectStatus, setCurrentProjectStatus] =
     useState<string>('Ps_pr')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize] = useState<number>(12)
 
   // Handlers
   const handleSearch = (text: string) => setSearchText(text)

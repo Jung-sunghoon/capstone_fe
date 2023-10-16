@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Card, Image, Tag } from 'antd'
 import { LikeFilled, EyeFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
@@ -13,7 +13,9 @@ interface ProjectProps {
 
 const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const info = projectData?.projectInfo
+  const thumbnail = projectData?.thumbnail
 
+  console.log('info?.thumbnail', info?.thumbnail)
   return (
     <Link to={`/project/${info?.projectId}`}>
       <Card
@@ -32,7 +34,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
               }}
               alt="example"
               //@ts-ignore
-              src={info?.thumbnail}
+              src={thumbnail}
             />
           ) : (
             <Image

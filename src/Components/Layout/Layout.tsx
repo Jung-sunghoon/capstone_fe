@@ -1,5 +1,4 @@
-import Footer from "./Footer/Footer";
-import Header from "./Header/Header";
+import Header from './Header/Header'
 
 const Layout = ({ children }: any) => {
   return (
@@ -8,7 +7,7 @@ const Layout = ({ children }: any) => {
 
       <main
         style={{
-          marginTop: "60px",
+          marginTop: '60px',
         }}
       >
         {children}
@@ -16,7 +15,7 @@ const Layout = ({ children }: any) => {
 
       {/* <Footer /> */}
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

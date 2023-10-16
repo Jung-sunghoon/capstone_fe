@@ -15,6 +15,7 @@ export interface ProjectInfoType {
 export interface ProjectType {
   projectInfo: ProjectInfoType
   techNames: string[]
+  thumbnail: string
 }
 
 export type ProjectsType = ProjectType[]

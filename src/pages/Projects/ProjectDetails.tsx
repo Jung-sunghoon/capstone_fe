@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ProjectType } from '@src/types'
 import axios from 'axios'
-import { Input, Tag } from 'antd'
+import { Tag } from 'antd'
 import { EyeFilled, LikeFilled } from '@ant-design/icons'
 import './ProjectDetails.css'
 import { convertStatus, convertprojectStatus } from '@src/utils/common'
