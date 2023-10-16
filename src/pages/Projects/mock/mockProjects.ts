@@ -345,7 +345,138 @@ export const mockProjects = [
     projectInfo: {
       projectId: 4,
       projectTitle: '실시간 브레인스토밍 협업 플랫폼',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <h1>STORM Android</h1>
+      <img src="https://user-images.githubusercontent.com/55133871/87793056-b0277880-c87f-11ea-9f5a-62bcb3054a31.gif" width="100%" style="max-width: 100%;">
+      <img src="https://user-images.githubusercontent.com/56873136/87791082-a7817300-c87c-11ea-919b-9d77ccdaf75e.png" width="70%" style="max-width: 100%;">
+      <p><a href="https://play.google.com/store/apps/details?id=com.stormers.storm" target="_blank"><img src="https://img.shields.io/endpoint?color=green&amp;logo=google-play&amp;logoColor=green&amp;url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dcom.stormers.storm%26l%3DPlayStore%26m%3D%24version" alt="Release" style="max-width: 100%;"></a></p>
+      <p>실시간 브레인스토밍 협업 플랫폼<br>STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레인스토밍을 함께하는 서비스입니다 라운드마다 목표와 제한 시간을 설정해 각자 아이디어를 고민해보고, 각 라운드 후에는 팀원들이 함께 의견을 나눌 수 있습니다. 프로젝트가 끝난 뒤에는 최종 정리를 통해 라운드 및 카드 목록을 한눈에 볼 수 있으며, 좋은 아이디어 카드들은 따로 스크랩해 모아볼 수 있습니다.</p>
+      <hr>
+      <h1>리팩토링 계획</h1>
+      <p>상용 서비스로서 충분한 기능을 가지고 있지만 부족한 실력과 조급한 개발로 인해 불안정하고 유지보수가 거의 불가능한 코드로 작성되어있다. 약 1년만에 프로젝트를 전반적으로 리팩토링하여 안정적이고 추가 기능 확장이 가능한 형태로 만들고자 한다.</p>
+      <p>참여 인원 : 김성규, 손평화<br>기간 : 21.06 ~ (미정)</p>
+      <h2>Team Rule</h2>
+      <ol>
+        <li><a href="https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html" target="_blank">Git flow</a> 를 지켜 개발한다.</li>
+        <li>Task 단위로 리팩토링을 진행한다. (Login, Main, MyPage, Round, History ...)</li>
+        <li>Pull Request는 다음 내용을 포함한다.
+          <ul>
+            <li>해당 브랜치에서 작업한 것들 나열 및 설명</li>
+            <li>다른 기능에서 사용가능한 클래스를 개발한 경우, 사용방법을 자세히 설명</li>
+            <li>다른 기능에서 완성해주어야 할 기능이 있다면 명확하게 명시</li>
+            <li>Reviewer의 의견을 묻고 싶은 부분이 있다면 작성</li>
+          </ul>
+        </li>
+        <li>develop 브랜치로의 Merge는 반드시 1명 이상의 Reviewer의 Approve를 받아야 가능하다.</li>
+        <li>Reviewer는 Pull Request를 정독하고 피드백을 상세하게 남긴다.</li>
+        <li>Pull Request 코멘트로 의견을 주고받기에 내용이 많고 연속되는 경우, Slack의 #android_refactor 채널을 사용한다.</li>
+        <li><b>해당 브랜치의 목적에 맞는 개발만 한다.</b></li>
+        <li>해당 브랜치의 목적에 맞지 않지만 테스트를 위해 수정이 불가피하다면 수정하되, 커밋에 포함하지 않는다.</li>
+        <li>다른 브랜치에서 완성해야할 기능이 있다면 Todo 주석을 남긴다.</li>
+        <li>develop 브랜치의 최신 상태는 반드시 정상적으로 어플리케이션을 실행가능한 상태여야한다.</li>
+        <li>PR 시 develop 브랜치에 수정 사항이 있거나, develop 브랜치에 추가된 기능이 필요하다면 rebase를 사용한다.</li>
+      </ol>
+      <h2>패키지 구조</h2>
+      <p>
+        ex) 로그인 기능을 리팩토링하면서 아래와 같은 패키지구조로 클래스 파일들을 생성하였다.
+        
+        <img src="https://user-images.githubusercontent.com/57310034/121476815-140be000-ca02-11eb-8cf3-1782586b655d.png" alt="image" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>controller 패키지 : 해당 기능을 처리하기 위한 Controller 클래스들을 모아둔다.
+          <ul>
+            <li>Controller 클래스란? : ViewModel에서 사용한다. 클라이언트가 특정 기능을 요청하기 위해 사용하는 클래스로, 기능을 직접 처리하지 않는다. 기능을 처리할 수 있는 클래스들을 적절히 선택해서 동작을 위임하는 역할을 함</li>
+          </ul>
+        </li>
+        <li>model 패키지 : 해당 기능을 처리할 때 사용하는 모델 클래스들을 모아둔다. API 요청 및 응답 객체도 우선은 해당 패키지에 두고, 추후에 클라이언트에서 사용하고 비즈니스 로직을 포함하는 모델 클래스들과 구분이 어려워지면 분리할 예정</li>
+        <li>service 패키지 : Retrofit을 사용한 API 요청 메서드를 정의하는 인터페이스를 모아둔다.</li>
+        <li>XXXFragment : 해당 기능에 사용되는 Fragment이다. 둘 이상의 Fragment가 사용된다면 fragment 패키지로 묶는다.</li>
+        <li>XXXModule : Hilt의 provide 메서드들을 모아두는 Module 클래스이다.</li>
+        <li>XXXViewModel : 해당 기능에 사용될 ViewModel이다. 둘 이상의 ViewModel이 사용된다면 viewmodel 패키지로 묶는다.</li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/57310034/121480194-c72a0880-ca05-11eb-96e2-d8164e8f9e73.png" alt="무제" style="max-width: 100%;">
+      </p>
+      <p>위와 같은 구조를 지키면 기능마다 별도의 package를 가질 수 있기 때문에 협업에 효과적(conflict 해소)</p>
+      <h2>코딩 컨벤션</h2>
+      <ul>
+        <li>기본적으로 <a href="https://naver.github.io/hackday-conventions-java/" target="_blank">캠퍼스 핵데이 Java 코딩 컨벤션</a>를 따른다. (Kotlin 형태로 유동적으로 변경)</li>
+        <li>변수명은 약어를 사용하지 않는다.
+          <blockquote>
+            <p>ex)<br>settingBtn(X) → settingButton(O)<br>ll(X) → linearLayout(O)<br>tv_card(X) → textview_card(O)</p>
+          </blockquote>
+        </li>
+      </ul><br>
+      <ul>
+        <li>
+          resource naming은 다음 규칙을 따른다.
+          
+          <img src="https://user-images.githubusercontent.com/37680108/89560970-d030d300-d852-11ea-8060-585e7632469e.png" width="600" style="max-width: 100%;">
+        </li>
+      </ul>
+      <h2>커밋 메시지 컨벤션</h2>
+      <pre><code>type: subject
+      
+      body
+      
+      footer
+      </code></pre><br>
+      <h3>1) Commit Type</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>feat</td>
+            <td>기능 (새로운 기능)</td>
+          </tr>
+          <tr>
+            <td>fix</td>
+            <td>버그 (버그 수정)</td>
+          </tr>
+          <tr>
+            <td>refactor</td>
+            <td>리팩토링 (네이밍 변경 포함)</td>
+          </tr>
+          <tr>
+            <td>style</td>
+            <td>스타일 (코드 형식, 세미콜론 추가: 비즈니스 로직에 변경 없음)</td>
+          </tr>
+          <tr>
+            <td>docs</td>
+            <td>문서 (문서 추가, 수정, 삭제)</td>
+          </tr>
+          <tr>
+            <td>test</td>
+            <td>테스트 (테스트 코드 추가, 수정, 삭제: 비즈니스 로직에 변경 없음)</td>
+          </tr>
+          <tr>
+            <td>chore</td>
+            <td>기타 변경사항 (빌드 스크립트, 패키지 매니저 수정 등)</td>
+          </tr>
+        </tbody></table>
+      <blockquote>
+        <p>cf) View에 대한 수정 -&gt; <strong>style</strong></p>
+      </blockquote>
+      <h3>2) Subject</h3>
+      <p>제목은 명령어로 작성한다. 마침표를 붙이지 않는다. 한글 및 영어 모두 사용 가능하다.</p>
+      <h3>3) Body (선택)</h3>
+      <p>부연 설명이나 커밋의 이유를 작성한다.</p>
+      <h3>4) Footer (선택)</h3>
+      <p>주로 이슈번호를 남긴다.</p>
+      <blockquote>
+        <p>ex) Issue: #00, Resolves: #00, See Also: #00, etc</p>
+      </blockquote>
+      <h3>5) References</h3>
+      <ul>
+        <li><a href="https://doublesprogramming.tistory.com/256" target="_blank">Git - 커밋 메시지 컨벤션</a></li>
+        <li><a href="https://junwoo45.github.io/2020-02-06-commit_template/" target="_blank">좋은 커밋 메시지를 작성하기 위한 커밋 템플릿 만들어보기</a></li>
+      </ul>
+      </div>`,
       userId: 'test4',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -1407,7 +1538,52 @@ export const mockProjects = [
     projectInfo: {
       projectId: 7,
       projectTitle: '백엔드 없는 태스크 플래너 플러터 앱',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <h2>Flutter Task Planner App Design</h2>
+      <p>
+        Task Planner App is built in flutter. App design is based on <a href="https://dribbble.com/shots/10951333/attachments/2566966?mode=media" target="_blank">Task Planner App</a> designed by <a href="https://dribbble.com/purrwebui" target="_blank">Purrweb UI</a>.
+        This app is static. I mean, This is a UI design. No backend.
+      </p>
+      <h2>Screenshots</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">HomePage</th>
+            <th style="text-align: center;">Calendar Page</th>
+            <th style="text-align: center;">Task Create Page</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/TheAlphaApp/flutter-task-planner-app/blob/master/screenshots/screenshot1.jpg?raw=true" alt="" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">
+              <img src="https://github.com/TheAlphaApp/flutter-task-planner-app/blob/master/screenshots/screenshot2.jpg?raw=true" alt="" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">
+              <img src="https://github.com/TheAlphaApp/flutter-task-planner-app/blob/master/screenshots/screenshot3.jpg?raw=true" alt="" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <h2>Pull Requests</h2>
+      <p>I welcome and encourage all pull requests. It usually will take me within 24-48 hours to respond to any issue or request.</p>
+      <h2>Created &amp; Maintained By</h2>
+      <p><a href="https://github.com/TheAlphaApp" target="_blank">Sourav Kumar Suman</a></p>
+      <h2>Support Me</h2>
+      <p>I am from different profession but fall in love with programming. I make this in my free time.</p>
+      <h2>Getting Started</h2>
+      <p>A few resources to get started if this is your first Flutter project:</p>
+      <ul>
+        <li><a href="https://flutter.dev/docs/get-started/codelab" target="_blank">CodeLab: Write your first Flutter app</a></li>
+        <li><a href="https://flutter.dev/docs/cookbook" target="_blank">Cookbook: Useful Flutter samples</a></li>
+      </ul>
+      <p>
+        For help getting started with Flutter, view
+        <a href="https://flutter.dev/docs" target="_blank">online documentation</a>, which offers tutorials,
+        samples, guidance on mobile development, and a full API reference.
+      </p>
+      </div>`,
       userId: 'test7',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -1424,7 +1600,133 @@ export const mockProjects = [
     projectInfo: {
       projectId: 8,
       projectTitle: '아동 급식 카드 가맹점을 조회할 수 있는 앱 `드림트리`',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <h3 align="center">🏆 제 12기 SW 마에스트로 해커톤 2등 수상 🏆</h3>
+      <h1 align="center">🌳 DreamTree 🌳</h1>
+      <p align="center">
+        <img width="50%" src="https://user-images.githubusercontent.com/54823396/118192618-60a2e080-b481-11eb-881d-eeba9102ea6c.png" style="max-width: 100%;">
+      </p>
+      <p align="center"><a href="https://dreamtree-front-vlgsh.run.goorm.io" target="_blank">DreamTree 웹 바로가기</a> &amp; <a href="https://dreamtree-front-vlgsh.run.goorm.io/apk/apkQR.png" target="_blank">DreamTree 앱 다운받기</a></p>
+      <h1>Android Application</h1>
+      <h2>💬 Language</h2>
+      <p><code>Kotlin</code></p>
+      <h2>🔎 Architecture</h2>
+      <p><code>MVVM</code></p>
+      <h2>🛠️ Technical Stack</h2>
+      <p><code>AAC</code>, <code>Koin</code>, <code>Databinding</code>, <code>Retrofit</code>, <code>RxJava</code>, <code>Okhttp</code>, <code>Glide</code>, <code>NaverMap</code></p>
+      <h2>📷 Screenshot</h2>
+      <ul>
+        <li><strong>항공뷰 &amp; 시티뷰</strong></li>
+      </ul>
+      <p>
+        <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193250-5a613400-b482-11eb-962a-c87f21cce769.jpg" style="max-width: 100%;">
+        <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193246-59300700-b482-11eb-92fe-f3d915c4b450.jpg" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li><strong>반경거리조절</strong></li>
+      </ul>
+      <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193237-559c8000-b482-11eb-8296-07039bd2a1a9.jpg" style="max-width: 100%;">
+      <ul>
+        <li><strong>마커 클러스터링</strong></li>
+      </ul>
+      <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193248-59c89d80-b482-11eb-8d61-46334da7970a.jpg" style="max-width: 100%;">
+      <ul>
+        <li><strong>검색 기능</strong></li>
+      </ul>
+      <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193222-503f3580-b482-11eb-98c0-7e717fc7b7b1.jpg" style="max-width: 100%;">
+      <ul>
+        <li><strong>가맹점 상세정보 조회</strong></li>
+      </ul>
+      <p>
+        <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193242-57664380-b482-11eb-84eb-6891cd4f4e12.jpg" style="max-width: 100%;">
+        <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193243-57feda00-b482-11eb-8465-c78179249266.jpg" style="max-width: 100%;">
+        <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193244-58977080-b482-11eb-9204-e639b803a6e3.jpg" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li><strong>잔액조회</strong></li>
+      </ul>
+      <img width="30%" src="https://user-images.githubusercontent.com/54823396/118193247-59c89d80-b482-11eb-9258-7c8635d92e6f.jpg" style="max-width: 100%;">
+      <h1>Web Application</h1>
+      <h2>💬 Language</h2>
+      <p><code>Javascript</code></p>
+      <h2>🔎 Architecture</h2>
+      <p><code>MVVM</code></p>
+      <h2>🛠️ Technical Stack</h2>
+      <p><code>VueJS</code> <code>Vuetify</code> <code>vue-naver-maps</code> <code>Axios</code></p>
+      <h2>📷 Screenshot</h2>
+      <ul>
+        <li><strong>메인뷰</strong></li>
+      </ul>
+      <img width="1680" height="500" alt="기본화면" src="https://user-images.githubusercontent.com/12512382/118198729-6a7e1100-b48c-11eb-918e-8c3b5c2e1b06.png" style="max-width: 100%;">
+      <ul>
+        <li><strong>검색 기능</strong></li>
+      </ul>
+      <img width="1680" height="500" alt="상세검색화면" src="https://user-images.githubusercontent.com/43667316/118195589-72d34d80-b486-11eb-8cf2-e347b0e03cbc.png" style="max-width: 100%;">
+      <img width="1680" height="500" alt="없는가게" src="https://user-images.githubusercontent.com/43667316/118196283-bbd7d180-b487-11eb-9f58-96fe2f4e1ca6.png" style="max-width: 100%;">
+      <ul>
+        <li><strong>가맹점 상세정보 조회</strong></li>
+      </ul>
+      <img width="1680" height="500" alt="가게상세정보" src="https://user-images.githubusercontent.com/43667316/118196165-80d59e00-b487-11eb-971c-d10f2a809cf2.png" style="max-width: 100%;">
+      <img width="1680" height="500" alt="메뉴없음" src="https://user-images.githubusercontent.com/43667316/118196457-00636d00-b488-11eb-8595-e16181d1d3da.png" style="max-width: 100%;">
+      <ul>
+        <li><strong>위치기반 가맹점탐색</strong></li>
+      </ul>
+      <img width="1680" height="500" alt="메뉴없음" src="https://user-images.githubusercontent.com/43667316/118197278-921faa00-b489-11eb-9b47-43968c3f69be.gif" style="max-width: 100%;">
+      <h1>Server</h1>
+      <h2><strong>💬&nbsp;Language</strong></h2>
+      <p><code>Javascript</code></p>
+      <h2><strong>🔎 Architecture</strong></h2>
+      <p><code>REST</code></p>
+      <h2><strong>🛠️&nbsp;Technical Stack</strong></h2>
+      <p><code>Node.js</code>&nbsp;<code>Express</code>&nbsp;<code>mongoDB</code> <code>naverMaps-api-Geocoding</code></p>
+      <h2>💻&nbsp;<strong>APIs</strong></h2>
+      <h3>1. 꿈나무 카드 가맹점 전체 조회 쿼리</h3>
+      <pre><code>index router를 통해 마포구에 있는 가게들의 전체 데이터를 받아옵니다.
+      공공데이터 '꿈나무카드가맹점 현황'과 naver-Maps-Geocoding으로 데이터 생성
+      </code></pre>
+      <ul>
+        <li><strong>HTTP Method:</strong> <code>GET</code></li>
+        <li><strong>Endpoint:</strong> <code>https://dreamtree-dywzy.run.goorm.io/</code></li>
+      </ul>
+      <h3>2. 위경도 기반 주변 가맹점 정보 쿼리</h3>
+      <pre><code>위치 정보 (위도, 경도, 거리)를 전달하여 현재 위치로부터 
+      거리 안에 있는 모든 가게 들 중 가까운 가게부터 데이터를 받아옵니다.  
+      </code></pre>
+      <ul>
+        <li><strong>HTTP Method:</strong> <code>GET</code></li>
+        <li><strong>Endpoint:</strong> <code>https://dreamtree-dywzy.run.goorm.io/location?latitude={latitude}&amp;logitude={logitude}&amp;distance={distance}</code></li>
+      </ul>
+      <h3>3. 키워드(업체명) 검색 기반 가맹점 정보 쿼리</h3>
+      <pre><code>업체명 중 일부를 쿼리 파라미터로 전달하여
+      가맹점 정보를 받아옵니다(검색 기능).
+      </code></pre>
+      <ul>
+        <li><strong>HTTP Method:</strong> <code>GET</code></li>
+        <li><strong>Endpoint:</strong> <code>https://dreamtree-dywzy.run.goorm.io/keyword?storename={storename}</code></li>
+      </ul>
+      <h1>✋ Part</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Part</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Front-end</strong></td>
+            <td>이지훈, 황수민</td>
+          </tr>
+          <tr>
+            <td><strong>Android</strong></td>
+            <td>김현준, 박해민</td>
+          </tr>
+          <tr>
+            <td><strong>Back-end</strong></td>
+            <td>이인서, 이현민</td>
+          </tr>
+        </tbody></table>
+      </div>`,
       userId: 'test8',
       projectStatus: 'Ps_co',
       status: 'S_co',
@@ -1441,7 +1743,53 @@ export const mockProjects = [
     projectInfo: {
       projectId: 9,
       projectTitle: '[IOS] 🐟가슴속 3천원🐟',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <p>
+        <img src="https://user-images.githubusercontent.com/7058293/110066182-30213500-7db4-11eb-881e-fa3ea0537b7a.png" alt="KakaoTalk_Photo_2021-03-05-13-10-26" style="max-width: 100%;">
+      </p>
+      <h3>설명</h3>
+      <p>🐟<strong>가슴속 3천원</strong>🐟은 전국 붕어빵 지도로 시작하여 전국 길거리 음식점 정복을 꿈꾸는 프로젝트입니다. <strong>디프만</strong>(디자이너와 프로그래머가 만났을 때) 7기 파이널 프로젝트에서 개발되었으며 이후에 지속적으로 업데이트하고있습니다.</p>
+      <h3>다운로드</h3>
+      <ul>
+        <li><a href="https://apps.apple.com/kr/app/%EA%B0%80%EC%8A%B4%EC%86%8D3%EC%B2%9C%EC%9B%90-%EB%82%98%EC%99%80-%EA%B0%80%EA%B9%8C%EC%9A%B4-%EB%B6%95%EC%96%B4%EB%B9%B5/id1496099467" target="_blank">AppStore</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=com.zion830.threedollars" target="_blank">PlayStore</a></li>
+      </ul>
+      <h3>인증샷🎉</h3>
+      <p>
+        <img src="https://user-images.githubusercontent.com/7058293/110067262-b179c700-7db6-11eb-8451-223956dca69d.jpg" alt="appStore" style="max-width: 100%;">
+      </p>
+      <h3>외부 인터뷰</h3>
+      <ul>
+        <li><a href="https://www.youtube.com/watch?v=KUZHQpH0M_E" target="_blank">14F 인터뷰 영상</a></li>
+        <li><a href="https://youtu.be/v_uhNhJL2g8" target="_blank">스파르타 코딩클럽 리개때 영상</a></li>
+        <li><a href="https://news.naver.com/main/read.nhn?mode=LSD&amp;mid=sec&amp;sid1=102&amp;oid=018&amp;aid=0004791608" target="_blank">이데일리 인터뷰 기사</a></li>
+        <li><a href="https://heybunny.io/blog/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&amp;bmode=view&amp;idx=5770611&amp;t=board" target="_blank">헤이버니 인터뷰 기사</a></li>
+        <li><a href="https://post.naver.com/viewer/postView.nhn?volumeNo=30131742&amp;memberNo=27908841&amp;vType=VERTICAL" target="_blank">jobsN 인터뷰 기사</a></li>
+      </ul>
+      <h3>아키텍처 및 디자인 패턴</h3>
+      <ul>
+        <li>RxSwift + MVVM 사용</li>
+        <li>Code base로 UI 구현 (SnapKit 사용)</li>
+        <li>Feature별 디렉토리 구성 (실제 앱 화면 접근 플로우와 동일하게 디렉토리 구성)</li>
+      </ul>
+      <h3>Git-flow 전략 사용</h3>
+      <ul>
+        <li><a href="https://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html" target="_blank">https://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html</a></li>
+        <li>코드 리뷰는 진행하고있지 않습니다. (iOS 개발자가 1명이라 아쉽습니다..)</li>
+        <li>Swift Lint로 조금이나마 스스로 리뷰를 진행해볼까 합니다. 😭</li>
+      </ul>
+      <h3>Code style guide</h3>
+      <ul>
+        <li>StyleShare에서 정의한 <a href="https://github.com/StyleShare/swift-style-guide" target="_blank">Code style guide</a>를 따릅니다. (너무 잘 만들어주신 것 같아요..🙇&zwj;♂️)</li>
+        <li>가이드에 적혀있는대로 가이드에서 정의되지 않은 규칙은 <a href="https://swift.org/documentation/api-design-guidelines/" target="_blank">Swift API design guide</a>를 따릅니다.</li>
+      </ul>
+      <h3>리소스 관리</h3>
+      <ul>
+        <li>문자열의 경우에는 Google spread sheet로 관리중입니다.</li>
+        <li>해당 시트에서 key, value에 맞게 문자열을 만들고 Xcode프로젝트에서 빌드버튼을 누르면 자동으로 문자열이 생성됩니다.</li>
+        <li>리소스 시스템 관련해서 <a href="https://let-us-go-2020-fall.vercel.app/" target="_blank">let us go 2020 fall</a>에서 발표를 진행했습니다.</li>
+      </ul>
+      </div>`,
       userId: 'test9',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -1458,7 +1806,52 @@ export const mockProjects = [
     projectInfo: {
       projectId: 10,
       projectTitle: '[풀스택] 이거사면 내 평균 주식 단가는 얼마?',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <div align="center">
+        <img src="https://github.com/ddongule/stockulator/raw/master/public/logo.png" alt="logo" style="max-width: 100%;"><br><br><a href="" target="_blank"><img src="https://img.shields.io/badge/license-MIT-red" alt="license" style="max-width: 100%;">
+      <img src="https://img.shields.io/badge/version-1.0.0-yellow" alt="license" style="max-width: 100%;"></a>
+        <div>✨ Simple Stock Calculator for Korean Stocks ✨</div><br><br>
+      </div>
+      <h1>🌟 Stockulator: Stock Calculator (Real Time!)</h1>
+      <blockquote>
+        <p>Stockulator allows you to search real-time Korean Stock Prices. And you can predict how the average price will fluctuate if you buy more stocks.</p>
+      </blockquote>
+      <h2>Features</h2>
+      <ul>
+        <li>Search real-time Stock Price</li>
+        <li>Calculate the Average Unit Price of Stocks</li>
+      </ul>
+      <h2>Built With</h2>
+      <ul>
+        <li><a href="https://reactjs.org/" target="_blank"><code>React.js</code></a></li>
+        <li><a href="https://sass-lang.com/" target="_blank"><code>Sass(SCSS)</code></a></li>
+        <li><a href="https://expressjs.com/" target="_blank"><code>Express.js</code></a></li>
+        <li><a href="https://www.snowpack.dev/" target="_blank"><code>Snowpack</code></a></li>
+      </ul>
+      <h2>How to Start?</h2>
+      <p>Use <code>yarn</code></p>
+      <pre><code>yarn
+      
+      yarn start
+      </code></pre>
+      <p>Use <code>npm</code></p>
+      <pre><code>npm install
+      
+      npm start
+      </code></pre>
+      <h2>How to Contribute?</h2>
+      <ol>
+        <li><strong>Fork</strong> this repository</li>
+        <li><strong>Create</strong> your own branch: <code>git checkout -b new-feature</code></li>
+        <li><strong>Add</strong> and <strong>Commit</strong>: <code>git commit -am 'feat: add new feature</code></li>
+        <li><strong>Push</strong> to your branch: <code>git push origin new-feature</code></li>
+        <li><strong>Submit</strong> a Pull Request!🌟</li>
+      </ol>
+      <h2>License</h2>
+      <ul>
+        <li><a href="javascript:void(0)" target="_blank"><code>MIT License</code></a></li>
+      </ul>
+      </div>`,
       userId: 'test10',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -1475,7 +1868,91 @@ export const mockProjects = [
     projectInfo: {
       projectId: 11,
       projectTitle: '리액트로 만든 픽셀 아트 CSS 생성기',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <p align="center">
+        <img width="200" src="https://github.com/jvalen/pixel-art-react/raw/master/screenshots/tree-pixelartcss.png" style="max-width: 100%;">
+      </p>
+      <h1 align="center">Pixel Art to CSS</h1>
+      <p align="center"></p>
+      <h3 align="center">Animate pixel art and get CSS</h3>
+      <p></p>
+      <p align="center">
+        <a target="_blank" href="http://www.recurse.com" title="Made at the Recurse Center"><img src="https://cloud.githubusercontent.com/assets/2883345/11325206/336ea5f4-9150-11e5-9e90-d86ad31993d8.png" height="20px" style="max-width: 100%;"></a>
+        <a href="https://travis-ci.com/jvalen/pixel-art-react" target="_blank"><img src="https://travis-ci.com/jvalen/pixel-art-react.svg?branch=master" alt="travis ci" style="max-width: 100%;"></a>
+      </p>
+      <h2>CSS를 사용하여 픽셀 아트를 만들 수 있다는 것을 알고 계셨습니까?</h2>
+      <p>Pixel Art to CSS 는 이러한 작업을 도와주는 온라인 편집기입니다.</p>
+      <p>box-shadow 및 keyframes CSS 속성 의 장점을 결합하면 사이트에서 CSS 코드를 사용할 수 있습니다.</p>
+      <p>또한 정적 이미지, 애니메이션 GIF 또는 이미지와 같은 스프라이트와 같은 다양한 형식으로 작업을 다운로드할 수 있습니다.</p>
+      <p><a href="https://www.pixelartcss.com/" target="_blank">Try it out</a></p>
+      <p align="center">
+        <img width="600" src="https://github.com/jvalen/pixel-art-react/raw/master/screenshots/screenshot-potion.png" style="max-width: 100%;">
+      </p>
+      <p><strong>Pixel Art to CSS</strong> 는 단순함 때문에 직관적인 도구를 목표로 하지만 다양한 기능을 갖추고 있습니다. 색상 팔레트 사용자 지정, 시간 이동, 애니메이션 설정 수정, 프로젝트 저장 또는 로드 등.</p>
+      <h2>Example</h2>
+      <p>기본적으로 LOAD 섹션 에서 다음 프로젝트를 찾을 수 있습니다. <b>LOAD</b> section:</p>
+      <p>
+        <img src="https://github.com/jvalen/pixel-art-react/raw/master/screenshots/animation-cat.gif" alt="Cat animation example" style="max-width: 100%;">
+      </p>
+      <p>See it live at <a href="https://www.pixelartcss.com/" target="_blank">pixelartcss</a></p>
+      <p>You can also import it directly submitting <a href="examples/import-export/cat.txt" target="_blank">this</a> code.</p>
+      <h2>Technical overview</h2>
+      <p>이 응용 프로그램은 다음 기술로 구축되었습니다.:</p>
+      <ul>
+        <li><a href="https://facebook.github.io/react/" target="_blank">React</a>: Library to build the UI.</li>
+        <li><a href="http://redux.js.org/" target="_blank">Redux</a>: Implements a Flux like architecture.</li>
+        <li><a href="https://facebook.github.io/immutable-js/" target="_blank">ImmutableJS</a> Helps to keep the data immutable aiming to avoid side effects.</li>
+        <li><a href="https://github.com/postcss/postcss" target="_blank">PostCSS</a> Handle the app CSS.</li>
+        <li><a href="https://nodejs.org/en/" target="_blank">NodeJS</a> + <a href="http://expressjs.com/" target="_blank">Express</a> (Server side to build an universal application, create and serve the generated drawings).</li>
+      </ul>
+      <h2>Installation</h2>
+      <pre><code class="language-bash">npm install
+      </code></pre>
+      <h2>Development</h2>
+      <p>If you just want to develop the interface with no need of the back-end side.</p>
+      <pre><code class="language-bash">npm run development
+      </code></pre>
+      <h2>Deploy</h2>
+      <p>Create the final build and run the generated React HTML on the server using SSR.</p>
+      <pre><code class="language-bash">npm run deploy
+      
+      npm run server
+      </code></pre>
+      <p>A <code>config.json</code> is needed for deployment with the Twitter and express keys.</p>
+      <h2>Lint</h2>
+      <p>There are several libraries used in the project that help us to keep our codebase healthy:</p>
+      <ul>
+        <li><a href="https://eslint.org/" target="_blank">ESlint</a></li>
+        <li><a href="https://stylelint.io/" target="_blank">stylelint</a></li>
+        <li><a href="https://prettier.io/" target="_blank">Prettier</a></li>
+      </ul>
+      <p>Every time we commit something it will execute the linters and format the staged files if needed.</p>
+      <p>If you want to check them individually you could execute the following scripts:</p>
+      <pre><code class="language-bash">npm run lint
+      npm run csslint
+      npm run format
+      </code></pre>
+      <h2>Testing</h2>
+      <p>We are using <a href="https://jestjs.io/" target="_blank">Jest</a> as the testing platform.</p>
+      <pre><code class="language-bash">npm run test
+      </code></pre>
+      <h2>Contributing</h2>
+      <h4>Help me to improve it :seedling:</h4>
+      <p>Create a GitHub issue if there is something wrong or to be improved.</p>
+      <p>Pull requests are also welcome, please take the following requirements as a checklist before opening one:</p>
+      <ul class="contains-task-list">
+        <li class="task-list-item"><input type="checkbox" disabled="" checked=""> The PR does fix a problem or adds a new feature, not just cosmetic or syntactic sugar changes.</li>
+        <li class="task-list-item"><input type="checkbox" disabled="" checked=""> It would be great to open an issue in advance.</li>
+        <li class="task-list-item"><input type="checkbox" disabled="" checked=""> The PR should be issued to the <strong>develop</strong> branch.</li>
+        <li class="task-list-item"><input type="checkbox" disabled="" checked=""> The PR should have a explanation or be related to an issue.</li>
+      </ul>
+      <p>Thank you!</p>
+      <h2>License</h2>
+      <p>
+        <a href="https://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>
+        Copyright © 2016 Javier Valencia Romero (@jvalen)
+      </p>
+      </div>`,
       userId: 'test11',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -2000,7 +2477,7 @@ export const mockProjects = [
     projectInfo: {
       projectId: 13,
       projectTitle: '내 손 안의 스트레스 휴지통, [비움] Server repository',
-      description: `<div style="font-size:16px"  class="readme-markdown">
+      description: `<div style="font-size:16px;"  class="readme-markdown">
       <h1>비움 B-um</h1>
       <p>
         <img src="https://github.com/TeamB-um/B-umServer/raw/main/bum.JPG" alt="ex_screenshot" style="width: 600px;"><br>살아가며 필연적으로 마주치는 크고 작은 스트레스들...<br>완벽한 해결이 아니더라도 한 스푼 덜어드리겠습니다.
@@ -2247,7 +2724,40 @@ export const mockProjects = [
     projectInfo: {
       projectId: 14,
       projectTitle: '[BE] 👨‍🦯시각 장애인을 위한 딥 러닝 기반의 스마트 지팡이',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <h1>SmartCane-Back-end</h1>
+      <p>SmartCane-Back-end</p>
+      <h3>4학년 1학기 졸업작품 시각장애인용 딥러닝 기반 스마트 지팡이</h3>
+      <h4>안드로이드 APP에서 딥러닝 호출을 위한 API 개발</h4>
+      <p>💻서버 실행 방법</p>
+      <ol>
+        <li>git clone</li>
+        <li>SmartCane 진입</li>
+        <li>가상환경 생성</li>
+      </ol>
+      <blockquote>
+        <p>python -m venv &lt;가상환경 이름&gt;</p>
+      </blockquote>
+      <ol start="4">
+        <li>가상 환경 실행</li>
+      </ol>
+      <blockquote>
+        <p>source 가상환경/bin/activate</p>
+      </blockquote>
+      <ol start="5">
+        <li>패키지 다운로드</li>
+      </ol>
+      <blockquote>
+        <p>pip install -r requirements.txt</p>
+      </blockquote>
+      <ol start="6">
+        <li>SmartCane 진입</li>
+        <li>manage.py 파일 경로에서 명령어 실행</li>
+      </ol>
+      <blockquote>
+        <p>python3 manage.py runserver</p>
+      </blockquote>
+      </div>`,
       userId: 'test14',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -2264,7 +2774,181 @@ export const mockProjects = [
     projectInfo: {
       projectId: 15,
       projectTitle: '👭 Autoencoder를 사용한 딥페이크 영상 프로젝트',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <h1>DeepFake v1</h1>
+      <h4>* I do not allow malicious video production through this source code. This is just a practice code. (해당 소스 코드를 통한 악의적인 영상 제작을 불허합니다.)</h4>
+      <h2>Version</h2>
+      <p>Tensorflow 2.0, Ubuntu 18.04</p>
+      <h2>1. Make dataset</h2>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79987173-09357980-84e8-11ea-8663-a2e0c96a40f5.png" width="70%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>You have to get character images from youtube or other media.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79987452-65989900-84e8-11ea-8c8a-60b753d43185.png" width="70%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>If you have a video editing tool, just bring the part where the face of the person is shown.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79148660-cc3ef800-7e00-11ea-94f4-17c062df5b63.png" width="40%" style="max-width: 100%;">
+        <img src="https://user-images.githubusercontent.com/52908154/79193092-e4486300-7e64-11ea-8e65-f1b5e0850a84.gif" alt="ezgif com-resize (3)" style="max-width: 100%;">
+        <img src="https://user-images.githubusercontent.com/52908154/79193102-e90d1700-7e64-11ea-969b-4ff20e1efb6d.gif" alt="ezgif com-resize (2)" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>We will extract the landmarks of the characters through the dlib Library</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79988221-56feb180-84e9-11ea-9159-205814f31c02.png" width="20%" style="max-width: 100%;">
+        <img src="https://user-images.githubusercontent.com/52908154/79988263-641ba080-84e9-11ea-86a7-50daea14225e.png" width="20%" style="max-width: 100%;">
+        <img src="https://user-images.githubusercontent.com/52908154/79988407-94fbd580-84e9-11ea-90f7-021246f6d058.png" width="20%" style="max-width: 100%;">
+        <img src="https://user-images.githubusercontent.com/52908154/79988392-90cfb800-84e9-11ea-859f-41999886af32.png" width="20%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>You have to save both face and landmark images.</h4>
+        </li>
+      </ul>
+      <h1>Model</h1>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79988633-d5f3ea00-84e9-11ea-990b-0af9eedc25a8.png" width="60%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>We will use an auto-encoder.</h4>
+        </li>
+        <li>
+          <h4>But if you look closely at the picture, there is one encoder and two decoder.</h4>
+        </li>
+        <li>
+          <h4>You have to share an encoder when you learn two characters. The reason is to compress the features of the face in the encoder well.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79994857-70a3f700-84f1-11ea-8788-abe6289bbe11.png" width="60%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>Introducing 'warping' in the learning process improves performance. 'Warping' is distorting the image. From this, when a new look comes in, it can produce better results.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79994939-86b1b780-84f1-11ea-97fd-59e39507e0a9.png" width="20%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>'warping' applies to the Landmark image, which is input data of the model.</h4>
+        </li>
+        <li>
+          <h4>Do not 'warping' on original face images other than Landmark images.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79989157-8104a380-84ea-11ea-9693-a96b8a6a1d74.png" width="60%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>If you are good at restoring the two characters, try changing the decoder to add images.</h4>
+        </li>
+      </ul>
+      <h1>Image processing</h1>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79990496-16ecfe00-84ec-11ea-914d-8ca655726d0c.png" width="60%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>If you have followed the process so far, the image above will be made. However, because of the background other than the face, it becomes unnatural.</h4>
+        </li>
+        <li>
+          <h4>This is the part that we each need to modify to match the characteristics of the video.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79149326-f218cc80-7e01-11ea-9f1e-acb05b0926c0.png" width="60%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>I detected the skin color and replaced the background with black. It also went through blending to blur the boundaries of skin color between characters in the synthesis process.</h4>
+        </li>
+        <li>
+          <h4>If this process is complicated and cumbersome, there is another way. When you create a dataset, you crop an image.</h4>
+        </li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79996600-9a5e1d80-84f3-11ea-855d-c60ba2b2ac0a.png" width="40%" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <h4>You only need to bring in the face by setting the highest and lowest points of the landmark coordinates as shown above. I recommend this method and the implementation is <a href="https://github.com/JunHyeok96/DeepFake/blob/master/make_landmark.py" target="_blank">here</a> . This does not completely bring only facial skin, but most of the time the background is removed.</h4>
+        </li>
+      </ul>
+      <h1>result</h1>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79148003-cbf22d00-7dff-11ea-8bc8-2e641bce2fa3.gif" alt="final3" style="max-width: 100%;"><br>
+        <img src="https://user-images.githubusercontent.com/52908154/79148037-d6acc200-7dff-11ea-9823-1ad8355f166a.gif" alt="final2" style="max-width: 100%;"><br>
+        <img src="https://user-images.githubusercontent.com/52908154/79147964-bda41100-7dff-11ea-991d-86319ddc212b.gif" alt="final" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>Source, Conversion Image, Image Processing Image</li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79192536-da723000-7e63-11ea-8dc2-2ed7eab7bc94.gif" alt="ezgif com-crop" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>Results for the entire image</li>
+      </ul>
+      <p>
+        <img src="https://user-images.githubusercontent.com/52908154/79993799-1e160b00-84f0-11ea-84b8-6e7756ed9c4a.gif" alt="ezgif com-resize (7)" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>Actually, I didn't use my face to learn, but it's okay if the landmarks are similar.</li>
+      </ul>
+      <h3>Data Information</h3>
+      <ul>
+        <li>
+          <p>It used the video for about two to three minutes.</p>
+        </li>
+        <li>
+          <p>64 x 64 images were used.</p>
+        </li>
+      </ul>
+      <h1>Quick Start</h1>
+      <ul>
+        <li>dataset path</li>
+      </ul>
+      <pre><code>DeepFake
+        dataset_video
+          src
+            video
+          dst
+            video
+        dataset
+          src
+            img
+            land
+          dst
+            img
+            land
+      
+      </code></pre>
+      <pre><code>$ git clone https://github.com/JunHyeok96/DeepFake.git
+      $ cd DeepFake 
+      $ python make_landmark.py 
+      And follow the train.ipynb process.  
+      Once the learning is complete, 
+      $ python make_deepfake_video.py 
+      </code></pre>
+      <h5>Image Source</h5>
+      <p><a href="https://medium.com/@jonathan_hui/how-deep-learning-fakes-videos-deepfakes-and-how-to-detect-it-c0b50fbf7cb9" target="_blank">https://medium.com/@jonathan_hui/how-deep-learning-fakes-videos-deepfakes-and-how-to-detect-it-c0b50fbf7cb9</a></p>
+      </div>`,
       userId: 'test15',
       projectStatus: 'Ps_co',
       status: 'S_co',
@@ -2298,7 +2982,580 @@ export const mockProjects = [
     projectInfo: {
       projectId: 17,
       projectTitle: '🔎 패션 스캐너 (FASHION SCANNER)',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <div align="center"><br>
+        <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/fs_banner.png" alt="FASHION SCANNER" style="max-width: 100%;"><br>
+        <h1>패션 스캐너 (FASHION SCANNER)</h1><a href="https://blackpink.fashion-scanner.site/" target="_blank"><img src="https://img.shields.io/badge/NGINX-Deactivate-ff7f00?&amp;logo=nginx&amp;logoColor=white" alt="NGINX" style="max-width: 100%;"></a><br>
+      </div><br>
+      <div id="1"></div>
+      <h2>💁 웹 서비스 소개</h2>
+      <p><strong>AI X FASHION X K-POP STAR</strong> 총 3가지 키워드의 집합.<br>패션업계에서 유명한 케이팝 스타를 선정한 뒤 AI 이미지처리 기능을 활용해 <code>'해당인물이 착용한 의류에 관한 정보'</code>와 <code>'비슷한 의류의 판매처'</code>를 찾아주는 서비스.</p>
+      <blockquote>
+        <p>첫 번째 버전은 케이팝 스타 중 가장 패션계에서 영향력이 있다고 평가되는 '블랙핑크'로 선정하였습니다.</p>
+      </blockquote>
+      <details>
+        <summary>타겟층</summary>
+        <div markdown="1">
+          <ul>
+            <li>패션 트렌드에 민감한 20/30 대 여성, 블랙핑크 국내외 팬들.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>문제 정의</summary>
+        <div markdown="1">
+          <ul>
+            <li>케이팝스타가 착용한 패션은 대중으로부터의 워너비 현상을 만들어내는 주요한 요소이나 현재까지 그들과 비슷하게 옷을 입기위해서는 사람이 일일이 검색을 해야한다.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>가설 설정 방법</summary>
+        <div markdown="1">
+          <ul>
+            <li>시대의 패션 아이콘으로 평가되는 '블랙핑크'의 패션을 AI를 활용해 의류 카테고리를 분류하고 비슷한 의류를 추천한다. 더 나아가 판매 링크까지 연결하는 서비스를 제공하여 타겟층이 블랙핑크가 착용한 의류와 비슷한 의류를 구매할 수 있도록 한다. 또한, 워너비 현상을 이용해 본인의 패션 스타일과 일치하는 블랙핑크 멤버를 출력함으로 사이트 이용 흥미도를 높일 수 있다.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>추가 기대 효과</summary>
+        <div markdown="1">
+          <ul>
+            <li>타겟층의 트래픽을 유도해서 광고 수익을 창출할 수 있다. 더 나아가 패션관련 케이팝스타마다 존재하는 웹 서비스로서의 역할을 할 수 있다.</li>
+          </ul>
+        </div>
+      </details><br>
+      <p><a href="https://blackpink.fashion-scanner.site/" target="_blank"><strong>🔗 배포된 웹 서비스로 바로가기 Click !</strong></a> 👈</p>
+      <blockquote>
+        <p>새 창 열기 방법 : CTRL+click (on Windows and Linux) | CMD+click (on MacOS)</p>
+      </blockquote>
+      <blockquote>
+        <p>🚫 서버 비용 유지 문제로 현재는 서비스를 중단한 상태입니다.</p>
+      </blockquote><br>
+      <div id="2"></div>
+      <h2>🛠 기술 스택</h2>
+      <h3><strong>Front-end</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/html5-original-wordmark.svg" alt="HTML5" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="JavaScript" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">HTML5</td>
+            <td style="text-align: center;">CSS3</td>
+            <td style="text-align: center;">JavaScript(ES6)</td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://camo.githubusercontent.com/9f29e3d7fc79b01485632a99af0fd6a0f65d921adc720d0d30cdce9475caa9ca/68747470733a2f2f6769746875622e7375726d6f6e2e6d652f696d616765732f636f6d6d6f6e2f7377697065722d6c6f676f2e737667" alt="Swiper" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">React</td>
+            <td style="text-align: center;">Swiper</td>
+          </tr>
+        </tbody></table>
+      <h3><strong>Back-end</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/python-original.svg" alt="Python" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/django-original.svg" alt="Django" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/postgresql-original-wordmark.svg" alt="PostgreSQL" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">Python</td>
+            <td style="text-align: center;">Django</td>
+            <td style="text-align: center;">PostgreSQL</td>
+          </tr>
+        </tbody></table>
+      <h3><strong>AI</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/pytorch-icon.svg" alt="PyTorch" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">PyTorch</td>
+          </tr>
+        </tbody></table>
+      <h3><strong>DevOps</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="Docker" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/nginx-original.svg" alt="NGiNX" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/microsoft_azure-icon.svg" alt="Azure" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">Docker</td>
+            <td style="text-align: center;">NGiNX</td>
+            <td style="text-align: center;">Azure</td>
+          </tr>
+        </tbody></table>
+      <h3><strong>Version Control</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/git-scm-icon.svg" alt="Git" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://profilinator.rishav.dev/skills-assets/gitlab.svg" alt="GitLab" width="50px" height="50px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">Git</td>
+            <td style="text-align: center;">GitLab</td>
+          </tr>
+        </tbody></table>
+      <h3><strong>Data-set</strong></h3>
+      <ul>
+        <li>DeepFashion 데이터</li>
+        <li>아마존(US) 크롤링 데이터</li>
+      </ul><br>
+      <div id="3"></div>
+      <h2>💡 주요 기능</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">기능</th>
+            <th style="text-align: center;">내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">룩북 페이지 제공</td>
+            <td style="text-align: center;">룩북 페이지를 제공하여 멤버들이 사진에서 입고 있는 옷과<br>유사한 옷들을 제시하고 판매처를 연결</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">멤버 매칭 서비스</td>
+            <td style="text-align: center;">사용자의 스타일링 사진을 업로드 시<br>사용자의 패션과 유사한 패션 스타일을 가진 멤버를 매칭</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">요청 서비스</td>
+            <td style="text-align: center;">사용자가 운영진에게 추가를 원하는 이미지를 요청 보낼 수 있는 수 있는 기능</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">한/영 페이지 제공</td>
+            <td style="text-align: center;">글로벌 사용자 유입을 위해 한영 페이지 모두 구현</td>
+          </tr>
+        </tbody></table>
+      <blockquote>
+        <p>패션 스캐너 웹 서비스는 <strong>반응형 웹</strong>을 구축하여 <strong>모바일 환경에서도 최적의 서비스를 제공</strong>하고 있습니다.</p>
+      </blockquote><br>
+      <div id="4"></div>
+      <h2>📂 프로젝트 구성도</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;"><a href="https://www.figma.com/file/UpQVmuk7wFVKmdUTBRpiTZ/%EB%B8%94%EB%9E%99%ED%95%91%ED%81%AC-LookBook?node-id=0%3A1" target="_blank">🔗와이어프레임(Wireframe)</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/wireframe.png" alt="Wireframe" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;"><a href="https://github.com/JeongHwan-dev/fashion-scanner/blob/master/documents/fashion-scanner_storyboard.pdf" target="_blank">🔗스토리보드</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/storyboard1.png" alt="Storyboard1" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">아키텍처(Architecture)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/architecture.png" alt="Architecture" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">개체-관계 모델(ERD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/erd.png" alt="ERD" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table><br>
+      <div id="5"></div>
+      <h2>🎥 데모 영상</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">메인 페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/main-page.gif" alt="메인 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">룩북 페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/lookbook-jisoo-page.gif" alt="룩북 지수 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/lookbook-rose-page.gif" alt="룩북 로제 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">매칭 페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/matching-page1.gif" alt="매칭 페이지1" style="max-width: 100%;">
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/matching-page2.gif" alt="매칭 페이지2" style="max-width: 100%;">
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/matching-page3.gif" alt="매칭 페이지3" style="max-width: 100%;">
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/matching-page4.gif" alt="매칭 페이지4" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">요청 서비스</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/request.gif" alt="요청 서비스" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">FAQ 페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/faq-page.gif" alt="FAQ 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">조직문화 페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/devTeam-page.gif" alt="조직문화 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">404 에러 페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/404-page.gif" alt="404 에러 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">영문 메인 페이지 (영문 전환 기능)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/eng-main-page.gif" alt="영문 메인 페이지" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">메인 페이지(모바일)</th>
+            <th style="text-align: center;">룩북 페이지(모바일)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/mobile-main-page.gif" alt="메인 페이지(모바일)" width="400px" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/mobile-lookbook-page.gif" alt="룩북 페이지(모바일)" width="400px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">매칭 페이지(모바일)</th>
+            <th style="text-align: center;">FAQ 페이지(모바일)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/mobile-matching-page.gif" alt="매칭 페이지(모바일)" width="400px" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/mobile-faq-page.gif" alt="FAQ 페이지(모바일)" width="400px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">조직문화 페이지(모바일)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/mobile-devTeam-page.gif" alt="조직문화 페이지(모바일)" width="400px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table><br>
+      <div id="6"></div>
+      <h2>👪 개발 팀 소개</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/Sarah-Cha" target="_blank"><img src="https://avatars.githubusercontent.com/u/83054347?v=4" alt="차시현 프로필" style="max-width: 100%;"></a></td>
+            <td style="text-align: center;"><a href="https://github.com/chanmi1127" target="_blank"><img src="https://avatars.githubusercontent.com/u/47763664?v=4" alt="차시현 프로필" style="max-width: 100%;"></a></td>
+            <td style="text-align: center;"><a href="https://github.com/JeongHwan-dev" target="_blank"><img src="https://avatars.githubusercontent.com/u/68452755?v=4" alt="박정환 프로필" style="max-width: 100%;"></a></td>
+            <td style="text-align: center;"><a href="https://github.com/alveloper" target="_blank"><img src="https://avatars.githubusercontent.com/u/73899253?v=4" alt="김수연 프로필" style="max-width: 100%;"></a></td>
+            <td style="text-align: center;"><a href="https://github.com/bky373" target="_blank"><img src="https://avatars.githubusercontent.com/u/49539592?v=4" alt="이보람 프로필" style="max-width: 100%;"></a></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/Sarah-Cha" target="_blank">차시현<br>(PM &amp; AI)</a></td>
+            <td style="text-align: center;"><a href="https://github.com/chanmi1127" target="_blank">이찬미<br>(AI)</a></td>
+            <td style="text-align: center;"><a href="https://github.com/JeongHwan-dev" target="_blank">박정환<br>(Front-end)</a></td>
+            <td style="text-align: center;"><a href="https://github.com/alveloper" target="_blank">김수연<br>(Front-end)</a></td>
+            <td style="text-align: center;"><a href="https://github.com/bky373" target="_blank">이보람<br>(Back-end)</a></td>
+          </tr>
+        </tbody></table><br>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">이름</th>
+            <th style="text-align: center;">역할</th>
+            <th style="text-align: center;">개발 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">차시현</td>
+            <td style="text-align: center;">PM &amp; AI</td>
+            <td style="text-align: center;">프로젝트 문서 작성<br>스토리보드 작성<br>아마존 쇼핑몰 데이터 크롤링<br>딥패션 데이터 활용한 모델 1, 모델 2 개발<br>UX 작성</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">이찬미</td>
+            <td style="text-align: center;">AI</td>
+            <td style="text-align: center;">아마존 쇼핑몰 데이터 크롤링<br>딥패션 데이터 활용한 모델 1, 모델 2 개발</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">박정환</td>
+            <td style="text-align: center;">Front-end</td>
+            <td style="text-align: center;">메인 페이지 개발(+반응형 웹)<br>멤버 매칭 페이지 개발(+반응형 웹)<br>매칭 실패 페이지 개발(+반응형 웹)<br>매칭 결과 페이지 개발(+반응형 웹)<br>조직문화 페이지 개발(+반응형 웹)</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">김수연</td>
+            <td style="text-align: center;">Front-end</td>
+            <td style="text-align: center;">멤버별 룩북 페이지 개발(+반응형 웹)<br>FAQ 페이지 개발(+반응형 웹)<br>로딩 페이지 개발(+반응형 웹)<br>404 페이지 개발(+반응형 웹)<br>한/영 전환 기능 개발</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">이보람</td>
+            <td style="text-align: center;">Back-end</td>
+            <td style="text-align: center;">룩북 API 설계<br>멤버 매칭 API 설계<br>DB 설계<br>웹 서비스 배포</td>
+          </tr>
+        </tbody></table><br>
+      <div id="7"></div>
+      <h2>📅 개발 기간 및 일정</h2>
+      <h3>개발 기간</h3>
+      <p>21.05.11 ~ 21.06.11 (5주)</p>
+      <h3>개발 일정</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">주차</th>
+            <th style="text-align: center;">내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">1주차</td>
+            <td style="text-align: center;">기획안 확정<br>와이어프레임 및 스토리보드 작성<br>아키텍처 설계<br>인공지능 환경 셋업</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">2주차</td>
+            <td style="text-align: center;">메인 페이지 개발<br>룩북 페이지 개발<br>인공지능 데이터 정제</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">3주차</td>
+            <td style="text-align: center;">메인 페이지 개발<br>룩북 페이지 개발<br>매칭 페이지 개발<br>API 설계</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">4주차</td>
+            <td style="text-align: center;">FAQ 페이지 개발<br>조직 문화 페이지 개발<br>반응형 웹 구현<br>404 페이지 개발<br>API 연결</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">5주차</td>
+            <td style="text-align: center;">반응형 웹 구현<br>한/영 전환 구현<br>웹 서비스 배포</td>
+          </tr>
+        </tbody></table><br>
+      <div id="8"></div>
+      <h2>📊 구글 애널리틱스 통계</h2>
+      <p>구글 애널리틱스를 세팅하고 배포를 진행하여 6월 12일부터 10월 31일까지 약 5달간 서비스를 진행하였습니다.</p>
+      <blockquote>
+        <p>서비스 기간: 2021년 6월 12일 ~ 2021년 10월 31일 (약 5달)</p>
+      </blockquote>
+      <h3>사용자 통계</h3>
+      <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/user_stats.png" alt="사용자 통계" style="max-width: 100%;">
+      <blockquote>
+        <p>하루 이용자 최대치는 47명을 기록하였습니다.</p>
+      </blockquote><br>
+      <h3>국가 통계</h3>
+      <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/country_stats.png" alt="국가별 통계" style="max-width: 100%;">
+      <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/map_stats.png" alt="국가별 통계(세계지도)" style="max-width: 100%;">
+      <blockquote>
+        <p>많은 사용자는 아니지만 미국, 네덜란드, 영국, 인도네시아, 일본, 태국, 독일, 크로아티아, 인도 등에서 '패션 스캐너' 서비스를 이용해주셨습니다.</p>
+      </blockquote><br>
+      <h3>언어 통계</h3>
+      <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/language_stats.png" alt="언어별 통계" style="max-width: 100%;">
+      <blockquote>
+        <p>한국어로 가장 많이 이용되었고 두 번째로는 영어로 가장 많이 이용되었습니다.</p>
+      </blockquote><br>
+      <h3>운영체제 통계</h3>
+      <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/os_stats.png" alt="운영체제 통계" style="max-width: 100%;">
+      <blockquote>
+        <p>이용자의 절반 정도가 윈도우 OS로 이용하셨고 약 20% 정도가 안드로이드, 약 17%가 애플 컴퓨터 OS인 Mac OS, 약 16%가 아이폰의 iOS로 이용해주셨습니다.</p>
+      </blockquote><br>
+      <h3>브라우저 통계</h3>
+      <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/browser_stats.png" alt="브라우저 통계" style="max-width: 100%;">
+      <blockquote>
+        <p>이용자의 60%가 크롬 브라우저를 통해 이용해주셨고 이외에도 Android Webview, Safari, Edge, Samsung Interne 등으로 다양한 브라우저를 통해 이용해주셨습니다.</p>
+      </blockquote><br>
+      <div id="9"></div>
+      <h2>💻 실행 방법</h2>
+      <h3>client 실행</h3>
+      <ol>
+        <li><strong>원격 저장소 복제</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ git clone https://github.com/JeongHwan-dev/fashion-scanner.git
+      </code></pre>
+      <ol start="2">
+        <li><strong>프로젝트 폴더로 이동 후 client 폴더로 이동</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ cd fashion-scanner
+      $ cd client
+      </code></pre>
+      <ol start="3">
+        <li><strong>필요한 node_modules 설치</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ npm install
+      </code></pre>
+      <ol start="4">
+        <li><strong>리액트 앱 실행</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ npm start
+      </code></pre>
+      </div>`,
       userId: 'test17',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
@@ -2315,7 +3572,314 @@ export const mockProjects = [
     projectInfo: {
       projectId: 18,
       projectTitle: '[풀스택] 두굿모닝 (Do Good morning)',
-      description: 'string | any',
+      description: `<div style="font-size:16px;" class="readme-markdown">
+      <div align="center"><br>
+        <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/dgm_logo.png" height="150px" style="max-width: 100%;">
+        <h1>두굿모닝 (Do Good morning)</h1>
+        <img src="https://img.shields.io/badge/AWS%20-Deactivate-ff7f00?&amp;logo=AWSAmplify&amp;logoColor=white" alt="AWS" style="max-width: 100%;"><br>
+      </div>
+      <div id="1"></div>
+      <h2>🔅 프로젝트 진행 배경</h2>
+      <p>&nbsp;&nbsp;<strong>두굿해커톤</strong>(Do Good Hackathon)에 참여하여 진행한 프로젝트 입니다.</p>
+      <p>&nbsp;&nbsp;두굿해커톤 규칙에 따라 개발은 <code>08.14.(토) 10:00AM ~ 08.15.(일) 11:00AM [25시간]</code> 이라는 단시간 동안 진행한 프로젝트입니다.</p>
+      <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/do-good_logo.png" alt="Do Good Hackathon" width="300px" style="max-width: 100%;">
+      <h3>해커톤 주제</h3>
+      <ul>
+        <li>코로나로 인해 어려움을 겪는 전세계 로컬 비즈니스 지원 서비스</li>
+        <li>가족이나 친구와의 심적 거리를 좁혀주는 새로운 소통/커머스 서비스</li>
+        <li>나와 내 커뮤니티의 몸과 마음을 건강하게 해주는 디지털 웰빙/힐링 서비스</li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/gather-town1.png" alt="gather-town1" width="300px" style="max-width: 100%;">
+            </th>
+            <th style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/gather-town2.png" width="350px" style="max-width: 100%;">
+            </th>
+          </tr>
+        </thead></table><br>
+      <p><a href="https://event-us.kr/vqssceuidpw2/event/33708" target="_blank"><strong>🔗 2021 두굿해커톤 공고 바로가기 Click !</strong></a> 👈</p>
+      <blockquote>
+        <p>새 창 열기 방법 : CTRL+click (on Windows and Linux) | CMD+click (on MacOS)</p>
+      </blockquote><br>
+      <div id="2"></div>
+      <h2>💁🏻&zwj;♂ 웹 서비스 소개</h2>
+      <p>&nbsp;&nbsp;<strong>서로의 아침 창밖 풍경을 공유</strong>해 두근거리는 아침 그리고 굿모닝을 실천하게 해주는 두굿모닝 서비스입니다.<br>세계 각국에서 업로드하는 창밖 풍경 사진들을 통해 세계 여행을 즐기실 수 있습니다.</p><br>
+      <div id="3"></div>
+      <h2>🛠 기술 스택</h2>
+      <p><strong>Front-end</strong></p>
+      <ul>
+        <li>
+          <img src="https://img.shields.io/badge/-HTML5-E34F26?&amp;logo=html5&amp;logoColor=white" alt="HTML5" style="max-width: 100%;">
+          <img src="https://img.shields.io/badge/-CSS3-1572B6?&amp;logo=css3&amp;logoColor=white" alt="CSS3" style="max-width: 100%;">
+          <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?&amp;logo=javascript&amp;logoColor=white" alt="JavaScript" style="max-width: 100%;">
+        </li>
+        <li>
+          <img src="https://img.shields.io/badge/-React-61DAFB?&amp;logo=react&amp;logoColor=white" alt="React" style="max-width: 100%;">
+        </li>
+        <li>
+          <img src="https://img.shields.io/badge/-Ant_Design-0170FE?&amp;logo=AntDesign&amp;logoColor=white" alt="Ant Design" style="max-width: 100%;">
+          <img src="https://img.shields.io/badge/-Swiper-6332F6?&amp;logo=Swiper&amp;logoColor=white" alt="Swiper" style="max-width: 100%;">
+        </li>
+      </ul>
+      <p><strong>Back-end</strong></p>
+      <ul>
+        <li>
+          <img src="https://img.shields.io/badge/-Python-3776AB?&amp;logo=python&amp;logoColor=white" alt="Python" style="max-width: 100%;">
+        </li>
+        <li>
+          <img src="https://img.shields.io/badge/-Flask-333?&amp;logo=flask&amp;logoColor=white" alt="Flask" style="max-width: 100%;">
+        </li>
+        <li>
+          <img src="https://img.shields.io/badge/-MySQL-4479A1?&amp;logo=mysQL&amp;logoColor=white" alt="MySQL" style="max-width: 100%;">
+        </li>
+      </ul>
+      <p><strong>DevOps</strong></p>
+      <ul>
+        <li>
+          <p>
+            <img src="https://img.shields.io/badge/-Git-F05032?&amp;logo=git&amp;logoColor=white" alt="Git" style="max-width: 100%;">
+            <img src="https://img.shields.io/badge/-GitHub-181717?&amp;logo=github&amp;logoColor=white" alt="GitHub" style="max-width: 100%;">
+          </p>
+        </li>
+        <li>
+          <p>
+            <img src="https://img.shields.io/badge/-NGINX-009639?&amp;logo=NGINX&amp;logoColor=white" alt="NGINX" style="max-width: 100%;">
+            <img src="https://img.shields.io/badge/-AWS-FF9900?&amp;logo=AWSAmplify&amp;logoColor=white" alt="AWS" style="max-width: 100%;">
+          </p>
+        </li>
+      </ul><br>
+      <div id="4"></div>
+      <h2>💡 주요 기능</h2>
+      <ul>
+        <li>사진 업로드와 멘션을 통한 아침 창밖 모습과 그날의 기분과 일정 공유</li>
+        <li>세계지도 UI를 통해 실시간 모닝존(AM 06:00 ~ 10:00) 위치를 확인하고 베스트 창문 컷 표기</li>
+        <li>세계 각국에서 올리는 게시물들을 다양한 기준으로 통계하여 랭킹으로 시각화</li>
+      </ul><br>
+      <div id="5"></div>
+      <h2>📂 프로젝트 구성도</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;"><a href="https://www.figma.com/file/jKUOxRV6PgkZcu8Ovkvvqf/DoGoodMorning?node-id=125%3A18" target="_blank">🔗와이어프레임(Wireframe)</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/figma.png" alt="Wireframe" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">스토리보드(Storyboard)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/storyboard.png" alt="Storyboard" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">아키텍처(Architecture)(Storyboard)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/architecture.png" alt="Architecture" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <div id="6"></div>
+      <h2>📄 주요 페이지 및 기능 소개</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">메인 페이지 (게시물 섹션)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/main-page-section1.gif" alt="main-page-section1" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">메인 페이지 (세계지도 섹션)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/main-page-section2.gif" alt="main-page-section2" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">메인 페이지 (베스트 게시물 섹션)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/main-page-section3.gif" alt="main-page-section3" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">메인 페이지 (랭킹 섹션)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/main-page-section4.gif" alt="main-page-section4" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">로그인 및 회원가입</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/login-page.gif" alt="login-page" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">게시물 업로드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/upload-page.gif" alt="upload-page" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">마이페이지</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;">
+              <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/profile-page.gif" alt="profile-page" width="1200px" style="max-width: 100%;">
+            </td>
+          </tr>
+        </tbody></table><br>
+      <div id="7"></div>
+      <h2>👪 개발 팀 소개</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: center;">이름</th>
+            <th style="text-align: center;">역할</th>
+            <th style="text-align: center;">개발 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/ksy9926" target="_blank">김수영</a></td>
+            <td style="text-align: center;">Front-end</td>
+            <td style="text-align: center;">로그인 및 회원가입 기능 개발<br>세계지도 페이지 타임존 기능 개발<br>랭킹 페이지 마크업 및 스타일링 작업<br>AWS VM 배포 및 관리</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/JeongHwan-dev" target="_blank">박정환</a></td>
+            <td style="text-align: center;">Front-end</td>
+            <td style="text-align: center;"><strong>메인 페이지 (게시물 섹션)</strong> 마크업 및 스타일링 작업<br><strong>메인 페이지 (베스트 게시물 섹션)</strong> 마크업 및 스타일링 작업<br><strong>마이페이지</strong> 마크업 및 스타일링 작업<br><strong>로그인 및 회원가입 모달</strong> 마크업 및 스타일링 작업<br><strong>게시물 업로드 모달</strong> 마크업 및 스타일링 작업</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/SonSangjoon" target="_blank">손상준</a></td>
+            <td style="text-align: center;">Front-end</td>
+            <td style="text-align: center;">인포메이션 아키텍쳐 작성<br>메인 페이지 업로드 기능 개발<br>메인 페이지 게시물 기능 개발<br>세계지도 페이지 검색 기능 개발<br>베스트 게시물 기능 개발</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/insun-kang" target="_blank">강인선</a></td>
+            <td style="text-align: center;">Back-end</td>
+            <td style="text-align: center;">서버 아키텍쳐 작성<br>DB설계<br>auth API개발<br>게시물 API개발(이미지, 좋아요 등)<br>리더보드 API개발</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/David-Lee-dev" target="_blank">이주현</a></td>
+            <td style="text-align: center;">Back-end</td>
+            <td style="text-align: center;">-</td>
+          </tr>
+          <tr>
+            <td style="text-align: center;">윤은비</td>
+            <td style="text-align: center;">Designer</td>
+            <td style="text-align: center;">UI/UX 설계<br>Figma를 통한 와이어프레임 작성</td>
+          </tr>
+        </tbody></table><br>
+      <p><a href="https://github.com/do-good-morning/do-good-morning/tree/master/team-rules" target="_blank"><strong>🔗 팀 개발 규칙 바로가기 Click !</strong></a> 👈</p>
+      <blockquote>
+        <p>새 창 열기 방법 : CTRL+click (on Windows and Linux) | CMD+click (on MacOS)</p>
+      </blockquote><br>
+      <div id="8"></div>
+      <h2>📅 개발 기간</h2>
+      <p><code>08.14.(토) 10:00 AM ~ 08.15.(일) 11:00 AM (25시간)</code></p><br>
+      <div id="9"></div>
+      <h2>💻 실행 방법</h2>
+      <ol>
+        <li><strong>원격 저장소 복제</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ git clone https://github.com/do-good-morning/do-good-morning.git
+      </code></pre>
+      <ol start="2">
+        <li><strong>프로젝트 폴더로 이동 후 서버 폴더로 이동</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ cd do-good-morning
+      $ cd back
+      </code></pre>
+      <ol start="3">
+        <li><strong>서버 실행</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ export FLASK_APP=back
+      $ export FLASK_ENV=development
+      $ flask run
+      </code></pre>
+      <ol start="4">
+        <li><strong>클라이언트 폴더로 이동</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ cd client
+      </code></pre>
+      <blockquote>
+        <p>새 창 터미널 열기 후</p>
+      </blockquote>
+      <ol start="5">
+        <li><strong>필요한 node_modules 설치</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ npm install
+      </code></pre>
+      <ol start="6">
+        <li><strong>리액트(클라이언트) 앱 실행</strong></li>
+      </ol>
+      <pre><code class="language-bash">$ npm start
+      </code></pre>
+      </div>`,
       userId: 'test18',
       projectStatus: 'Ps_pr',
       status: 'S_co',
