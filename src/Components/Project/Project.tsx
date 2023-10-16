@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Image, Tag } from 'antd'
+import { Card, Tag } from 'antd'
 import { LikeFilled, EyeFilled } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { ProjectType } from '@src/types'
@@ -15,7 +15,7 @@ interface ProjectProps {
 
 const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const info = projectData?.projectInfo
-  const thumbnail = projectData?.thumbnail
+  // const thumbnail = projectData?.thumbnail
 
   return (
     <Link to={`/project/${info?.projectId}`}>

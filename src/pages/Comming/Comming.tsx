@@ -2,9 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap'
 
-//Import Countdown
-import Countdown from 'react-countdown'
-
 //Import Images
 import maintanence from '@src/assets/images/coming-soon.svg'
 import Logo from '@assets/images/Login/logo.png'
