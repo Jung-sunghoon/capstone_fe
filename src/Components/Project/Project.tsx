@@ -16,6 +16,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const thumbnail = projectData?.thumbnail
 
   console.log('info?.thumbnail', info?.thumbnail)
+
   return (
     <Link to={`/project/${info?.projectId}`}>
       <Card

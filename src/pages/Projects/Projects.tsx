@@ -11,6 +11,8 @@ import { sortOptionEnums } from '../../enums/enums'
 
 import './Projects.css'
 
+import { mockProjects } from './mock/mockProjects'
+
 const { Option } = Select
 
 const PROJECT_STATUSES = [
@@ -83,20 +85,22 @@ const Projects: React.FC = () => {
   useEffect(() => {
     // Data Fetching
     const fetchBoardData = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_ENDPOINT}/api/projects_list`,
-        )
+      // try {
+      //   const response = await axios.get(
+      //     `${import.meta.env.VITE_API_ENDPOINT}/api/projects_list`,
+      //   )
 
-        if (response.status === 200) {
-          // 가져온 프로젝트 목록을 설정
-          setProjects(response.data)
-        } else {
-          setProjects([])
-        }
-      } catch (error) {
-        console.error('게시물 목록을 가져오는 중 오류 발생:', error)
-      }
+      //   if (response.status === 200) {
+      //     // 가져온 프로젝트 목록을 설정
+      //     setProjects(response.data)
+      //   } else {
+      //     setProjects([])
+      //   }
+      // } catch (error) {
+      //   console.error('게시물 목록을 가져오는 중 오류 발생:', error)
+      // }
+
+      setProjects(mockProjects)
     }
 
     fetchBoardData()

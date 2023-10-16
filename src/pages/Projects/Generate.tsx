@@ -36,6 +36,7 @@ const Generate: React.FC = () => {
         views: 0,
       }
 
+      console.log('textEditor', textEditor)
       const response = await axios.post(
         `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
         projectData,
