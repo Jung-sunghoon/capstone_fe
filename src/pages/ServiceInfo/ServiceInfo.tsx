@@ -1,5 +1,7 @@
-const ServiceInfo = () => {
-  return <div>ServiceInfo</div>;
-};
+import Comming from '@src/pages/Comming'
 
-export default ServiceInfo;
+const ServiceInfo = () => {
+  return <Comming />
+}
+
+export default ServiceInfo
