@@ -20,7 +20,40 @@ export const mockProjects = [
     projectInfo: {
       projectId: 2,
       projectTitle: '[BE] ARS(Algorithm Review Service) 개인 프로젝트 Backend',
-      description: 'string | any',
+      description: `<div style="font-size:16px;"  class="readme-markdown">
+      <h2>개인 프로젝트</h2>
+      <h1>ARS (Algorithm Review Service)</h1>
+      <p>알고리즘 복습을 편하게 할 수 있는 "저"만의 웹서비스입니다.<br>태그별 문제 리스트를 조회할 수 있고, 검색을 통해 리뷰 리스트를 조회할 수 있습니다.<br>등록된 문제에 계속해서 복습 내용을 추가할 수 있고, 문제 상세 보기에 복습 목록이 함께 보여집니다.<br>복습 알림 서비스 기능으로 알림 날짜를 설정하면 해당 날짜에 Slack을 통해 복습 알림을 받을 수 있습니다.<br></p>
+      <h2>🔗 Link</h2>
+      <ul>
+        <li><a href="https://ars.vercel.app/" target="_blank">ARS 웹사이트</a></li>
+        <li><a href="https://velog.io/@ayoung0073/Project-ARS-%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9B%84%EA%B8%B0" target="_blank">프로젝트 정리 및 후기</a></li>
+        <li><a href="https://github.com/ayoung0073/ARS-backend/wiki" target="_blank">API 명세서</a></li>
+        <li><a href="https://github.com/ayoung0073/ARS-frontend" target="_blank">프론트엔드 레포지토리</a></li>
+      </ul>
+      <h2>🛠 Architecture</h2>
+      <p>
+        <img src="https://images.velog.io/images/ayoung0073/post/cadb8c1a-7029-45c5-a0aa-d41da203bc28/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-08-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.07.20.png" alt="Architecture" style="max-width: 100%;">
+      </p>
+      <h2>📝 페이지</h2>
+      <h3>메인 페이지</h3>
+      <p>
+        <img src="https://images.velog.io/images/ayoung0073/post/06e01bcb-a7b9-4fa6-8df0-14ca8d8a7c4b/image.png" alt="" style="max-width: 100%;">
+      </p>
+      <h3>상세 페이지</h3>
+      <p>"저"임이 인증이 되었다면 알림 날짜와 난이도를 즉시 수정할 수 있습니다.<br><br>
+        <img src="https://images.velog.io/images/ayoung0073/post/007d9a58-d5a7-4d57-908d-12cee1a376e5/image.png" alt="" style="max-width: 100%;"><br><br>오른쪽 영역은 고정되어 있습니다.<br><br>
+        <img src="https://user-images.githubusercontent.com/69340410/128628683-82af6401-53a0-4181-bed9-33b04f365265.gif" alt="상세 페이지 스크롤" style="max-width: 100%;">
+      </p>
+      <h3>태그별 문제 리스트 조회</h3>
+      <p>
+        <img src="https://user-images.githubusercontent.com/69340410/128629434-18159c9a-6468-48f0-a158-881a25921ff6.gif" alt="태그별 문제 리스트 조회" style="max-width: 100%;">
+      </p>
+      <h3>슬랙 알림</h3>
+      <p>
+        <img src="https://images.velog.io/images/ayoung0073/post/bf9c1032-6f6e-475f-9e66-adc2e4826e76/image.png" alt="" style="max-width: 100%;">
+      </p>
+      </div>`,
       userId: 'test2',
       projectStatus: 'Ps_co',
       status: 'S_co',
@@ -1401,17 +1434,7 @@ export const mockProjects = [
       views: 12324,
       thumbnail: 'thumbnail8',
     },
-    techNames: [
-      'Kotlin',
-      'MVVM',
-      'DataBinding',
-      'AAC',
-      'Koin',
-      'Retrofit',
-      'RxJava',
-      'Okhttp',
-      'NaverMap',
-    ],
+    techNames: ['Kotlin', 'MVVM', 'RxJava', 'Okhttp', 'NaverMap'],
     thumbnail: 'thumbnail8',
   },
   {
@@ -2370,7 +2393,566 @@ export const mockProjects = [
     projectInfo: {
       projectId: 20,
       projectTitle: '[BE] Cherish 당신의 소중한 사람들을 위한 연락관리 서비스',
-      description: 'string | any',
+      description: `<div style="font-size:16px;"  class="readme-markdown">
+      <img src="https://user-images.githubusercontent.com/42789819/104716209-f1cfa800-576a-11eb-8275-3d2e69cce546.png" style="max-width: 100%;"><br>
+      <h2>
+        <img width="20px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;"> Project
+      </h2>
+      <p><strong>당신의 소중한 사람들을 위한 연락관리 서비스, Cherish</strong></p>
+      <blockquote>
+        <p><strong>SOPT 27th APPJAM</strong><br><strong>프로젝트 기간: 2020.12.26 ~ 2021.01.16</strong><br><strong>추가 개발 및 유지보수 기간: 2021.02.03 ~ 2021.06.20</strong><br><strong>Released : 2021.07.03</strong></p>
+      </blockquote>
+      <p><a href="https://apps.apple.com/us/app/id1557601516" target="_blank"><img width="150px" src="https://user-images.githubusercontent.com/42789819/115149387-d42e1980-a09e-11eb-88e3-94ca9b5b604b.png" style="max-width: 100%;"></a></p><br>
+      <h2>Cherish iOS Developers</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td style="text-align: center;"><a href="https://github.com/hwangji-dev" target="_blank"><img src="https://user-images.githubusercontent.com/63224278/103209152-b436e680-4945-11eb-91e4-bd8622e442e2.png" width="100px;" alt="" style="max-width: 100%;"><br><sub><b>hwangji-dev</b></sub></a><br><a href="https://github.com/TeamCherish/Cherish-iOS/commits?author=hwangji-dev" title="Code" target="_blank">📱</a></td>
+            <td style="text-align: center;"><a href="https://github.com/snowedev" target="_blank"><img src="https://user-images.githubusercontent.com/63224278/103280936-ee22ee00-4a14-11eb-9161-aa5249d74f20.png" width="100px;" alt="" style="max-width: 100%;"><br><sub><b>snowedev</b></sub></a><br><a href="https://github.com/TeamCherish/Cherish-iOS/commits?author=snowedev" title="Code" target="_blank">📱</a></td>
+            <td style="text-align: center;"><a href="https://github.com/seohyun-106" target="_blank"><img src="https://user-images.githubusercontent.com/63224278/103281341-e9ab0500-4a15-11eb-877b-e9c384c7de88.png" width="100px;" alt="" style="max-width: 100%;"><br><sub><b>seohyun-106</b></sub></a><br><a href="https://github.com/TeamCherish/Cherish-iOS/commits?author=seohyun-106" title="Code" target="_blank">📱</a></td>
+          </tr>
+        </tbody></table><br>
+      <h2>Development Environment and Using Library</h2>
+      <ul>
+        <li>Development Environment</li>
+      </ul>
+      <p>
+        <img src="https://img.shields.io/badge/Swift-5.0-orange.svg" alt="Swift" style="max-width: 100%;">
+        <img src="https://img.shields.io/badge/Platform-iOS-black.svg" alt="iOS" style="max-width: 100%;">
+      </p>
+      <ul>
+        <li>
+          <p>Using Library</p>
+          <pre><code class="language-ruby"># Pods for Cherish-iOS
+      pod 'Alamofire','~&gt; 5.4.1'  # 서버 통신
+      pod 'Kingfisher'            # 이미지 캐싱
+      pod 'FSCalendar'            # 캘린더 구현
+      pod 'OverlayContainer'      # BottomSheet 애니메이션
+      pod 'Firebase/Analytics'    # 앱 데이터 분석
+      pod 'Firebase/Messaging'    # 푸시 알림
+      </code></pre>
+        </li>
+      </ul><br>
+      <h2>Coding Convention</h2>
+      <details>
+        <summary>🗂 폴더구조</summary>
+        <div markdown="1">
+          <hr>
+          <pre><code class="language-markdown">🗂 Global
+          - AppModels 🗂
+          - Font 🗂
+          - View 🗂
+          - Extension 🗂
+          - Class 🗂
+          - Gif 🗂
+      
+      🗂 Network
+          - APIModels 🗂
+          - APIServices 🗂
+      
+      🗂 Screens
+          - AddUser 🗂
+              - Cells 🗂
+              - Controller 🗂
+              - Storyboards 🗂
+          - ...
+      
+      🗂 Supports
+          - info.plist
+          - GoogleService-Info.plist
+          - AppDelegate.swift
+          - SceneDelegate.swift
+          - Assets.xcassets
+      </code></pre><br>
+        </div>
+      </details>
+      <details>
+        <summary>🖋 네이밍</summary>
+        <div markdown="1">
+          <hr>
+          <p><strong>Class &amp; Struct</strong></p>
+          <ul>
+            <li>
+              <p>클래스/구조체 이름은 <strong>UpperCamelCase</strong>를 사용합니다.</p>
+            </li>
+            <li>
+              <p>클래스 이름에는 접두사를 붙이지 않습니다.</p>
+              <p><kbd>좋은 예</kbd></p>
+              <pre><code class="language-swift">class CherishTVC: UITableViewCell
+      </code></pre>
+              <p><kbd>나쁜 예</kbd></p>
+              <pre><code class="language-swift">struct cherishCVCInfo { }
+      </code></pre>
+            </li>
+          </ul>
+          <p><strong>함수 &amp; 변수 &amp; 상수</strong></p>
+          <ul>
+            <li>
+              <p>함수와 변수에는 <strong>lowerCamelCase</strong>를 사용합니다.</p>
+            </li>
+            <li>
+              <p>버튼명에는 <strong>Btn 약자</strong>를 사용합니다.</p>
+            </li>
+            <li>
+              <p>모든 IBOutlet에는 해당 클래스명을 뒤에 붙입니다.</p>
+              <ul>
+                <li>~~ImageView, ~~Label, ~~TextField와 같이 속성값을 붙여줍니다.</li>
+              </ul>
+            </li>
+            <li>
+              <p>테이블 뷰는 <strong>TV</strong>, 컬렉션뷰는 <strong>CV</strong>로 줄여서 네이밍합니다.</p>
+            </li>
+            <li>
+              <p>테이블 뷰 셀은 <strong>TVC</strong>, 컬렉션뷰 셀은 <strong>CVC</strong>로 줄여서 네이밍합니다.</p>
+              <p><kbd>좋은 예</kbd></p>
+              <pre><code class="language-swift">@IBOutlet weak var wateringBtn: UIButton!
+      @IBOutlet weak var cherishMainView: UIView!
+      @IBOutlet weak var cherishTV: UITableView!
+      </code></pre>
+              <p><kbd>나쁜 예</kbd></p>
+              <pre><code class="language-swift">@IBOutlet weak var ScrollView: UIScrollView!
+      @IBOutlet weak var cherishcollectionview: UICollectionView!
+      @IBOutlet weak var tagcollectionview: UICollectionView!
+      @IBOutlet weak var tableview: UITableView!
+      </code></pre>
+            </li>
+          </ul><br>
+        </div>
+      </details>
+      <details>
+        <summary>🏷 주석</summary>
+        <div markdown="1">
+          <hr>
+          <ul>
+            <li><code>// MARK:</code> 를 사용해서 연관된 코드를 구분짓습니다.</li>
+            <li><code>///</code> 를 사용해서 문서화에 사용되는 주석을 남깁니다. (ex. /// 사용자 프로필을 그려주는 뷰)</li>
+          </ul><br>
+        </div>
+      </details>
+      <details>
+        <summary>📎 기타</summary>
+        <div markdown="1">
+          <hr>
+          <ul>
+            <li>viewDidLoad() 내에는 <strong>Function만 위치</strong>시킵니다.</li>
+            <li>중복되는 부분들은 +Extension.swift로 만들어 활용합니다.</li>
+            <li>메인컬러와 같이 자주 쓰이는 컬러들은 Asset에 Color Set을 만들어서 사용합니다.</li>
+            <li>, 뒤에 반드시 띄어쓰기를 합니다.</li>
+            <li>함수끼리 1줄 개행합니다.</li>
+            <li>중괄호는 아래와 같은 형식으로 사용합니다.
+              <pre><code class="language-swift">if (condition){
+      
+        Statements
+        /*
+        ...
+        */
+        
+      }
+      </code></pre>
+            </li>
+          </ul>
+        </div>
+      </details>
+      <p>👉🏻 <a href="https://github.com/TeamCherish/Cherish-iOS/wiki/CodingConvention" target="_blank">Coding Convention 한 눈에 보기</a><br>👉🏻 다음 <a href="https://github.com/StyleShare/swift-style-guide" target="_blank">Style Guide</a>를 참고헀습니다.</p><br>
+      <h2>Commit Messge Rules</h2>
+      <details>
+        <summary>아요체리🍒 들의 Git Commit Message Rules</summary>
+        <div markdown="1">
+          <hr>
+          <blockquote>
+            <p>반영사항을 바로 확인할 수 있도록 작은 기능 하나라도 구현되면 커밋을 권장합니다.<br>커밋할 땐 <strong>iOS 슬랙에 노티</strong>합니다.<br>기능 구현이 완벽하지 않을 땐, 각자 브랜치에 커밋을 해주세요.</p>
+          </blockquote><br>
+          <p><strong>커밋 메시지 명령어 모음</strong></p>
+          <ul>
+            <li>
+              <pre><code>- feat    : 기능 (새로운 기능)
+      - fix     : 버그 (버그 수정)
+      - refactor: 리팩토링
+      - style   : 스타일 (코드 형식, 세미콜론 추가: 비즈니스 로직에 변경 없음)
+      - docs    : 문서 (문서 추가, 수정, 삭제)
+      - test    : 테스트 (테스트 코드 추가, 수정, 삭제: 비즈니스 로직에 변경 없음)
+      - chore   : 기타 변경사항 (빌드 스크립트 수정 등)
+      </code></pre><br>
+            </li>
+          </ul>
+          <p><strong>커밋 메세지 형식</strong></p>
+          <ul>
+            <li>
+              <p><code>[커밋메세지] 설명</code> 형식으로 커밋 메시지를 작성합니다.</p>
+            </li>
+            <li>
+              <p>커밋 메시지는 영어 사용을 권장합니다.<br><kbd>좋은 예</kbd></p>
+              <pre><code>[Feat] fetchcontacts!
+      </code></pre>
+              <p><kbd>나쁜 예</kbd></p>
+              <pre><code>연락처 동기화 기능 추가
+      </code></pre>
+            </li>
+          </ul>
+        </div>
+      </details><br>
+      <h2>Github mangement</h2>
+      <details>
+        <summary>아요체리🍒들의 WorkFlow : Gitflow Workflow</summary>
+        <div markdown="1">
+          <hr>
+          <pre><code>- main
+      - dev
+      ─ cherishMainView(각 Local Branch)
+      ─ cherishAddView    
+      ─ cherishWateringView
+      </code></pre>
+          <ul>
+            <li>
+              <p>커밋 메세지는 다른 사람들이 봐도 이해할 수 있게 써주세요.</p>
+            </li>
+            <li>
+              <p>풀리퀘스트를 통해 코드 리뷰를 해보아요.</p>
+            </li>
+          </ul><br>
+          <p><strong>각자 자신이 맡은 기능 구현에 성공시! 브랜치 다 쓰고 병합하는 방법</strong></p>
+          <ul>
+            <li>브랜치 만듦</li>
+          </ul>
+          <pre><code class="language-bash">git branch 기능(or 뷰)이름
+      </code></pre>
+          <ul>
+            <li>원격 저장소에 로컬 브랜치 push</li>
+          </ul>
+          <pre><code class="language-bash">git push --set-upstream origin 브랜치이름(뷰이름)
+      </code></pre>
+          <pre><code class="language-bash">git push -u origin 브랜치이름(뷰이름)
+      </code></pre>
+          <ul>
+            <li>브랜치 전환</li>
+          </ul>
+          <pre><code class="language-bash">git checkout 뷰이름
+      </code></pre>
+          <ul>
+            <li>코드 변경 (현재 <strong>뷰이름</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git add .
+      git commit -m "커밋 메세지" origin 뷰이름
+      </code></pre>
+          <ul>
+            <li>푸시 (현재 <strong>뷰이름</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git push origin 뷰이름 브랜치
+      </code></pre>
+          <ul>
+            <li>뷰이름 브랜치에서 할 일 다 했으면 <strong>main</strong> 브랜치로 전환</li>
+          </ul>
+          <pre><code class="language-bash">git checkout main
+      </code></pre>
+          <ul>
+            <li>머지 (현재 <strong>main</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git merge 뷰이름
+      </code></pre>
+          <ul>
+            <li>다 쓴 브랜치 삭제 (local) (현재 <strong>main</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git branch -d 뷰이름
+      </code></pre>
+          <ul>
+            <li>다 쓴 브랜치 삭제 (remote) (현재 <strong>main</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git push origin :뷰이름
+      </code></pre>
+          <ul>
+            <li>main pull (현재 <strong>main</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git pull or git pull origin main
+      </code></pre>
+          <ul>
+            <li>main push (현재 <strong>main</strong> 브랜치)</li>
+          </ul>
+          <pre><code class="language-bash">git push or git push origin main
+      </code></pre>
+        </div>
+      </details><br>
+      <h2>Service workflow</h2>
+      <img width="100%" src="https://user-images.githubusercontent.com/42789819/115150061-bca46000-a0a1-11eb-8354-990412c70381.jpg" style="max-width: 100%;"><br>
+      <h2>Task</h2>
+      <blockquote>
+        <p><a href="https://www.notion.so/iOS-6d2c0ea99df5403eaa7154b42a1cae4c" target="_blank">Cherish iOS 개발 일지📔 및 칸반보드👨&zwj;🏫</a></p>
+      </blockquote>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: left;">기능</th>
+            <th style="text-align: center;">개발 여부</th>
+            <th style="text-align: center;">담당자</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: left;">Onboarding</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">이원석</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">SignUp, Find Password</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">이원석</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Splash &amp; Login</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Push Alert</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Main View</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Add Friend</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">장서현</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Watering Flow(Contact, Review)</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">이원석</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Calendar View(Calendar, Review Edit)</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">이원석</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Plant Detail</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">MyPage(Profile, Search, Add Friend)</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은,장서현</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">ShowMore</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은,이원석</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">View Connection</td>
+            <td style="text-align: center;">
+              <img width="10px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">황지은</td>
+          </tr>
+        </tbody></table><br>
+      <h2>App Description</h2>
+      <h3><code>Splash-&gt;Onboarding-&gt;로그인</code></h3>
+      <img width="1306" alt="image" src="https://user-images.githubusercontent.com/42789819/115146027-d2108e80-a08f-11eb-9646-a3818cf51cb8.png" style="max-width: 100%;">
+      <ul>
+        <li>스플래쉬, 온보딩이 끝나면 로그인 화면이 나오게 됩니다.</li>
+        <li>Cherish는 소중한 사람의 등록을 위해 "연락처" 권한과 푸쉬알림을 위한 "알림"권한을 요청합니다.</li>
+      </ul><br>
+      <h3><code>회원가입</code></h3>
+      <img width="1106" alt="image" src="https://user-images.githubusercontent.com/42789819/115150093-d9d92e80-a0a1-11eb-8e6f-8e20c5d9bd75.png" style="max-width: 100%;">
+      <ul>
+        <li>일련의 과정을 거쳐 회원가입이 완료됩니다.</li>
+      </ul>
+      <h3><code>비밀번호 찾기</code></h3>
+      <img width="556" alt="image" src="https://user-images.githubusercontent.com/42789819/115150021-8e268500-a0a1-11eb-8bc2-74c47dd7a40c.png" style="max-width: 100%;">
+      <ul>
+        <li>회원가입시 등록했던 휴대폰 번호를 통해 비밀번호를 찾을 수 있습니다.</li>
+      </ul><br>
+      <h3><code>식물 등록(Add Friend)</code></h3>
+      <img width="1137" alt="image" src="https://user-images.githubusercontent.com/42789819/115145759-2581dd00-a08e-11eb-9067-e3847a07cfca.png" style="max-width: 100%;">
+      <ul>
+        <li>
+          <p>사용자는 자신이 연락 관리를 하고싶은 사람을 연락처에서 선택합니다.</p>
+        </li>
+        <li>
+          <p>사용자는 식물 애칭, 생일, 물주기 알람(푸쉬알람) 주기, 물주기 알람(푸쉬알람) 시간을 지정할 수 있습니다.</p>
+          <ul>
+            <li>단, 이름과 전화번호는 수정이 되지 않는 상태로 넘어오게됩니다.</li>
+          </ul>
+        </li>
+        <li>
+          <p>사용자가 지정한 물주기 알람 주기에 따라 그에 맞는 식물이 배정됩니다.</p>
+        </li>
+        <li>
+          <p>식물 종류는 단모환, 민들레, 로즈마리, 스투키, 아메리칸블루 이상 5가지 입니다.</p>
+        </li>
+      </ul><br>
+      <h3><code>메인뷰</code></h3>
+      <img width="556" alt="image" src="https://user-images.githubusercontent.com/42789819/115145682-c623cd00-a08d-11eb-9b94-f1369b7a7c56.png" style="max-width: 100%;">
+      <ul>
+        <li>
+          <p>선택한 식물에 따라 메인 뷰에 변화가 생깁니다.</p>
+          <ul>
+            <li>메인 뷰의 식물들이 등록된 식물로 변화</li>
+            <li>D-DAY 라벨과 식물의 네이밍 변화</li>
+            <li>식물 네이밍 위의 '아직 수명이 탄탄한' 등의 수식어는 랜덤으로 지정</li>
+            <li>좌측에 위치한 해당 식물에 대한 애정도 Bar</li>
+          </ul>
+        </li>
+        <li>
+          <p>Bottom Sheet의 첫 번째 Cell은 사용자가 선택한 Cell로 변경됩니다.</p>
+        </li>
+        <li>
+          <p>Bottom Sheet의 각 Cell들은 물주기가 임박한 순서대로 정렬됩니다.</p>
+        </li>
+      </ul><br>
+      <h3><code>물주기 Flow</code></h3>
+      <img width="1119" alt="image" src="https://user-images.githubusercontent.com/42789819/115145725-f79c9880-a08d-11eb-8d31-ee6ad0f9da13.png" style="max-width: 100%;">
+      <p><strong>메인뷰에 위치한 물주기 버튼을 통해 각 식물에게 물을 줄 수 있습니다</strong></p>
+      <ul>
+        <li>
+          <p>물주기</p>
+          <ul>
+            <li>물주기는 전화, 메시지, 카카오톡의 3가지 수단으로 진행 할 수 있습니다.</li>
+            <li>각 연락수단을 통해 소중한 연락을 한 뒤에는 오늘 한 연락에 대한 리뷰를 작성하는 화면으로 진입합니다.</li>
+          </ul>
+        </li>
+        <li>
+          <p>연락 후기</p>
+          <ul>
+            <li>리뷰의 작성은 사용자의 선택입니다.</li>
+            <li>리뷰에서는 최대 5글자, 최대 3개의 키워드를 등록할 수 있고 100자 제한의 메모를 작성할 수 있습니다.</li>
+            <li>연락, 키워드 작성, 리뷰 작성 여부에 따라 각각 애정도 8%가 상승합니다.</li>
+          </ul>
+        </li>
+        <li>
+          <p>물주기를 성공하면 메인뷰의 식물은 물주기 모션에 진입합니다.</p>
+        </li>
+        <li>
+          <p>미루기는 D-day가 되었을 때 가능하며 한번에 1~7일을 미룰 수 있습니다.</p>
+        </li>
+        <li>
+          <p>물주기를 하지 않거나 미루지 않은 채로 D-day가 지나가면 식물은 시둘게 됩니다.</p>
+          <ul>
+            <li>이때는 미루기를 할 수 없습니다.</li>
+          </ul>
+        </li>
+      </ul><br>
+      <h3><code>식물 상세 뷰</code></h3>
+      <img width="1163" alt="image" src="https://user-images.githubusercontent.com/42789819/115145782-48ac8c80-a08e-11eb-807e-5d42cda959d5.png" style="max-width: 100%;">
+      <ul>
+        <li>
+          <p>메인 뷰에서 식물을 터치하면 식물 상세뷰로 이동합니다.</p>
+        </li>
+        <li>
+          <p>식물 상세 뷰에서는 Circle Status Bar로 식물의 물주기의 임박 정도를 알 수 있습니다.</p>
+        </li>
+        <li>
+          <p>등록한 친구의 연락처상 이름, 사용자가 등록한 친구의 별명, 친구의 생일을 알 수 있습니다.</p>
+        </li>
+        <li>
+          <p>해당 식물에게 물을 준 적이 있고, 후기를 작성한 적이 있다면 식물 상세 뷰 하단에서 후기를 최대 2개까지 모아 볼 수 있습니다(이 때 키워드는 가장 최근 연락 시 작성한 키워드입니다).</p>
+        </li>
+      </ul><br>
+      <h3><code>캘린더 뷰+리뷰 수정</code></h3>
+      <img width="783" alt="Cherish_Calendar" src="https://user-images.githubusercontent.com/42789819/104715101-699cd300-5769-11eb-9140-b9a177fb7cc0.png" style="max-width: 100%;">
+      <p>캘린더 뷰로 올 수 있는 방법은 두가지 입니다.</p>
+      <ol>
+        <li>식물 상세 뷰에서 하단에 위치한 메모 우측의 &gt; 버튼 누르면 캘린더 뷰에서 해당 날짜로 이동하여 메모를 보여줍니다.</li>
+        <li>식물 상세 뷰에서 상단 우측에 위치한 달력 버튼을 클릭하면 캘린더 뷰로 이동합니다.</li>
+      </ol>
+      <p>캘린더 뷰에서는 다음과 같은 것들을 할 수 있습니다.</p>
+      <ul>
+        <li>캘린더는 각 식물마다 배정되어 있으며 지금까지 물 준 날과 앞으로 물 줄 날을 구분하여 보여줍니다.</li>
+        <li>사용자가 해당 식물에게 물 준 날 리뷰까지 작성했다면 캘린더 하단에 그 날 작성한 리뷰가 표시됩니다.</li>
+        <li>이 때, 우측에 위치한 연필 버튼을 통해 해당 날짜의 리뷰를 수정할 수 있습니다.</li>
+      </ul><br>
+      <h3><code>푸쉬 알림</code></h3>
+      <img width="200" alt="image" src="https://user-images.githubusercontent.com/42789819/115145809-71cd1d00-a08e-11eb-8866-3dbf6164fc83.png" style="max-width: 100%;">
+      <p><strong>푸쉬알림은 다음의 두 경우에 보내집니다.</strong></p>
+      <ul>
+        <li>사용자가 등록한 식물의 물주기가 다가왔을 때</li>
+        <li>사용자가 물을 준 뒤 리뷰를 기록하지 않았을 때</li>
+      </ul>
+      <p>푸쉬를 통해 물주기, 리뷰하기로 이동할 수 있습니다.</p><br>
+      <h3><code>마이페이지</code></h3>
+      <img width="100%" alt="image" src="https://user-images.githubusercontent.com/42789819/115145841-a214bb80-a08e-11eb-993e-d4e2095a7d6c.png" style="max-width: 100%;">
+      <ul>
+        <li>
+          <p>마이페이지의 내 식물 탭에서는 지금까지 사용자가 등록한 식물들을 모아 볼 수 있습니다.</p>
+          <ul>
+            <li>지금까지 물 준 횟수, 미룬 횟수, 애정도가 100이 된 식물들이 얼마나 있는지 볼 수 있습니다.</li>
+          </ul>
+        </li>
+        <li>
+          <p>내 식물 탭 우측의 연락처 탭에서는 새로운 소중한 사람을 들록 할 수 있습니다.</p>
+        </li>
+        <li>
+          <p>마이페이지 우측 상단에 있는 돋보기 버튼을 통해 검색이 가능합니다.</p>
+        </li>
+      </ul><br>
+      <h3><code>더보기</code></h3>
+      <img width="660" alt="image" src="https://user-images.githubusercontent.com/42789819/115145873-e3a56680-a08e-11eb-8d06-8576ddaf0792.png" style="max-width: 100%;">
+      <ul>
+        <li>
+          <p>사용자의 닉네임 및 이메일을 변경할 수 있습니다(사용자의 프로필 사진 또한 등록 가능합니다).</p>
+        </li>
+        <li>
+          <p>개인정보처리방침, 서비스이용약관이 쓰여있는 노션 페이지로 이동합니다.</p>
+        </li>
+        <li>
+          <p>1:1 문의 하기를 통해 Cherish에게 문의 메일을 보낼 수 있습니다.</p>
+        </li>
+        <li>
+          <p>물주기 푸쉬 알림을 On, Off할 수 있습니다.</p>
+        </li>
+        <li>
+          <p>로그아웃 및 회원 탈퇴를 할 수 있습니다.</p>
+        </li>
+      </ul><br>
+      <h2>Our Extension</h2>
+      <pre><code class="language-Swift">// 기기별 사이즈를 알기 위한 Extension
+      UIDevice+ScreenSize.swift
+      
+      // 색상을 정의해놓은 Extension
+      UIColor+Additions.swift
+      
+      // Notification을 쓰기 위한 Name Extension 
+      NotificationName.swift
+      
+      // 자주 사용하는 Radius와 Shadow 를 함수로 정의해 놓은 Extension
+      UIView+Extension.swift
+      
+      // TextField의 입력 구역을 정의를 위한 Extension
+      UITextField+Extension.swift
+      
+      // 버튼의 자간을 설정하기 위한 Extension
+      UIButton+Extension.swift
+      
+      // ImageView에서 Gif를 불러오기 위한 Extension
+      UIImage+Extension.swift
+      </code></pre><br>
+      </div>`,
       userId: 'test20',
       projectStatus: 'Ps_pr',
       status: 'S_pr',
