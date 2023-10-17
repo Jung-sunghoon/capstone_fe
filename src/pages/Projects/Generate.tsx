@@ -23,23 +23,31 @@ const Generate: React.FC = () => {
   const onFinish = async (values: any) => {
     try {
       localStorage.setItem('userId', values.userId)
-      const projectData = {
-        projectId: null,
-        projectTitle: values.projectTitle,
-        description: textEditor,
-        userId: values.userId,
-        projectStatus: 'Ps_pr',
-        status: 'S_pr',
-        recruitmentCount: values.recruitmentCount,
-        generateDate: new Date().toISOString(),
-        likes: 0,
-        views: 0,
-      }
+
+      const thumbnailFile = fileList[0].originFileObj as Blob
+
+      const formData = new FormData()
+      formData.append('thumbnail', thumbnailFile)
+      formData.append(
+        'project',
+        JSON.stringify({
+          projectTitle: values.projectTitle,
+          userId: values.userId,
+          description: textEditor,
+          recruitmentCount: values.recruitmentCount,
+        }),
+      )
 
       console.log('textEditor', textEditor)
+
       const response = await axios.post(
         `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
-        projectData,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       )
 
       if (response.status === 200) {
@@ -56,9 +64,11 @@ const Generate: React.FC = () => {
   }
 
   const [fileList, setFileList] = useState<UploadFile[]>([])
+
   const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList)
   }
+
   const onPreview = async (file: UploadFile) => {
     let src = file.url as string
     if (!src) {
@@ -116,7 +126,9 @@ const Generate: React.FC = () => {
           <Form.Item label="대표 이미지">
             <ImgCrop rotationSlider>
               <Upload
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                action={`${
+                  import.meta.env.VITE_API_ENDPOINT
+                }/api/generate_project`}
                 listType="picture-card"
                 fileList={fileList}
                 onChange={onChange}

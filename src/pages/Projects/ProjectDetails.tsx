@@ -3,9 +3,14 @@ import { ProjectType } from '@src/types'
 import { Tag } from 'antd'
 import { EyeFilled, LikeFilled } from '@ant-design/icons'
 import './ProjectDetails.css'
-import { convertStatus, convertprojectStatus } from '@src/utils/common'
-import { mockProjects } from './mock/mockProjects'
+import {
+  convertStatus,
+  convertprojectStatus,
+  formatDate,
+} from '@src/utils/common'
+// import { mockProjects } from './mock/mockProjects'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export interface ProjectDetails {}
 
@@ -17,31 +22,31 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // try {
-      //   // Axios를 사용하여 서버에서 프로젝트 목록 가져오기
-      //   const response = await axios.post(
-      //     `${
-      //       import.meta.env.VITE_API_ENDPOINT
-      //     }/api/single_information_project?projectId=${projectId}`,
-      //     { projectId },
-      //   )
-      //   if (response.status === 200) {
-      //     // 가져온 프로젝트 목록을 설정
-      //     setProject(response.data)
-      //   } else {
-      //     setProject(undefined)
-      //   }
-      // } catch (error) {
-      //   // 오류 처리
-      //   console.error('Error fetching project list:', error)
-      // }
+      try {
+        // Axios를 사용하여 서버에서 프로젝트 목록 가져오기
+        const response = await axios.post(
+          `${
+            import.meta.env.VITE_API_ENDPOINT
+          }/api/single_information_project?projectId=${projectId}`,
+          { projectId },
+        )
+        if (response.status === 200) {
+          // 가져온 프로젝트 목록을 설정
+          setProject(response.data)
+        } else {
+          setProject(undefined)
+        }
+      } catch (error) {
+        // 오류 처리
+        console.error('Error fetching project list:', error)
+      }
 
-      setProject(
-        mockProjects.find(
-          project =>
-            project.projectInfo.projectId === Number.parseInt(projectId),
-        ),
-      )
+      // setProject(
+      //   mockProjects.find(
+      //     project =>
+      //       project.projectInfo.projectId === Number.parseInt(projectId),
+      //   ),
+      // )
     }
 
     // 초기 렌더링 시 데이터 가져오기
@@ -61,7 +66,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             </div>
             <div className="projectDetails__separater"></div>
             <div className="projectDetails__date">
-              {project?.projectInfo.generateDate}
+              {project?.projectInfo.generateDate
+                ? formatDate(new Date(project?.projectInfo.generateDate))
+                : ''}
             </div>
           </div>
           <section className="projectDetails__projectAllInfo">
