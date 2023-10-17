@@ -5,6 +5,7 @@ import { EyeFilled, LikeFilled } from '@ant-design/icons'
 import './ProjectDetails.css'
 import { convertStatus, convertprojectStatus } from '@src/utils/common'
 import { mockProjects } from './mock/mockProjects'
+import { Link } from 'react-router-dom'
 
 export interface ProjectDetails {}
 
@@ -136,6 +137,18 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               ></textarea>
             </div>
             <div className="projectDetails__commentBtnWrapper">
+              <Link to="/projects">
+                <button
+                  className="projectDetails__commentBtn"
+                  style={{
+                    marginRight: '5px',
+                  }}
+                  name="register"
+                >
+                  뒤로 가기
+                </button>
+              </Link>
+
               <button className="projectDetails__commentBtn" name="register">
                 댓글 등록
               </button>
