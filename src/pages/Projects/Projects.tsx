@@ -121,7 +121,11 @@ const Projects: React.FC = () => {
   ]
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: '#F5F5F5',
+      }}
+    >
       <div>
         <div
           style={{
