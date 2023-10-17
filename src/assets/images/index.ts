@@ -22,6 +22,30 @@ import thumbnail18 from './projectThumbnail/thumbnail18.gif'
 import thumbnail19 from './projectThumbnail/thumbnail19.png'
 import thumbnail20 from './projectThumbnail/thumbnail20.png'
 
+import thumbnail21 from './projectThumbnail/thumbnail21.png'
+import thumbnail22 from './projectThumbnail/thumbnail22.gif'
+import thumbnail23 from './projectThumbnail/thumbnail23.jpeg'
+import thumbnail24 from './projectThumbnail/thumbnail24.png'
+import thumbnail25 from './projectThumbnail/thumbnail25.png'
+
+import thumbnail26 from './projectThumbnail/thumbnail26.png'
+import thumbnail27 from './projectThumbnail/thumbnail27.gif'
+import thumbnail28 from './projectThumbnail/thumbnail28.gif'
+import thumbnail29 from './projectThumbnail/thumbnail29.png'
+import thumbnail30 from './projectThumbnail/thumbnail30.png'
+
+// import thumbnail31 from './projectThumbnail/thumbnail22.png'
+// import thumbnail32 from './projectThumbnail/thumbnail22.png'
+// import thumbnail33 from './projectThumbnail/thumbnail22.png'
+// import thumbnail34 from './projectThumbnail/thumbnail22.png'
+// import thumbnail35 from './projectThumbnail/thumbnail22.png'
+
+// import thumbnail36 from './projectThumbnail/thumbnail22.png'
+// import thumbnail37 from './projectThumbnail/thumbnail22.png'
+// import thumbnail38 from './projectThumbnail/thumbnail22.png'
+// import thumbnail39 from './projectThumbnail/thumbnail22.png'
+// import thumbnail40 from './projectThumbnail/thumbnail22.png'
+
 export default {
   thumbnail1,
   thumbnail2,
@@ -43,4 +67,14 @@ export default {
   thumbnail18,
   thumbnail19,
   thumbnail20,
+  thumbnail21,
+  thumbnail22,
+  thumbnail23,
+  thumbnail24,
+  thumbnail25,
+  thumbnail26,
+  thumbnail27,
+  thumbnail28,
+  thumbnail29,
+  thumbnail30,
 }

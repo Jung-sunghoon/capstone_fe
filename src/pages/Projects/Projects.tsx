@@ -16,7 +16,7 @@ const { Option } = Select
 
 const PROJECT_STATUSES = [
   { label: '진행 중', value: 'Ps_pr' },
-  { label: '완료', value: 'Ps_co' },
+  { label: '프로젝트 공유', value: 'Ps_co' },
 ]
 
 const Projects: React.FC = () => {
