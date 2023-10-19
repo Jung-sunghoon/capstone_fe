@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
 import { ProjectType } from '@src/types'
-import { Tag } from 'antd'
-import { EyeFilled, LikeFilled } from '@ant-design/icons'
+import { Button, Tag } from 'antd'
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeFilled,
+  LikeFilled,
+} from '@ant-design/icons'
 import './ProjectDetails.css'
 import {
   convertStatus,
@@ -9,7 +14,7 @@ import {
   formatDate,
 } from '@src/utils/common'
 // import { mockProjects } from './mock/mockProjects'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export interface ProjectDetails {}
@@ -19,6 +24,42 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const currentURL = window.location.href
   const segments = currentURL.split('/')
   const projectId = segments[segments.length - 1]
+  const navigate = useNavigate()
+
+  const handleEditProject = async () => {
+    try {
+      // Axios를 사용하여 서버에 PUT 요청을 보내 프로젝트 수정
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/update_project`,
+        {
+          projectInfo: project?.projectInfo, // 현재 프로젝트 정보
+          techNames: project?.techNames, // 기존 기술 스택 정보
+        },
+      )
+      // 프로젝트 수정 성공 시 다른 처리 (예: 리다이렉트 등)
+      console.log('프로젝트 수정 성공:', response.data)
+    } catch (error) {
+      // 오류 처리
+      console.error('프로젝트 수정 오류:', error)
+    }
+  }
+
+  const handleDeleteProject = async () => {
+    try {
+      // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
+      await axios.delete(
+        `${
+          import.meta.env.VITE_API_ENDPOINT
+        }/api/delete_project?projectId=${projectId}`,
+      )
+      // 프로젝트 삭제 성공 시 다른 처리 (예: 리다이렉트 등)
+      console.log('프로젝트 삭제 성공')
+      navigate('/projects')
+    } catch (error) {
+      // 오류 처리
+      console.error('프로젝트 삭제 오류:', error)
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,18 +81,33 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         // 오류 처리
         console.error('Error fetching project list:', error)
       }
-
-      // setProject(
-      //   mockProjects.find(
-      //     project =>
-      //       project.projectInfo.projectId === Number.parseInt(projectId),
-      //   ),
-      // )
     }
 
     // 초기 렌더링 시 데이터 가져오기
     fetchData()
   }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
+
+  const renderEditAndDeleteButtons = () => {
+    if (project && localStorage.userId === project.projectInfo.userId) {
+      return (
+        <div>
+          <Button
+            className="projectDetails__projectEditBtn"
+            onClick={handleEditProject}
+          >
+            <EditOutlined />
+          </Button>
+          <Button
+            onClick={handleDeleteProject}
+            className="projectDetails__projectDeleteBtn"
+          >
+            <DeleteOutlined />
+          </Button>
+        </div>
+      )
+    }
+    return null
+  }
 
   return (
     <div id="root">
@@ -107,7 +163,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           </section>
         </section>
         <div className="projectDetails__descriptionAll">
-          <h2 className="projectDetails__descriptionInfo">프로젝트 소개</h2>
+          <div className="projectDetails__descriptionInfoWrapper">
+            <h2 className="projectDetails__descriptionInfo">프로젝트 소개</h2>
+            {renderEditAndDeleteButtons()}
+          </div>
           <div className="projectDetails__descriptionPost">
             <div
               dangerouslySetInnerHTML={{
@@ -155,7 +214,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                   뒤로 가기
                 </button>
               </Link>
-
               <button className="projectDetails__commentBtn" name="register">
                 댓글 등록
               </button>

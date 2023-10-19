@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, message, Upload } from 'antd'
+import { Form, Input, Button, message, Upload, InputNumber } from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
 
 const Generate: React.FC = () => {
   const [form] = Form.useForm()
+  const [messageApi, contextHolder] = message.useMessage()
   const [textEditor, setTextEditor] = useState('')
   const navigate = useNavigate()
 
@@ -51,14 +52,14 @@ const Generate: React.FC = () => {
       )
 
       if (response.status === 200) {
-        message.success('프로젝트가 성공적으로 생성되었습니다.')
+        messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
         form.resetFields()
         navigate('/projects')
       } else {
-        message.error('프로젝트 생성 중 오류가 발생했습니다.')
+        messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
       }
     } catch (error) {
-      message.error('프로젝트 생성 중 오류가 발생했습니다.')
+      messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
       console.error('프로젝트 생성 중 오류:', error)
     }
   }
@@ -86,6 +87,7 @@ const Generate: React.FC = () => {
 
   return (
     <div>
+      {contextHolder}
       <Form
         form={form}
         name="generate"
@@ -120,7 +122,7 @@ const Generate: React.FC = () => {
             label="모집 인원"
             rules={[{ required: true, message: '모집 인원을 입력해주세요' }]}
           >
-            <Input />
+            <InputNumber />
           </Form.Item>
 
           <Form.Item label="대표 이미지">
@@ -138,7 +140,13 @@ const Generate: React.FC = () => {
               </Upload>
             </ImgCrop>{' '}
           </Form.Item>
-
+          <Form.Item
+            name="techNames"
+            label="기술 스택"
+            rules={[{ required: true, message: '기술 스택을 입력해주세요' }]}
+          >
+            <Input />
+          </Form.Item>
           <Form.Item name="description" label="프로젝트 내용">
             <div>
               <TextEditor

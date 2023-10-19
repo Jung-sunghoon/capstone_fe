@@ -20,7 +20,7 @@ const Header: React.FC = () => {
           <ul>
             <li>
               <Link to="/service-info" className="h__link">
-                서비스 소개
+                랭킹
               </Link>
             </li>
             <li>
