@@ -35,6 +35,7 @@ const SignUp: React.FC = () => {
     setUserData({ ...userData, [name]: value })
   }
 
+  //아이디 중복체크
   const handleUserIdCheck = async () => {
     if (!userData.userId) {
       setMessage('아이디를 입력하세요.')
@@ -59,6 +60,7 @@ const SignUp: React.FC = () => {
     }
   }
 
+  //닉네임 중복체크 api
   const handleNicknameCheck = async () => {
     if (!userData.nickname) {
       setMessage('닉네임을 입력하세요.')
