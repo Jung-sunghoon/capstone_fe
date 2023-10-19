@@ -17,6 +17,9 @@ interface UserData {
 const SignUp: React.FC = () => {
   const navigate = useNavigate()
   const [message, setMessage] = useState<string>('')
+  const [duplicateCheckMessage, setDuplicateCheckMessage] = useState<string>('')
+  const [isUserIdChecked, setIsUserIdChecked] = useState<boolean>(false)
+  const [isNicknameChecked, setIsNicknameChecked] = useState<boolean>(false)
 
   const [userData, setUserData] = useState<UserData>({
     userId: '',
@@ -32,8 +35,68 @@ const SignUp: React.FC = () => {
     setUserData({ ...userData, [name]: value })
   }
 
+  const handleUserIdCheck = async () => {
+    if (!userData.userId) {
+      setMessage('아이디를 입력하세요.')
+      return
+    }
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/id_duplicate_check`,
+        {
+          params: { id: userData.userId },
+        },
+      )
+
+      if (response.status === 200) {
+        setDuplicateCheckMessage('사용 가능한 아이디입니다.')
+        setIsUserIdChecked(true)
+      }
+    } catch {
+      setDuplicateCheckMessage('이미 사용 중인 아이디입니다.')
+      setIsUserIdChecked(false)
+    }
+  }
+
+  const handleNicknameCheck = async () => {
+    if (!userData.nickname) {
+      setMessage('닉네임을 입력하세요.')
+      return
+    }
+
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/nick_name_duplicate_check`,
+        {
+          params: {
+            nickName: userData.nickname,
+          },
+        },
+      )
+
+      if (response.status === 200) {
+        setDuplicateCheckMessage('사용 가능한 닉네임입니다.')
+        setIsNicknameChecked(true)
+      }
+    } catch {
+      setDuplicateCheckMessage('이미 사용 중인 닉네임입니다.')
+      setIsNicknameChecked(false)
+    }
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (!isUserIdChecked) {
+      setMessage('아이디 중복을 확인하세요.')
+      return
+    }
+
+    if (!isNicknameChecked) {
+      setMessage('닉네임 중복을 확인하세요.')
+      return
+    }
 
     // 필요한 정보가 입력되었는지 검증
     if (
@@ -79,7 +142,9 @@ const SignUp: React.FC = () => {
                 value={userData.userId}
                 onChange={handleChange}
               />
-              <Button style={{ width: 80 }}>중복확인</Button>
+              <Button onClick={handleUserIdCheck} style={{ width: 80 }}>
+                중복확인
+              </Button>
             </Space>
           </div>
         </div>
@@ -119,7 +184,9 @@ const SignUp: React.FC = () => {
                 value={userData.nickname}
                 onChange={handleChange}
               />
-              <Button style={{ width: 80 }}>중복확인</Button>
+              <Button onClick={handleNicknameCheck} style={{ width: 80 }}>
+                중복확인
+              </Button>
             </Space>
           </div>
         </div>
@@ -146,6 +213,7 @@ const SignUp: React.FC = () => {
           />
         </div>
         <p className="error__m">{message}</p>
+        <p className="error__m">{duplicateCheckMessage}</p>
         <Button type="primary" htmlType="submit" className="Signup__btn">
           회원가입
         </Button>
