@@ -27,7 +27,6 @@ const Generate: React.FC = () => {
       const thumbnailFile = fileList[0].originFileObj as Blob
 
       const formData = new FormData()
-      formData.append('thumbnail', thumbnailFile)
       formData.append(
         'project',
         JSON.stringify({
@@ -37,6 +36,7 @@ const Generate: React.FC = () => {
           recruitmentCount: values.recruitmentCount,
         }),
       )
+      formData.append('thumbnail', thumbnailFile)
 
       console.log('textEditor', textEditor)
 
