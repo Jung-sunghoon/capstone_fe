@@ -26,3 +26,17 @@ a:link {
 a:active {
   /* 원하는 스타일을 여기에 추가합니다. */
 }
+
+#generate .ant-upload-list-item-error {
+  border-color: #d9d9d9 !important;
+}
+#generate .ant-upload-list-item-name {
+  color: #afafaf !important;
+}
+#generate .anticon-delete {
+  color: #ba55d3 !important;
+}
+
+#generate .ant-tooltip {
+  display: none !important;
+}

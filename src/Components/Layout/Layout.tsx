@@ -7,7 +7,8 @@ const Layout = ({ children }: any) => {
 
       <main
         style={{
-          marginTop: '60px',
+          paddingTop: '60px',
+          width: '100%',
         }}
       >
         {children}
