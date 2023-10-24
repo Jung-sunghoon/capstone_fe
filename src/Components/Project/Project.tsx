@@ -105,7 +105,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
       <Link to={`/project/${info?.projectId}`}>
         <Meta
           title={info?.projectTitle}
-          description={projectData?.techNames.map(
+          description={projectData?.techNames?.map(
             (name: string, index: number) => {
               return (
                 <Tag key={'tag_' + name + index} color="magenta">

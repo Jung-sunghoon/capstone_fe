@@ -154,7 +154,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <li className="projectDetails__projectInfo">
                 <span className="projectInfo__title">기술 스택</span>
                 <span className="projectInfo__content">
-                  {project?.techNames.map((name: string, index: number) => {
+                  {project?.techNames?.map((name: string, index: number) => {
                     return (
                       <Tag key={'tag_' + name + index} color="magenta">
                         {name}
