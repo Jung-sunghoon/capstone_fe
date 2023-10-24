@@ -44,7 +44,7 @@ const Projects: React.FC = () => {
     setCurrentProjectStatus(status)
     performSearchAndSort()
   }
-  const handleNewPost = () => navigate('/Generate')
+  const handleNewPost = () => navigate('/generate')
 
   // Sorting & Filtering
   const performSearchAndSort = useCallback(() => {

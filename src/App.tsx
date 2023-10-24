@@ -19,6 +19,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/project/*" element={<ProjectDetails />} />
           <Route path="/generate/*" element={<Generate />} />
+          <Route path="/edit/*" element={<Generate />} />
           <Route path="/" element={<ServiceInfo />} />
         </Routes>
       </Layout>

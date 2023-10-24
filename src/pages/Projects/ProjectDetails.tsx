@@ -27,37 +27,41 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const navigate = useNavigate()
 
   const handleEditProject = async () => {
-    try {
-      // Axios를 사용하여 서버에 PUT 요청을 보내 프로젝트 수정
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/update_project`,
-        {
-          projectInfo: project?.projectInfo, // 현재 프로젝트 정보
-          techNames: project?.techNames, // 기존 기술 스택 정보
-        },
-      )
-      // 프로젝트 수정 성공 시 다른 처리 (예: 리다이렉트 등)
-      console.log('프로젝트 수정 성공:', response.data)
-    } catch (error) {
-      // 오류 처리
-      console.error('프로젝트 수정 오류:', error)
-    }
+    navigate(`/edit/${projectId}`)
+    // try {
+    //   // Axios를 사용하여 서버에 PUT 요청을 보내 프로젝트 수정
+    //   const response = await axios.put(
+    //     `${import.meta.env.VITE_API_ENDPOINT}/api/update_project`,
+    //     {
+    //       projectInfo: project?.projectInfo, // 현재 프로젝트 정보
+    //       techNames: project?.techNames, // 기존 기술 스택 정보
+    //     },
+    //   )
+    //   // 프로젝트 수정 성공 시 다른 처리 (예: 리다이렉트 등)
+    //   console.log('프로젝트 수정 성공:', response.data)
+    // } catch (error) {
+    //   // 오류 처리
+    //   console.error('프로젝트 수정 오류:', error)
+    // }
   }
 
   const handleDeleteProject = async () => {
-    try {
-      // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
-      await axios.delete(
-        `${
-          import.meta.env.VITE_API_ENDPOINT
-        }/api/delete_project?projectId=${projectId}`,
-      )
-      // 프로젝트 삭제 성공 시 다른 처리 (예: 리다이렉트 등)
-      console.log('프로젝트 삭제 성공')
-      navigate('/projects')
-    } catch (error) {
-      // 오류 처리
-      console.error('프로젝트 삭제 오류:', error)
+    const confirmDelete = window.confirm('프로젝트를 삭제하시겠습니까?')
+    if (confirmDelete) {
+      try {
+        // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
+        await axios.delete(
+          `${
+            import.meta.env.VITE_API_ENDPOINT
+          }/api/delete_project?projectId=${projectId}`,
+        )
+        // 프로젝트 삭제 성공 시 다른 처리 (예: 리다이렉트 등)
+        console.log('프로젝트 삭제 성공')
+        navigate('/projects')
+      } catch (error) {
+        // 오류 처리
+        console.error('프로젝트 삭제 오류:', error)
+      }
     }
   }
 
