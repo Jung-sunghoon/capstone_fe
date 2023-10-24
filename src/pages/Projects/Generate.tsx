@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, message, Upload, InputNumber } from 'antd'
+import { Form, Input, Button, message, Upload, InputNumber, Select } from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
 import { UploadOutlined } from '@ant-design/icons'
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
+import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
+
+const { Option } = Select
 
 const Generate: React.FC = () => {
   const [form] = Form.useForm()
@@ -15,20 +17,21 @@ const Generate: React.FC = () => {
   const currentURL = window.location.href
   const segments = currentURL.split('/')
   const projectId = segments[segments.length - 1]
+  const techstacks = localStorage.getItem('techstacks')
+  const projectStatus = [
+    { label: '진행 중', value: 'Ps_pr' },
+    { label: '프로젝트 공유', value: 'Ps_co' },
+  ]
+  const status = [
+    { label: '모집 중', value: 'S_pr' },
+    { label: '모집 완료', value: 'S_co' },
+  ]
 
-  const initialValue = {}
-  // const initialValue = {
-  //   projectId: 4,
-  //   projectTitle: 'test',
-  //   description: 'testtest',
-  //   projectStatus: 'Ps_pr',
-  //   recruitmentCount: 33,
-  // }
-
-  // const generateUrl = `${
-  //   import.meta.env.VITE_API_ENDPOINT
-  // }/api/generate_project`
-  // const editUrl = `${import.meta.env.VITE_API_ENDPOINT}/api/update_project`
+  const initialValue = {
+    projectStatus: '진행 중',
+    status: '모집 중',
+    recruitmentCount: 0,
+  }
 
   /*
   1. url이 generate인지 edit인지 구분
@@ -64,47 +67,81 @@ const Generate: React.FC = () => {
 
       console.log('textEditor', textEditor)
 
-      if (type === 'generate') {
-        formData.append(
-          'project',
-          JSON.stringify({
-            projectTitle: values.projectTitle,
-            userId: values.userId,
-            description: textEditor,
-            recruitmentCount: values.recruitmentCount,
-          }),
-        )
-        formData.append('thumbnail', thumbnailFile)
+      if (techstacks !== null) {
+        const selectedTechStacks = JSON.parse(techstacks)
 
-        const response = await axios.post(
-          `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
+        if (type === 'generate') {
+          formData.append(
+            'project',
+            JSON.stringify({
+              projectTitle: values.projectTitle,
+              userId: values.userId,
+              description: textEditor,
+              recruitmentCount: values.recruitmentCount,
+              projectStatus: values.projectStatus,
+              status: values.status,
+            }),
+          )
+          formData.append('thumbnail', thumbnailFile)
+          formData.append(
+            'techId',
+            selectedTechStacks.map((tech: { id: any }) => tech.id).join(','),
+          )
+
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
             },
-          },
-        )
+          )
 
-        if (response.status === 200) {
-          messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
-          form.resetFields()
-          navigate('/projects')
-        } else {
-          messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
+          if (response.status === 200) {
+            messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
+            form.resetFields()
+            navigate('/projects')
+          } else {
+            messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
+          }
+        } else if (type === 'edit') {
+          formData.append(
+            'project',
+            JSON.stringify({
+              projectTitle: values.projectTitle,
+              description: textEditor,
+              recruitmentCount: values.recruitmentCount,
+              projectStatus: values.projectStatus,
+              status: values.status,
+            }),
+          )
+          formData.append('thumbnail', thumbnailFile)
+          formData.append(
+            'techId',
+            selectedTechStacks.map((tech: { id: any }) => tech.id).join(','),
+          )
+
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            },
+          )
+
+          if (response.status === 200) {
+            messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
+            form.resetFields()
+            navigate('/projects')
+          } else {
+            messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
+          }
+
+          console.log('edit finish')
         }
-      } else if (type === 'edit') {
-        formData.append(
-          'project',
-          JSON.stringify({
-            projectTitle: values.projectTitle,
-            description: textEditor,
-            recruitmentCount: values.recruitmentCount,
-          }),
-        )
-        formData.append('thumbnail', thumbnailFile)
-
-        console.log('edit finish')
       }
     } catch (error) {
       messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
@@ -119,6 +156,10 @@ const Generate: React.FC = () => {
   }) => {
     console.log('newFileList', newFileList)
     setFileList(newFileList)
+  }
+
+  const handleChange = (value: string[]) => {
+    console.log(`selected ${value}`)
   }
 
   return (
@@ -161,7 +202,20 @@ const Generate: React.FC = () => {
           >
             <InputNumber style={{ width: '100%' }} min={0} />
           </Form.Item>
-
+          <Form.Item
+            name="projectStatus"
+            label="진행 상태"
+            rules={[{ required: true, message: '진행 상태를 입력해주세요' }]}
+          >
+            <Select onChange={handleChange} options={projectStatus}></Select>
+          </Form.Item>
+          <Form.Item
+            name="status"
+            label="모집 상태"
+            rules={[{ required: true, message: '모집 상태를 입력해주세요' }]}
+          >
+            <Select onChange={handleChange} options={status}></Select>
+          </Form.Item>
           <Form.Item label="대표 이미지">
             <Upload
               beforeUpload={f => {
@@ -185,7 +239,20 @@ const Generate: React.FC = () => {
             label="기술 스택"
             rules={[{ required: true, message: '기술 스택을 입력해주세요' }]}
           >
-            <Input />
+            <Select
+              mode="multiple"
+              style={{ width: '100%' }}
+              placeholder="기술 스택"
+              onChange={handleChange}
+              optionLabelProp="label"
+            >
+              {techstacks &&
+                JSON.parse(techstacks)?.map((tech: any, index: number) => (
+                  <Option key={'tag_' + index} value={tech.techName}>
+                    {tech.techName}
+                  </Option>
+                ))}
+            </Select>
           </Form.Item>
           <Form.Item name="description" label="프로젝트 내용">
             <div>

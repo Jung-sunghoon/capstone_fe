@@ -16,7 +16,6 @@ import {
 // import { mockProjects } from './mock/mockProjects'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { time } from 'console'
 
 export interface ProjectDetails {}
 
@@ -150,7 +149,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                       )
                       .map((tech: any, index: number) => {
                         return (
-                          <Tag key={'tag_' + name + index} color="magenta">
+                          <Tag key={'tag_' + index} color="magenta">
                             {tech?.techName}
                           </Tag>
                         )

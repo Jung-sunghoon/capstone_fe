@@ -19,7 +19,12 @@ const Header: React.FC = () => {
         <div className="header__nav">
           <ul>
             <li>
-              <Link to="/service-info" className="h__link">
+              <Link to="/profile" className="h__link">
+                프로필
+              </Link>
+            </li>
+            <li>
+              <Link to="/ranking" className="h__link">
                 랭킹
               </Link>
             </li>

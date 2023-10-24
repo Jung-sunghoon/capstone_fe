@@ -18,6 +18,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const info = projectData?.projectInfo
   const thumbnail = projectData?.thumbnail
   const navigate = useNavigate()
+  const techstacks = localStorage.getItem('techstacks')
 
   return (
     <Card
@@ -104,15 +105,18 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
       <Link to={`/project/${info?.projectId}`}>
         <Meta
           title={info?.projectTitle}
-          description={projectData?.techNames?.map(
-            (name: string, index: number) => {
-              return (
-                <Tag key={'tag_' + name + index} color="magenta">
-                  {name}
-                </Tag>
-              )
-            },
-          )}
+          description={
+            techstacks &&
+            JSON.parse(techstacks)
+              ?.filter((item: any) => projectData?.techId.includes(item.techId))
+              .map((tech: any, index: number) => {
+                return (
+                  <Tag key={'tag_' + index} color="magenta">
+                    {tech?.techName}
+                  </Tag>
+                )
+              })
+          }
         />
       </Link>
     </Card>

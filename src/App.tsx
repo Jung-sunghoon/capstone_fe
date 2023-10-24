@@ -9,6 +9,8 @@ import { AuthProvider } from './AuthContext' // AuthProvider 추가
 import Generate from './pages/Projects/Generate'
 import { useEffect } from 'react'
 import axios from 'axios'
+import Profile from './pages/Profile/Profile'
+import Ranking from './pages/Ranking/Ranking'
 
 function App() {
   useEffect(() => {
@@ -38,7 +40,8 @@ function App() {
         <Routes>
           <Route path="/login/*" element={<Login />} />
           <Route path="/sign-up/*" element={<SignUp />} />
-          <Route path="/service-info/*" element={<ServiceInfo />} />
+          <Route path="/profile/*" element={<Profile />} />
+          <Route path="/ranking/*" element={<Ranking />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/project/*" element={<ProjectDetails />} />
           <Route path="/generate/*" element={<Generate />} />

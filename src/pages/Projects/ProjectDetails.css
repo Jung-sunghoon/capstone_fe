@@ -114,6 +114,7 @@ ul {
 .projectInfo__title {
   color: #717171;
   margin-right: 36px;
+  min-width: 100px;
 }
 
 .projectInfo__content {
