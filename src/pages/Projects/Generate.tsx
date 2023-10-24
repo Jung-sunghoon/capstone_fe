@@ -5,11 +5,18 @@ import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
 import { UploadOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
+import { ProjectType } from '@src/types'
 
 const { Option } = Select
 
 const Generate: React.FC = () => {
   const [form] = Form.useForm()
+  const [initialValue, setInitialValue] = useState({
+    projectTitle: '',
+    projectStatus: '진행 중',
+    status: '모집 중',
+    recruitmentCount: 0,
+  })
   const [messageApi, contextHolder] = message.useMessage()
   const [textEditor, setTextEditor] = useState('')
   const [type, setType] = useState<string>('')
@@ -27,12 +34,6 @@ const Generate: React.FC = () => {
     { label: '모집 완료', value: 'S_co' },
   ]
 
-  const initialValue = {
-    projectStatus: '진행 중',
-    status: '모집 중',
-    recruitmentCount: 0,
-  }
-
   /*
   1. url이 generate인지 edit인지 구분
   2. edit일 경우 projectId값 확인
@@ -48,12 +49,51 @@ const Generate: React.FC = () => {
       })
     }
   }, [])
+  // useEffect(() => {
+  //   form.setFieldsValue({
+  //     projectTitle: 'test',
+  //     projectStatus: '진행 중',
+  //     status: '모집 중',
+  //     recruitmentCount: 10,
+  //     // ... 여기에 필요한 다른 필드 값을 추가하십시오.
+  //   })
+  // }, [project])
 
   useEffect(() => {
     if (currentURL.includes('/generate')) {
       setType('generate')
     } else if (currentURL.includes(`/edit/${projectId}`)) {
       setType('edit')
+
+      const fetchData = async () => {
+        try {
+          // Axios를 사용하여 서버에서 프로젝트 목록 가져오기
+          const response = await axios.post(
+            `${
+              import.meta.env.VITE_API_ENDPOINT
+            }/api/single_information_project?projectId=${projectId}`,
+            { projectId },
+          )
+          if (response.status === 200) {
+            // 가져온 프로젝트 목록을 설정
+
+            form.setFieldsValue({
+              projectTitle: response.data.projectInfo.projectTitle,
+              projectStatus: '진행 중',
+              status: '모집 중',
+              recruitmentCount: 10,
+              //
+            })
+          } else {
+          }
+        } catch (error) {
+          // 오류 처리
+          console.error('Error fetching project list:', error)
+        }
+      }
+
+      // 초기 렌더링 시 데이터 가져오기
+      fetchData()
     }
   }, [currentURL])
 
@@ -186,7 +226,7 @@ const Generate: React.FC = () => {
               { required: true, message: '프로젝트 제목을 입력해주세요' },
             ]}
           >
-            <Input />
+            <Input value={initialValue.projectTitle} />
           </Form.Item>
           <Form.Item
             name="userId"
