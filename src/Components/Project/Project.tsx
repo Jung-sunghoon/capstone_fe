@@ -22,9 +22,8 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
   return (
     <Card
       style={{
-        maxWidth: '450px',
-        minWidth: '300px',
         marginBottom: '30px',
+        maxWidth: '400px',
       }}
       // cover={<img alt="example" src="URL_OF_YOUR_THUMBNAIL_IMAGE" />}
       cover={

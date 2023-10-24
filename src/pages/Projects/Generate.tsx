@@ -3,7 +3,7 @@ import { Form, Input, Button, message, Upload, InputNumber } from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
-import ImgCrop from 'antd-img-crop'
+import { UploadOutlined } from '@ant-design/icons'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
 
 const Generate: React.FC = () => {
@@ -114,23 +114,11 @@ const Generate: React.FC = () => {
 
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  const onChange: UploadProps['onChange'] = async ({
+    fileList: newFileList,
+  }) => {
+    console.log('newFileList', newFileList)
     setFileList(newFileList)
-  }
-
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string
-    if (!src) {
-      src = await new Promise(resolve => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file.originFileObj as RcFile)
-        reader.onload = () => resolve(reader.result as string)
-      })
-    }
-    const image = new Image()
-    image.src = src
-    const imgWindow = window.open(src)
-    imgWindow?.document.write(image.outerHTML)
   }
 
   return (
@@ -175,17 +163,22 @@ const Generate: React.FC = () => {
           </Form.Item>
 
           <Form.Item label="대표 이미지">
-            <ImgCrop rotationSlider>
-              <Upload
-                action={`${import.meta.env.VITE_API_ENDPOINT}`}
-                listType="picture-card"
-                fileList={fileList}
-                onChange={onChange}
-                onPreview={onPreview}
-              >
-                {fileList.length < 1 && '+ Upload'}
-              </Upload>
-            </ImgCrop>{' '}
+            <Upload
+              beforeUpload={f => {
+                f
+              }}
+              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+              listType="picture"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={() => {
+                return
+              }}
+            >
+              {fileList.length < 1 && (
+                <Button icon={<UploadOutlined />}>Click to Image Upload</Button>
+              )}
+            </Upload>
           </Form.Item>
           <Form.Item
             name="techNames"

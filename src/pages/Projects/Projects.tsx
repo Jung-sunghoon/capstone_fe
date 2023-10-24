@@ -127,15 +127,7 @@ const Projects: React.FC = () => {
       }}
     >
       <div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginLeft: '30px',
-            marginRight: '30px',
-            paddingTop: '20px',
-          }}
-        >
+        <div className="header-container">
           <ul className="B__sort__menu">
             <Select
               defaultValue={sortOptionEnums.latest}
@@ -189,7 +181,7 @@ const Projects: React.FC = () => {
             marginLeft: '30px',
             marginRight: '30px',
           }}
-          grid={{ gutter: 12, column: 3 }}
+          grid={{ gutter: 12, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 6 }}
           dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
           renderItem={(item: ProjectType) => (
             <List.Item>
