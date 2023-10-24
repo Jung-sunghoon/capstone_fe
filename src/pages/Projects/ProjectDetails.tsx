@@ -16,6 +16,7 @@ import {
 // import { mockProjects } from './mock/mockProjects'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { time } from 'console'
 
 export interface ProjectDetails {}
 
@@ -25,24 +26,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const segments = currentURL.split('/')
   const projectId = segments[segments.length - 1]
   const navigate = useNavigate()
+  const techstacks = localStorage.getItem('techstacks')
 
   const handleEditProject = async () => {
     navigate(`/edit/${projectId}`)
-    // try {
-    //   // Axios를 사용하여 서버에 PUT 요청을 보내 프로젝트 수정
-    //   const response = await axios.put(
-    //     `${import.meta.env.VITE_API_ENDPOINT}/api/update_project`,
-    //     {
-    //       projectInfo: project?.projectInfo, // 현재 프로젝트 정보
-    //       techNames: project?.techNames, // 기존 기술 스택 정보
-    //     },
-    //   )
-    //   // 프로젝트 수정 성공 시 다른 처리 (예: 리다이렉트 등)
-    //   console.log('프로젝트 수정 성공:', response.data)
-    // } catch (error) {
-    //   // 오류 처리
-    //   console.error('프로젝트 수정 오류:', error)
-    // }
   }
 
   const handleDeleteProject = async () => {
@@ -113,6 +100,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     return null
   }
 
+  console.log('project', project?.techId)
+
   return (
     <div id="root">
       <div className="projectDetails__wraaper">
@@ -154,13 +143,18 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <li className="projectDetails__projectInfo">
                 <span className="projectInfo__title">기술 스택</span>
                 <span className="projectInfo__content">
-                  {project?.techNames?.map((name: string, index: number) => {
-                    return (
-                      <Tag key={'tag_' + name + index} color="magenta">
-                        {name}
-                      </Tag>
-                    )
-                  })}
+                  {techstacks &&
+                    JSON.parse(techstacks)
+                      ?.filter((item: any) =>
+                        project?.techId.includes(item.techId),
+                      )
+                      .map((tech: any, index: number) => {
+                        return (
+                          <Tag key={'tag_' + name + index} color="magenta">
+                            {tech?.techName}
+                          </Tag>
+                        )
+                      })}
                 </span>
               </li>
             </ul>
