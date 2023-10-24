@@ -41,7 +41,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             import.meta.env.VITE_API_ENDPOINT
           }/api/delete_project?projectId=${projectId}`,
         )
-        // 프로젝트 삭제 성공 시 다른 처리 (예: 리다이렉트 등)
         console.log('프로젝트 삭제 성공')
         navigate('/projects')
       } catch (error) {
@@ -77,7 +76,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     fetchData()
   }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
 
-  const renderEditAndDeleteButtons = () => {
+  const renderProjectEditAndDeleteButtons = () => {
     if (project && localStorage.userId === project.projectInfo.userId) {
       return (
         <div>
@@ -162,7 +161,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         <div className="projectDetails__descriptionAll">
           <div className="projectDetails__descriptionInfoWrapper">
             <h2 className="projectDetails__descriptionInfo">프로젝트 소개</h2>
-            {renderEditAndDeleteButtons()}
+            {renderProjectEditAndDeleteButtons()}
           </div>
           <div className="projectDetails__descriptionPost">
             <div

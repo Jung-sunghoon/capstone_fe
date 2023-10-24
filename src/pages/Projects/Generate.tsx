@@ -79,11 +79,15 @@ const Generate: React.FC = () => {
 
             form.setFieldsValue({
               projectTitle: response.data.projectInfo.projectTitle,
-              projectStatus: '진행 중',
-              status: '모집 중',
-              recruitmentCount: 10,
-              //
+              projectStatus: response.data.projectInfo.projectStatus,
+              status: response.data.projectInfo.status,
+              recruitmentCount: response.data.projectInfo.recruitmentCount,
+              techId: response.data.projectInfo.techId,
+              description: response.data.projectInfo.description,
             })
+
+            console.log(response.data.projectInfo.techId)
+            console.log(response.data.projectInfo.description)
           } else {
           }
         } catch (error) {
@@ -124,7 +128,7 @@ const Generate: React.FC = () => {
           )
           formData.append('thumbnail', thumbnailFile)
           formData.append(
-            'techId',
+            'techName',
             selectedTechStacks.map((tech: { id: any }) => tech.id).join(','),
           )
 
@@ -158,7 +162,7 @@ const Generate: React.FC = () => {
           )
           formData.append('thumbnail', thumbnailFile)
           formData.append(
-            'techId',
+            'techName',
             selectedTechStacks.map((tech: { id: any }) => tech.id).join(','),
           )
 
@@ -226,7 +230,7 @@ const Generate: React.FC = () => {
               { required: true, message: '프로젝트 제목을 입력해주세요' },
             ]}
           >
-            <Input value={initialValue.projectTitle} />
+            <Input />
           </Form.Item>
           <Form.Item
             name="userId"
@@ -275,7 +279,7 @@ const Generate: React.FC = () => {
             </Upload>
           </Form.Item>
           <Form.Item
-            name="techNames"
+            name="techId"
             label="기술 스택"
             rules={[{ required: true, message: '기술 스택을 입력해주세요' }]}
           >
