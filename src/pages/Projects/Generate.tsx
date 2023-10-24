@@ -3,7 +3,7 @@ import { Form, Input, Button, message, Upload, InputNumber } from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
-import ImgCrop from 'antd-img-crop'
+import { UploadOutlined } from '@ant-design/icons'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
 
 const Generate: React.FC = () => {
@@ -175,7 +175,9 @@ const Generate: React.FC = () => {
                 return
               }}
             >
-              {fileList.length < 1 && '+ Upload'}
+              {fileList.length < 1 && (
+                <Button icon={<UploadOutlined />}>Click to Image Upload</Button>
+              )}
             </Upload>
           </Form.Item>
           <Form.Item
