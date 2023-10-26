@@ -55,3 +55,18 @@ export function convertStatus(status: string | undefined) {
   }
   return result
 }
+
+export function convertApplyStatus(status: string | undefined) {
+  let result = ''
+  switch (status) {
+    case 'PENDING':
+      result = '대기중'
+      break
+    case 'REJECTED':
+      result = '거절됨'
+      break
+    case 'ACCEPTED':
+      result = '승인됨'
+  }
+  return result
+}
