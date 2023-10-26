@@ -34,6 +34,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
           height={120}
           style={{
             objectFit: 'cover',
+            cursor: 'pointer',
           }}
           alt="example"
           //@ts-ignore
