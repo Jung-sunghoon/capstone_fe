@@ -5,13 +5,15 @@ import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
 import { FormOutlined, UploadOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
-import { ProjectType } from '@src/types'
+
+type ProjectStatusType = { label: string; value: string }
+type StatusType = { label: string; value: string }
+type TechstackType = { techId: string; techName: string }
 
 const { Option } = Select
 
 const Generate: React.FC = () => {
   const [editButton, setEditButton] = useState(false)
-  const [selectedTech, setSelectedTech] = useState([])
   const [form] = Form.useForm()
   const [initialValue, setInitialValue] = useState({
     projectTitle: '',
@@ -27,174 +29,135 @@ const Generate: React.FC = () => {
   const segments = currentURL.split('/')
   const projectId = segments[segments.length - 1]
   const techstacks = localStorage.getItem('techstacks')
-  const projectStatus = [
+  const [fileList, setFileList] = useState<UploadFile[]>([])
+
+  const projectStatus: ProjectStatusType[] = [
     { label: '진행 중', value: 'Ps_pr' },
     { label: '프로젝트 공유', value: 'Ps_co' },
   ]
-  const status = [
+  const status: StatusType[] = [
     { label: '모집 중', value: 'S_pr' },
     { label: '모집 완료', value: 'S_co' },
   ]
 
+  // 컴포넌트가 마운트될 때와 URL이 변경될 때 데이터를 가져오기 위한 useEffect
+  // type 별로 실행 되기 위한 분기
   useEffect(() => {
     const savedUserId = localStorage.getItem('userId')
     if (savedUserId) {
-      form.setFieldsValue({
-        userId: savedUserId,
-      })
+      form.setFieldsValue({ userId: savedUserId })
     }
-  }, [])
 
-  useEffect(() => {
     if (currentURL.includes('/generate')) {
       setType('generate')
     } else if (currentURL.includes(`/edit/${projectId}`)) {
       setType('edit')
-
-      // localStorage.setItem('description', description)
-
-      const fetchData = async () => {
-        try {
-          // Axios를 사용하여 서버에서 프로젝트 목록 가져오기
-          const response = await axios.post(
-            `${
-              import.meta.env.VITE_API_ENDPOINT
-            }/api/single_information_project?projectId=${projectId}`,
-            { projectId },
-          )
-          if (response.status === 200) {
-            // 가져온 프로젝트 목록을 설정
-
-            form.setFieldsValue({
-              projectTitle: response.data.projectInfo.projectTitle,
-              projectStatus: response.data.projectInfo.projectStatus,
-              status: response.data.projectInfo.status,
-              recruitmentCount: response.data.projectInfo.recruitmentCount,
-              techId:
-                techstacks &&
-                JSON.parse(techstacks)
-                  ?.filter((item: any) =>
-                    response.data.techId?.includes(item.techId),
-                  )
-                  .map((tech: any, index: number) => {
-                    return tech.techName
-                  }),
-
-              description: response.data.projectInfo.description,
-            })
-
-            console.log(response.data.projectInfo.techId)
-            console.log(response.data.projectInfo.description)
-            setTextEditor(response.data.projectInfo.description)
-          } else {
-          }
-        } catch (error) {
-          // 오류 처리
-          console.error('Error fetching project list:', error)
-        }
-      }
-
-      // 초기 렌더링 시 데이터 가져오기
-      fetchData()
+      fetchProjectData()
     }
   }, [currentURL])
 
+  // 프로젝트 디테일 정보 데이터를 가져오는 함수
+  const fetchProjectData = async () => {
+    try {
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_API_ENDPOINT
+        }/api/single_information_project?projectId=${projectId}`,
+        { projectId },
+      )
+
+      // 정상으로 가져옴
+      if (response.status === 200) {
+        const projectInfo = response.data.projectInfo
+        form.setFieldsValue({
+          projectTitle: projectInfo.projectTitle,
+          projectStatus: projectInfo.projectStatus,
+          status: projectInfo.status,
+          recruitmentCount: projectInfo.recruitmentCount,
+          techId:
+            techstacks &&
+            JSON.parse(techstacks)
+              .filter((item: TechstackType) =>
+                projectInfo.techId?.includes(item.techId),
+              )
+              .map((tech: TechstackType) => tech.techName),
+          description: projectInfo.description,
+        })
+        setTextEditor(projectInfo.description)
+      }
+    } catch (error) {
+      console.error('Error fetching project list:', error)
+    }
+  }
+
+  // 프로젝트를 생성하거나 업데이트하는 함수
+  // type 별로 실행 되기 위한 분기
+  const createOrUpdateProject = async (
+    type: 'generate' | 'edit',
+    values: any,
+    textEditor: string,
+    techstacks: any,
+    fileList: any,
+  ) => {
+    const formData = new FormData()
+
+    formData.append(
+      'project',
+      JSON.stringify({
+        projectTitle: values.projectTitle,
+        userId: type === 'generate' ? values.userId : undefined,
+        description: textEditor,
+        recruitmentCount: values.recruitmentCount,
+        projectStatus: values.projectStatus,
+        status: values.status,
+      }),
+    )
+
+    const thumbnailFile = fileList[0]?.originFileObj as Blob
+    formData.append('thumbnail', thumbnailFile)
+    formData.append(
+      'techName',
+      JSON.parse(techstacks)
+        ?.filter((item: any) => values?.techId.includes(item.techName))
+        .map((tech: any) => tech.techId),
+    )
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    )
+
+    return response
+  }
+
+  // Form 제출 시 실행되는 콜백 함수
   const onFinish = async (values: any) => {
     try {
-      localStorage.setItem('userId', values.userId)
+      if (type !== 'generate' && type !== 'edit') return
 
-      console.log('fileList', fileList)
+      if (type === 'generate') {
+        localStorage.setItem('userId', values.userId)
+      }
 
-      const thumbnailFile = fileList[0]?.originFileObj as Blob
+      const response = await createOrUpdateProject(
+        type,
+        values,
+        textEditor,
+        techstacks,
+        fileList,
+      )
 
-      const formData = new FormData()
-
-      console.log('textEditor', textEditor)
-
-      if (techstacks !== null) {
-        const selectedTechStacks = JSON.parse(techstacks)
-
-        console.log('values', values)
-        if (type === 'generate') {
-          formData.append(
-            'project',
-            JSON.stringify({
-              projectTitle: values.projectTitle,
-              userId: values.userId,
-              description: textEditor,
-              recruitmentCount: values.recruitmentCount,
-              projectStatus: values.projectStatus,
-              status: values.status,
-            }),
-          )
-          formData.append('thumbnail', thumbnailFile)
-          formData.append(
-            'techName',
-            JSON.parse(techstacks)
-              ?.filter((item: any) => values?.techId.includes(item.techId))
-              .map((tech: any, index: number) => {
-                return tech.techId
-              }),
-          )
-
-          const response = await axios.post(
-            `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            },
-          )
-
-          if (response.status === 200) {
-            messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
-            form.resetFields()
-            navigate('/projects')
-          } else {
-            messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
-          }
-        } else if (type === 'edit') {
-          formData.append(
-            'project',
-            JSON.stringify({
-              projectTitle: values.projectTitle,
-              description: textEditor,
-              recruitmentCount: values.recruitmentCount,
-              projectStatus: values.projectStatus,
-              status: values.status,
-            }),
-          )
-          formData.append('thumbnail', thumbnailFile)
-          formData.append(
-            'techName',
-            JSON.parse(techstacks)
-              ?.filter((item: any) => values?.techId.includes(item.techName))
-              .map((tech: any, index: number) => {
-                return tech.techId
-              }),
-          )
-
-          const response = await axios.post(
-            `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            },
-          )
-
-          if (response.status === 200) {
-            messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
-            form.resetFields()
-            navigate('/projects')
-          } else {
-            messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
-          }
-
-          console.log('edit finish')
-        }
+      if (response.status === 200) {
+        messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
+        form.resetFields()
+        navigate('/projects')
+      } else {
+        messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
       }
     } catch (error) {
       messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
@@ -202,8 +165,7 @@ const Generate: React.FC = () => {
     }
   }
 
-  const [fileList, setFileList] = useState<UploadFile[]>([])
-
+  // 업로드 변경 시 실행되는 콜백 함수
   const onChange: UploadProps['onChange'] = async ({
     fileList: newFileList,
   }) => {
@@ -211,6 +173,7 @@ const Generate: React.FC = () => {
     setFileList(newFileList)
   }
 
+  // Select 변경 시 실행되는 콜백 함수
   const handleChange = (value: string[]) => {
     console.log(`selected ${value}`)
   }
