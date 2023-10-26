@@ -35,6 +35,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const techstacks = localStorage.getItem('techstacks')
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
+  const projectGenerationUserId = project?.projectInfo?.userId
+  const userId = localStorage.userId
 
   const handleEditProject = async () => {
     navigate(`/edit/${projectId}`)
@@ -91,8 +93,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
 
   const handleGenerateComment = async () => {
-    const projectGenerationUserId = project?.projectInfo?.userId
-    const userId = localStorage.userId
     try {
       const response = await axios.post(
         `${
@@ -139,20 +139,19 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
 
   const handleDeleteComment = async () => {
-    const confirmDelete = window.confirm('프로젝트를 삭제하시겠습니까?')
+    const confirmDelete = window.confirm('댓글을 삭제하시겠습니까?')
     if (confirmDelete) {
       try {
         // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
         await axios.delete(
-          `${import.meta.env.VITE_API_ENDPOINT}/
-          /api/comments_delete/{projectId}
-          `,
+          `${
+            import.meta.env.VITE_API_ENDPOINT
+          }/api/comments_delete/${projectId}?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
         )
-        console.log('프로젝트 삭제 성공')
-        navigate('/projects')
+        console.log('댓글 삭제 성공')
       } catch (error) {
         // 오류 처리
-        console.error('프로젝트 삭제 오류:', error)
+        console.error('댓글 삭제 오류:', error)
       }
     }
   }
@@ -161,12 +160,12 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     if (localStorage.userId === commentUserId) {
       return (
         <div>
-          <Button
+          {/* <Button
             className="projectDetails__commentEditBtn"
             onClick={handleEditComment}
           >
             <EditOutlined />
-          </Button>
+          </Button> */}
           <Button
             onClick={handleDeleteComment}
             className="projectDetails__commentDeleteBtn"
