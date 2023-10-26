@@ -104,6 +104,7 @@ const Generate: React.FC = () => {
     formData.append(
       'project',
       JSON.stringify({
+        projectId: type === 'edit' ? projectId : null,
         projectTitle: values.projectTitle,
         userId: type === 'generate' ? values.userId : undefined,
         description: textEditor,
