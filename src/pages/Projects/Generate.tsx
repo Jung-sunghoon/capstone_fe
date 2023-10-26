@@ -58,7 +58,7 @@ const Generate: React.FC = () => {
     } else if (currentURL.includes(`/edit/${projectId}`)) {
       setType('edit')
 
-      localStorage.setItem('description', description)
+      // localStorage.setItem('description', description)
 
       const fetchData = async () => {
         try {

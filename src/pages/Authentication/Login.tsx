@@ -33,7 +33,7 @@ const Login: React.FC = () => {
         // 로그인 성공 시
         localStorage.setItem('userId', userId) // userId를 로컬 스토리지에 저장
         login()
-        navigate('/service-info')
+        navigate('/projects')
       } else {
         // 로그인 실패 시
         console.error('로그인 오류: 로그인 실패')
