@@ -8,7 +8,7 @@ import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
 
 type ProjectStatusType = { label: string; value: string }
 type StatusType = { label: string; value: string }
-type TechstackType = { techId: string; techName: string }
+type TechstackType = { techId: number; techName: string }
 
 const { Option } = Select
 
