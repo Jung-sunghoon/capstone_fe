@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Form,
-  Input,
-  Button,
-  message,
-  Upload,
-  InputNumber,
-  Select,
-  Descriptions,
-} from 'antd'
+import { Form, Input, Button, message, Upload, InputNumber, Select } from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
-import { UploadOutlined } from '@ant-design/icons'
+import { FormOutlined, UploadOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
 import { ProjectType } from '@src/types'
 
 const { Option } = Select
 
 const Generate: React.FC = () => {
+  const [editButton, setEditButton] = useState(false)
+  const [selectedTech, setSelectedTech] = useState([])
   const [form] = Form.useForm()
   const [initialValue, setInitialValue] = useState({
     projectTitle: '',
@@ -77,12 +70,22 @@ const Generate: React.FC = () => {
               projectStatus: response.data.projectInfo.projectStatus,
               status: response.data.projectInfo.status,
               recruitmentCount: response.data.projectInfo.recruitmentCount,
-              techId: response.data.projectInfo.techId,
+              techId:
+                techstacks &&
+                JSON.parse(techstacks)
+                  ?.filter((item: any) =>
+                    response.data.techId?.includes(item.techId),
+                  )
+                  .map((tech: any, index: number) => {
+                    return tech.techName
+                  }),
+
               description: response.data.projectInfo.description,
             })
 
             console.log(response.data.projectInfo.techId)
             console.log(response.data.projectInfo.description)
+            setTextEditor(response.data.projectInfo.description)
           } else {
           }
         } catch (error) {
@@ -100,7 +103,9 @@ const Generate: React.FC = () => {
     try {
       localStorage.setItem('userId', values.userId)
 
-      const thumbnailFile = fileList[0].originFileObj as Blob
+      console.log('fileList', fileList)
+
+      const thumbnailFile = fileList[0]?.originFileObj as Blob
 
       const formData = new FormData()
 
@@ -109,6 +114,7 @@ const Generate: React.FC = () => {
       if (techstacks !== null) {
         const selectedTechStacks = JSON.parse(techstacks)
 
+        console.log('values', values)
         if (type === 'generate') {
           formData.append(
             'project',
@@ -124,7 +130,11 @@ const Generate: React.FC = () => {
           formData.append('thumbnail', thumbnailFile)
           formData.append(
             'techName',
-            selectedTechStacks.map((tech: { id: any }) => tech.id).join(','),
+            JSON.parse(techstacks)
+              ?.filter((item: any) => values?.techId.includes(item.techId))
+              .map((tech: any, index: number) => {
+                return tech.techId
+              }),
           )
 
           const response = await axios.post(
@@ -158,7 +168,11 @@ const Generate: React.FC = () => {
           formData.append('thumbnail', thumbnailFile)
           formData.append(
             'techName',
-            selectedTechStacks.map((tech: { id: any }) => tech.id).join(','),
+            JSON.parse(techstacks)
+              ?.filter((item: any) => values?.techId.includes(item.techName))
+              .map((tech: any, index: number) => {
+                return tech.techId
+              }),
           )
 
           const response = await axios.post(
@@ -284,6 +298,7 @@ const Generate: React.FC = () => {
               placeholder="기술 스택"
               onChange={handleChange}
               optionLabelProp="label"
+              defaultValue={[]}
             >
               {techstacks &&
                 JSON.parse(techstacks)?.map((tech: any, index: number) => (
@@ -295,12 +310,37 @@ const Generate: React.FC = () => {
           </Form.Item>
           <Form.Item name="description" label="프로젝트 내용">
             <div>
-              <TextEditor
-                isNew={true}
-                edit={true}
-                setTextEditor={setTextEditor}
-                html={''}
-              />
+              {type === 'generate' ? (
+                <TextEditor
+                  isNew={false}
+                  edit={true}
+                  setTextEditor={setTextEditor}
+                  html={''}
+                />
+              ) : (
+                <div>
+                  <div>
+                    <Button
+                      style={{
+                        display: editButton ? 'none' : 'block',
+                        marginBottom: '10px',
+                      }}
+                      onClick={() => {
+                        setEditButton(true)
+                      }}
+                      icon={<FormOutlined />}
+                    >
+                      Click to Edit Description
+                    </Button>
+                  </div>
+                  <TextEditor
+                    isNew={false}
+                    edit={editButton}
+                    setTextEditor={setTextEditor}
+                    html={textEditor}
+                  />
+                </div>
+              )}
             </div>
           </Form.Item>
         </div>
