@@ -1,4 +1,4 @@
-const Ranking = () => {
+const Ranking: React.FC = () => {
   return <div>Ranking</div>
 }
 

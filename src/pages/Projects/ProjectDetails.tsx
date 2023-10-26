@@ -435,9 +435,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                         {comment?.userId}
                       </div>
                       <div className="commentList__generateDate">
-                        {comment?.createdAt
-                          ? formatDate(new Date(comment?.createdAt))
-                          : ''}
+                        {comment?.createdAt}
+                        {/* ? formatDate(new Date(comment?.createdAt))
+                          : ''} */}
                       </div>
                     </div>
                   </div>

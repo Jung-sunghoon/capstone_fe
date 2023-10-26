@@ -19,3 +19,15 @@ export interface ProjectType {
 }
 
 export type ProjectsType = ProjectType[]
+
+export interface UserType {
+  userId: string
+  password: string
+  name: string
+  nickname: string
+  email: string
+  gitAddress: string
+  point: number
+}
+
+export type UsersType = UserType[]
