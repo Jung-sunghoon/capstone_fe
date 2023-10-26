@@ -58,8 +58,6 @@ const Generate: React.FC = () => {
     } else if (currentURL.includes(`/edit/${projectId}`)) {
       setType('edit')
 
-      localStorage.setItem('description', description)
-
       const fetchData = async () => {
         try {
           // Axios를 사용하여 서버에서 프로젝트 목록 가져오기
