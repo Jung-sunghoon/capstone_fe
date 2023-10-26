@@ -116,9 +116,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       console.error('댓글 등록 오류:', error)
     }
   }
-
-  const renderEditAndDeleteButtons = (commentUserId: string) => {
-    if (localStorage.userId === commentUserId) {
+  const renderProjectEditAndDeleteButtons = () => {
+    if (project && localStorage.userId === project.projectInfo.userId) {
       return (
         <div>
           <Button
@@ -139,7 +138,46 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     return null
   }
 
-  console.log('project', project?.techId)
+  const handleDeleteComment = async () => {
+    const confirmDelete = window.confirm('프로젝트를 삭제하시겠습니까?')
+    if (confirmDelete) {
+      try {
+        // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
+        await axios.delete(
+          `${import.meta.env.VITE_API_ENDPOINT}/
+          /api/comments_delete/{projectId}
+          `,
+        )
+        console.log('프로젝트 삭제 성공')
+        navigate('/projects')
+      } catch (error) {
+        // 오류 처리
+        console.error('프로젝트 삭제 오류:', error)
+      }
+    }
+  }
+
+  const renderCommentEditAndDeleteButtons = (commentUserId: string) => {
+    if (localStorage.userId === commentUserId) {
+      return (
+        <div>
+          <Button
+            className="projectDetails__commentEditBtn"
+            onClick={handleEditComment}
+          >
+            <EditOutlined />
+          </Button>
+          <Button
+            onClick={handleDeleteComment}
+            className="projectDetails__commentDeleteBtn"
+          >
+            <DeleteOutlined />
+          </Button>
+        </div>
+      )
+    }
+    return null
+  }
 
   useEffect(() => {
     // 댓글 목록을 가져오는 요청
@@ -218,7 +256,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         <div className="projectDetails__descriptionAll">
           <div className="projectDetails__descriptionInfoWrapper">
             <h2 className="projectDetails__descriptionInfo">프로젝트 소개</h2>
-            {renderEditAndDeleteButtons()}
+            {renderProjectEditAndDeleteButtons()}
           </div>
           <div className="projectDetails__descriptionPost">
             <div
@@ -293,7 +331,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                           : ''}
                       </div>
                     </div>
-                    {renderEditAndDeleteButtons(comment?.userId)}
+                    {renderCommentEditAndDeleteButtons(comment?.userId)}
                   </div>
                 </section>
                 <section className="commentList__content">
