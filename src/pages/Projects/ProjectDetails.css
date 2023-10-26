@@ -15,6 +15,19 @@ section {
   display: block;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
 li {
   padding: 0;
 }
@@ -240,4 +253,52 @@ ul {
 
 .projectDetails__commentList {
   width: 100%;
+}
+
+.commentItem__container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #e1e1e1;
+}
+
+.commentList__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentList__userInfo {
+  display: flex;
+  margin-bottom: 18px;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.commentList__content {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  letter-spacing: -0.004em;
+  word-break: break-all;
+  overflow-wrap: break-all;
+}
+
+.commentList__wrapper,
+.commentList__userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentList__userId {
+  color: #333;
+  font-weight: 700;
+}
+
+.commentList__generateDate {
+  font-size: 14px;
+  line-height: 126.5%;
+  letter-spacing: -0.005em;
+  color: #9f9f9f;
 }

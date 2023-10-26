@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, message, Upload, InputNumber, Select } from 'antd'
+import {
+  Form,
+  Input,
+  Button,
+  message,
+  Upload,
+  InputNumber,
+  Select,
+  Descriptions,
+} from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
@@ -34,13 +43,6 @@ const Generate: React.FC = () => {
     { label: '모집 완료', value: 'S_co' },
   ]
 
-  /*
-  1. url이 generate인지 edit인지 구분
-  2. edit일 경우 projectId값 확인
-  3. edit이면서 projectId가 있을 경우 project 정보 API 호출
-  4. 호출된 API 결과 정보 각 컴포넌트에 입력 (initialValue에 입력)
-  5. 수정 완료 시 수정 API 호출하도록 적용
-  */
   useEffect(() => {
     const savedUserId = localStorage.getItem('userId')
     if (savedUserId) {
@@ -49,21 +51,14 @@ const Generate: React.FC = () => {
       })
     }
   }, [])
-  // useEffect(() => {
-  //   form.setFieldsValue({
-  //     projectTitle: 'test',
-  //     projectStatus: '진행 중',
-  //     status: '모집 중',
-  //     recruitmentCount: 10,
-  //     // ... 여기에 필요한 다른 필드 값을 추가하십시오.
-  //   })
-  // }, [project])
 
   useEffect(() => {
     if (currentURL.includes('/generate')) {
       setType('generate')
     } else if (currentURL.includes(`/edit/${projectId}`)) {
       setType('edit')
+
+      localStorage.setItem('description', description)
 
       const fetchData = async () => {
         try {

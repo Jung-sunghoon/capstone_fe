@@ -19,6 +19,13 @@ import axios from 'axios'
 
 export interface ProjectDetails {}
 
+export interface CommentType {
+  commentId: number
+  userId: string
+  content: string
+  createdAt: string
+}
+
 const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [project, setProject] = useState<ProjectType | undefined>(undefined)
   const currentURL = window.location.href
@@ -26,6 +33,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const projectId = segments[segments.length - 1]
   const navigate = useNavigate()
   const techstacks = localStorage.getItem('techstacks')
+  const [commentText, setCommentText] = useState('')
+  const [comments, setComments] = useState<CommentType[]>([])
 
   const handleEditProject = async () => {
     navigate(`/edit/${projectId}`)
@@ -76,8 +85,40 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     fetchData()
   }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
 
-  const renderProjectEditAndDeleteButtons = () => {
-    if (project && localStorage.userId === project.projectInfo.userId) {
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // 댓글 텍스트 상태 업데이트
+    setCommentText(e.target.value)
+  }
+
+  const handleGenerateComment = async () => {
+    const projectGenerationUserId = project?.projectInfo?.userId
+    const userId = localStorage.userId
+    try {
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_API_ENDPOINT
+        }/api/comments/generate?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
+        {
+          projectId: projectId,
+          userId: userId,
+          content: commentText,
+          commentToUpdateId: 0,
+        },
+      )
+      if (response.status === 200) {
+        console.log('댓글 등록 성공')
+        setCommentText('')
+      } else {
+        console.log('댓글 등록 실패')
+      }
+    } catch (error) {
+      // 오류 처리
+      console.error('댓글 등록 오류:', error)
+    }
+  }
+
+  const renderEditAndDeleteButtons = (commentUserId: string) => {
+    if (localStorage.userId === commentUserId) {
       return (
         <div>
           <Button
@@ -99,6 +140,22 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
 
   console.log('project', project?.techId)
+
+  useEffect(() => {
+    // 댓글 목록을 가져오는 요청
+    axios
+      .get(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/comments_list/${projectId}`,
+      )
+      .then(response => {
+        if (response.status === 200) {
+          setComments(response.data)
+        }
+      })
+      .catch(error => {
+        console.error('댓글 가져오기 오류:', error)
+      })
+  }, [commentText, projectId])
 
   return (
     <div id="root">
@@ -161,7 +218,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         <div className="projectDetails__descriptionAll">
           <div className="projectDetails__descriptionInfoWrapper">
             <h2 className="projectDetails__descriptionInfo">프로젝트 소개</h2>
-            {renderProjectEditAndDeleteButtons()}
+            {renderEditAndDeleteButtons()}
           </div>
           <div className="projectDetails__descriptionPost">
             <div
@@ -196,6 +253,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <textarea
                 className="projectDetails__commentText"
                 placeholder="댓글을 입력하세요."
+                value={commentText}
+                onChange={handleCommentChange}
               ></textarea>
             </div>
             <div className="projectDetails__commentBtnWrapper">
@@ -210,12 +269,39 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                   뒤로 가기
                 </button>
               </Link>
-              <button className="projectDetails__commentBtn" name="register">
+              <button
+                onClick={handleGenerateComment}
+                className="projectDetails__commentBtn"
+                name="register"
+              >
                 댓글 등록
               </button>
             </div>
           </div>
-          <ul className="projectDetails__commentList"></ul>
+          <ul className="projectDetails__commentList">
+            {comments.map(comment => (
+              <li className="commentItem__container" key={comment?.commentId}>
+                <section className="commentList__header">
+                  <div className="commentList__wrapper">
+                    <div className="commentList__userInfo">
+                      <div className="commentList__userId">
+                        {comment?.userId}
+                      </div>
+                      <div className="commentList__generateDate">
+                        {comment?.createdAt
+                          ? formatDate(new Date(comment?.createdAt))
+                          : ''}
+                      </div>
+                    </div>
+                    {renderEditAndDeleteButtons(comment?.userId)}
+                  </div>
+                </section>
+                <section className="commentList__content">
+                  <p className="commentList__content">{comment?.content}</p>
+                </section>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
