@@ -68,7 +68,9 @@ const Generate: React.FC = () => {
 
       // 정상으로 가져옴
       if (response.status === 200) {
-        const projectInfo = response.data.projectInfo
+        const projectInfo = response?.data?.projectInfo
+        const techIds = response?.data?.techId
+
         form.setFieldsValue({
           projectTitle: projectInfo.projectTitle,
           projectStatus: projectInfo.projectStatus,
@@ -77,9 +79,7 @@ const Generate: React.FC = () => {
           techId:
             techstacks &&
             JSON.parse(techstacks)
-              .filter((item: TechstackType) =>
-                projectInfo.techId?.includes(item.techId),
-              )
+              .filter((item: TechstackType) => techIds?.includes(item.techId))
               .map((tech: TechstackType) => tech.techName),
           description: projectInfo.description,
         })
@@ -104,6 +104,7 @@ const Generate: React.FC = () => {
     formData.append(
       'project',
       JSON.stringify({
+        projectId: type === 'edit' ? projectId : null,
         projectTitle: values.projectTitle,
         userId: type === 'generate' ? values.userId : undefined,
         description: textEditor,
