@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { ProjectType } from '@src/types'
-import { Button, Tag } from 'antd'
+import { Button, List, Tag, message } from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
   EyeFilled,
   LikeFilled,
+  UnorderedListOutlined,
+  UserAddOutlined,
 } from '@ant-design/icons'
 import './ProjectDetails.css'
 import {
@@ -27,6 +29,7 @@ export interface CommentType {
 }
 
 const ProjectDetails: React.FC<ProjectDetails> = () => {
+  const [messageApi, contextHolder] = message.useMessage()
   const [project, setProject] = useState<ProjectType | undefined>(undefined)
   const currentURL = window.location.href
   const segments = currentURL.split('/')
@@ -35,13 +38,18 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const techstacks = localStorage.getItem('techstacks')
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
+  const [applyBtn, setApplyBtn] = useState<boolean>(false)
+  // const [showList, setShowList] = useState(false)
+  // const [listData, setListData] = useState<string[]>([])
   const projectGenerationUserId = project?.projectInfo?.userId
   const userId = localStorage.userId
 
+  //프로젝트 수정
   const handleEditProject = async () => {
     navigate(`/edit/${projectId}`)
   }
 
+  //프로젝트 삭제
   const handleDeleteProject = async () => {
     const confirmDelete = window.confirm('프로젝트를 삭제하시겠습니까?')
     if (confirmDelete) {
@@ -61,10 +69,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     }
   }
 
+  //초기 렌더링 시 프로젝트 정보 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Axios를 사용하여 서버에서 프로젝트 목록 가져오기
         const response = await axios.post(
           `${
             import.meta.env.VITE_API_ENDPOINT
@@ -87,11 +95,12 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     fetchData()
   }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
 
+  //댓글 텍스트 상태 업데이트
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // 댓글 텍스트 상태 업데이트
     setCommentText(e.target.value)
   }
 
+  //댓글 생성 함수
   const handleGenerateComment = async () => {
     try {
       const response = await axios.post(
@@ -113,9 +122,103 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       }
     } catch (error) {
       // 오류 처리
-      console.error('댓글 등록 오류:', error)
+      messageApi.error('댓글 등록 오류:')
     }
   }
+
+  //프로젝트 신청 함수
+  const handleApplyproject = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/apply`,
+        {
+          userId: userId,
+          projectId: projectId,
+        },
+      )
+      if (response.status === 201) {
+        console.log('프로젝트 신청 성공')
+        messageApi.success('프로젝트 신청 성공')
+        setApplyBtn(true)
+      } else {
+        console.log('프로젝트 신청 실패')
+        setApplyBtn(false)
+      }
+    } catch (error) {
+      // 오류 처리
+      messageApi.error('프로젝트 신청 오류:')
+      setApplyBtn(false)
+    }
+  }
+
+  //프로젝트 신청자 목록 확인 함수
+  // const handleShowList = async () => {
+  //   if (!showList) {
+  //     try {
+  //       const response = await axios.get(
+  //         `${
+  //           import.meta.env.VITE_API_ENDPOINT
+  //         }/api/apply_list?projectId=${projectId}`,
+  //       )
+  //       if (response.status === 201) {
+  //         console.log('신청 리스트 보기 성공')
+  //       } else {
+  //         console.log('신청 리스트 보기 실패')
+  //       }
+  //     } catch (error) {
+  //       // 오류 처리
+  //       messageApi.error('신청 리스트 보기 오류:')
+  //     }
+  //   }
+  // }
+
+  //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
+  const renderProjectApplyBtn = () => {
+    if (project?.projectInfo.userId === localStorage.userId) {
+      // return (
+      //   <div>
+      //     <Button
+      //       className="projectDetails__projectApplyListBtn"
+      //       onClick={handleShowList}
+      //     >
+      //       <UnorderedListOutlined />
+      //     </Button>
+      //     {showList && (
+      //       <List
+      //         dataSource={listData}
+      //         renderItem={item => <List.Item>{item}</List.Item>}
+      //       />
+      //     )}
+      //   </div>
+      // )
+    } else {
+      if (applyBtn) {
+        //신청 시 신청 버튼 비활성화(상태 저장해야할 듯?)
+        return (
+          <Button
+            className="projectDetails__projectApplybtn"
+            onClick={handleApplyproject}
+            disabled
+          >
+            <UserAddOutlined />
+          </Button>
+        )
+      } else if (project?.projectInfo.status === 'S_pr' && !applyBtn) {
+        return (
+          <Button
+            className="projectDetails__projectApplybtn"
+            onClick={handleApplyproject}
+          >
+            <UserAddOutlined />
+          </Button>
+        )
+      }
+    }
+
+    return null
+  }
+
+  //프로젝트 수정 및 삭제 버튼(로컬스토리지 userId와 게시물의 userId가 같을 때)
   const renderProjectEditAndDeleteButtons = () => {
     if (project && localStorage.userId === project.projectInfo.userId) {
       return (
@@ -138,6 +241,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     return null
   }
 
+  //댓글 삭제 함수
   const handleDeleteComment = async () => {
     const confirmDelete = window.confirm('댓글을 삭제하시겠습니까?')
     if (confirmDelete) {
@@ -149,6 +253,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           }/api/comments_delete/${projectId}?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
         )
         console.log('댓글 삭제 성공')
+        setCommentText('')
       } catch (error) {
         // 오류 처리
         console.error('댓글 삭제 오류:', error)
@@ -156,6 +261,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     }
   }
 
+  //댓글 수정 함수
+
+  //댓글 수정 및 삭제 버튼
   const renderCommentEditAndDeleteButtons = (commentUserId: string) => {
     if (localStorage.userId === commentUserId) {
       return (
@@ -178,8 +286,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     return null
   }
 
+  //댓글 목록 가져오기
   useEffect(() => {
-    // 댓글 목록을 가져오는 요청
     axios
       .get(
         `${import.meta.env.VITE_API_ENDPOINT}/api/comments_list/${projectId}`,
@@ -196,6 +304,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   return (
     <div id="root">
+      {contextHolder}
       <div className="projectDetails__wraaper">
         <section className="projectDetails__header">
           <div className="projectDetails__title">
@@ -225,6 +334,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                 <span className="projectInfo__content">
                   {convertStatus(project?.projectInfo.status)}
                 </span>
+                <span>{renderProjectApplyBtn()}</span>
               </li>
               <li className="projectDetails__projectInfo">
                 <span className="projectInfo__title">모집 인원</span>
@@ -330,8 +440,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                           : ''}
                       </div>
                     </div>
-                    {renderCommentEditAndDeleteButtons(comment?.userId)}
                   </div>
+                  {renderCommentEditAndDeleteButtons(comment?.userId)}
                 </section>
                 <section className="commentList__content">
                   <p className="commentList__content">{comment?.content}</p>

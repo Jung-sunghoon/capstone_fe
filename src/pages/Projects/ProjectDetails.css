@@ -156,6 +156,11 @@ ul {
   padding-bottom: 24px;
 }
 
+.projectDetails__projectApplybtn,
+.projectDetails__projectApplyListBtn {
+  margin-left: 15px;
+}
+
 .projectDetails__projectEditBtn {
   color: green;
   margin-right: 10px;
@@ -301,4 +306,15 @@ ul {
   line-height: 126.5%;
   letter-spacing: -0.005em;
   color: #9f9f9f;
+}
+
+.projectDetails__commentDeleteBtn {
+  color: red;
+  border-color: red;
+}
+
+.projectDetails__commentEditBtn {
+  color: green;
+  margin-right: 10px;
+  border-color: green;
 }
