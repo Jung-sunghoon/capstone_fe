@@ -99,23 +99,37 @@ const Generate: React.FC = () => {
     techstacks: any,
     fileList: any,
   ) => {
+    const formData = new FormData()
+
+    formData.append(
+      'project',
+      JSON.stringify({
+        projectId: type === 'edit' ? projectId : null,
+        projectTitle: values.projectTitle,
+        userId: type === 'generate' ? values.userId : undefined,
+        description: textEditor,
+        recruitmentCount: values.recruitmentCount,
+        projectStatus: values.projectStatus,
+        status: values.status,
+      }),
+    )
+
+    const thumbnailFile = fileList[0]?.originFileObj as Blob
+    formData.append('thumbnail', thumbnailFile)
+    formData.append(
+      'techName',
+      JSON.parse(techstacks)
+        ?.filter((item: any) => values?.techId.includes(item.techName))
+        .map((tech: any) => tech.techId),
+    )
+
     const response = await axios.post(
       `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
+      formData,
       {
-        project: {
-          projectId: type === 'edit' ? projectId : null,
-          projectTitle: values.projectTitle,
-          userId: type === 'generate' ? values.userId : undefined,
-          description: textEditor,
-          recruitmentCount: values.recruitmentCount,
-          projectStatus: values.projectStatus,
-          status: values.status,
-          thumbnail: fileList[0]?.originFileObj as Blob,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
-        thumbnail: fileList[0]?.originFileObj as Blob,
-        techIds: JSON.parse(techstacks)
-          ?.filter((item: any) => values?.techId.includes(item.techName))
-          .map((tech: any) => tech.techId),
       },
     )
 
