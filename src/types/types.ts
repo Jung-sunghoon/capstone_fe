@@ -14,7 +14,7 @@ export interface ProjectInfoType {
 
 export interface ProjectType {
   projectInfo: ProjectInfoType
-  techId: string[]
+  techIds: number[]
   thumbnail: string
 }
 

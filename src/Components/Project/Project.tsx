@@ -109,7 +109,9 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
           description={
             techstacks &&
             JSON.parse(techstacks)
-              ?.filter((item: any) => projectData?.techId.includes(item.techId))
+              ?.filter((item: any) =>
+                projectData?.techIds.includes(item.techId),
+              )
               .map((tech: any, index: number) => {
                 return (
                   <Tag key={'tag_' + index} color="magenta">

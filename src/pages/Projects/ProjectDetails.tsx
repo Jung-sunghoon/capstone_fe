@@ -348,7 +348,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                   {techstacks &&
                     JSON.parse(techstacks)
                       ?.filter((item: any) =>
-                        project?.techId.includes(item.techId),
+                        project?.techIds.includes(item.techId),
                       )
                       .map((tech: any, index: number) => {
                         return (
