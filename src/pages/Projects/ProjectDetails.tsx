@@ -36,7 +36,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [applyBtn, setApplyBtn] = useState<boolean>(false)
   // const [showList, setShowList] = useState(false)
   // const [listData, setListData] = useState<string[]>([])
-  const projectGenerationUserId = project?.projectInfo?.userId
+  const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
 
   //프로젝트 수정
@@ -47,7 +47,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   //프로젝트 삭제
   const handleDeleteProject = async () => {
     const confirmDelete = window.confirm('프로젝트를 삭제하시겠습니까?')
-    if (confirmDelete) {
+    if (confirmDelete && projectGenerationUserId === userId) {
       try {
         // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
         await axios.delete(
@@ -169,7 +169,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
   const renderProjectApplyBtn = () => {
-    if (project?.projectInfo.userId === localStorage.userId) {
+    if (project?.userId === localStorage.userId) {
       // return (
       //   <div>
       //     <Button
@@ -198,7 +198,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             <UserAddOutlined />
           </Button>
         )
-      } else if (project?.projectInfo.status === 'S_pr' && !applyBtn) {
+      } else if (project?.status === 'S_pr' && !applyBtn) {
         return (
           <Button
             className="projectDetails__projectApplybtn"
@@ -215,7 +215,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //프로젝트 수정 및 삭제 버튼(로컬스토리지 userId와 게시물의 userId가 같을 때)
   const renderProjectEditAndDeleteButtons = () => {
-    if (project && localStorage.userId === project.projectInfo.userId) {
+    if (project && localStorage.userId === project?.userId) {
       return (
         <div>
           <Button
@@ -301,7 +301,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           <Button
             className="projectDetails__commentEditBtn"
             onClick={() => {
-              //handleEditComment
               if (updateContentId === commentId) {
                 setUpdateContentId(0)
               } else {
@@ -353,17 +352,13 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       {contextHolder}
       <div className="projectDetails__wraaper">
         <section className="projectDetails__header">
-          <div className="projectDetails__title">
-            {project?.projectInfo.projectTitle}
-          </div>
+          <div className="projectDetails__title">{project?.projectTitle}</div>
           <div className="projectDetails__userAndDate">
-            <div className="projectDetails__user">
-              {project?.projectInfo.userId}
-            </div>
+            <div className="projectDetails__user">{project?.userId}</div>
             <div className="projectDetails__separater"></div>
             <div className="projectDetails__date">
-              {project?.projectInfo.generateDate
-                ? formatDate(new Date(project?.projectInfo.generateDate))
+              {project?.generateDate
+                ? formatDate(new Date(project?.generateDate))
                 : ''}
             </div>
           </div>
@@ -372,20 +367,20 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <li className="projectDetails__projectInfo">
                 <span className="projectInfo__title">진행 상태</span>
                 <span className="projectInfo__content">
-                  {convertprojectStatus(project?.projectInfo.projectStatus)}
+                  {convertprojectStatus(project?.projectStatus)}
                 </span>
               </li>
               <li className="projectDetails__projectInfo">
                 <span className="projectInfo__title">모집 상태</span>
                 <span className="projectInfo__content">
-                  {convertStatus(project?.projectInfo.status)}
+                  {convertStatus(project?.status)}
                 </span>
                 <span>{renderProjectApplyBtn()}</span>
               </li>
               <li className="projectDetails__projectInfo">
                 <span className="projectInfo__title">모집 인원</span>
                 <span className="projectInfo__content">
-                  {project?.projectInfo.recruitmentCount}명
+                  {project?.recruitmentCount}명
                 </span>
               </li>
               <li className="projectDetails__projectInfo">
@@ -394,7 +389,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                   {techstacks &&
                     JSON.parse(techstacks)
                       ?.filter((item: any) =>
-                        project?.techIds.includes(item.techId),
+                        project?.techIds?.includes(item.techId),
                       )
                       .map((tech: any, index: number) => {
                         return (
@@ -416,7 +411,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           <div className="projectDetails__descriptionPost">
             <div
               dangerouslySetInnerHTML={{
-                __html: project?.projectInfo.description,
+                __html: project?.description,
               }}
             />
           </div>
@@ -426,13 +421,13 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             <span>
               <EyeFilled />
             </span>
-            <span>{project?.projectInfo.views}</span>
+            <span>{project?.views}</span>
           </div>
           <div className="projectDetails__likes">
             <span>
               <LikeFilled />
             </span>
-            <span>{project?.projectInfo.likes}</span>
+            <span>{project?.likes}</span>
           </div>
         </section>
         <div className="projectDetails__comments">
@@ -493,7 +488,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                       comment?.content,
                     )}
                   </section>
-
                   <section className="commentList__content">
                     <p className="commentList__content">
                       {updateContentId === 0 ? (

@@ -68,7 +68,7 @@ const Generate: React.FC = () => {
 
       // 정상으로 가져옴
       if (response.status === 200) {
-        const projectInfo = response?.data?.projectInfo
+        const projectInfo = response?.data
         const techIds = response?.data?.techId
 
         form.setFieldsValue({
@@ -101,14 +101,12 @@ const Generate: React.FC = () => {
   ) => {
     console.log('values', values)
     const requestData = {
-      project: {
-        projectId: type === 'edit' ? projectId : null,
-        projectTitle: values.projectTitle,
-        description: textEditor,
-        userId: values.userId,
-        projectStatus: values.projectStatus,
-        status: values.status,
-      },
+      projectId: type === 'edit' ? projectId : null,
+      projectTitle: values.projectTitle,
+      description: textEditor,
+      userId: values.userId,
+      projectStatus: values.projectStatus,
+      status: values.status,
       thumbnail: null,
       techIds: JSON.parse(techstacks)
         ?.filter((item: any) => values?.techId.includes(item.techName))

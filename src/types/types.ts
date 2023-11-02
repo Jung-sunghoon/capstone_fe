@@ -1,4 +1,4 @@
-export interface ProjectInfoType {
+export interface ProjectType {
   projectId: number
   projectTitle: string
   description: string | any
@@ -10,12 +10,7 @@ export interface ProjectInfoType {
   likes: number
   views: number
   thumbnail: string
-}
-
-export interface ProjectType {
-  projectInfo: ProjectInfoType
   techIds: number[]
-  thumbnail: string
 }
 
 export type ProjectsType = ProjectType[]

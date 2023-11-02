@@ -1,5 +1,11 @@
+.error__m {
+  color: red;
+  font-size: 18px;
+}
+
 .P__sort__menu {
   display: flex;
+  margin: 15px 30px 0px 30px;
 }
 .P__sort__menu li {
   display: inline;
@@ -7,4 +13,82 @@
 }
 .P__sort__menu li:first-child {
   padding-left: 0;
+}
+
+.Pro__NicknameContainer {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Pro__Nickname_div {
+  margin-left: 10px;
+  flex-direction: column;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  font-size: 14pt;
+  align-items: center;
+}
+.Pro__Nickname {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  font-size: 14pt;
+}
+
+.Pro__PointAndGrade {
+  display: flex;
+  margin-right: 30px;
+  font-size: 14pt;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.Pro__Point {
+  display: flex;
+}
+.Pro__Grade {
+  display: flex;
+}
+
+.Pro__UserProfileContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Pro__form_div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.Pro__UserProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 14pt;
+  width: 400px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.Pro__ProfileEditBtn {
+  width: 400px;
+  height: 50px;
+  background-color: #ba55d3;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.2s;
+  margin-top: 10px;
+  font-size: 14pt;
+  color: white;
 }

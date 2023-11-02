@@ -52,26 +52,22 @@ const Projects: React.FC = () => {
 
     if (currentProjectStatus) {
       filtered = filtered.filter(
-        item => item.projectInfo.projectStatus === currentProjectStatus,
+        item => item?.projectStatus === currentProjectStatus,
       )
     }
 
     if (searchText) {
       filtered = filtered.filter(item =>
-        item.projectInfo.projectTitle
-          .toLowerCase()
-          .includes(searchText.toLowerCase()),
+        item?.projectTitle.toLowerCase().includes(searchText.toLowerCase()),
       )
     }
 
     const sortFunctions: any = {
       latest: (a: ProjectType, b: ProjectType) =>
-        new Date(b.projectInfo.generateDate).getTime() -
-        new Date(a.projectInfo.generateDate).getTime(),
-      views: (a: ProjectType, b: ProjectType) =>
-        b.projectInfo.views - a.projectInfo.views,
-      likes: (a: ProjectType, b: ProjectType) =>
-        b.projectInfo.likes - a.projectInfo.likes,
+        new Date(b?.generateDate).getTime() -
+        new Date(a?.generateDate).getTime(),
+      views: (a: ProjectType, b: ProjectType) => b?.views - a?.views,
+      likes: (a: ProjectType, b: ProjectType) => b?.likes - a?.likes,
     }
 
     if (sortOption && sortFunctions[sortOption]) {

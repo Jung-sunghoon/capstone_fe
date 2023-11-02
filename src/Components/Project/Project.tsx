@@ -15,7 +15,7 @@ interface ProjectProps {
 }
 
 const Project: React.FC<ProjectProps> = ({ projectData }) => {
-  const info = projectData?.projectInfo
+  const info = projectData
   const thumbnail = projectData?.thumbnail
   const navigate = useNavigate()
   const techstacks = localStorage.getItem('techstacks')

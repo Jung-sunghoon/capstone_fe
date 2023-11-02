@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
-import { useCallback, useEffect, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { convertApplyStatus } from '@src/utils/common'
-import { Button, List, Pagination } from 'antd'
+import { Button, Input, List, Pagination } from 'antd'
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
 import './profile.css'
@@ -23,12 +23,13 @@ const PROJECT_STATUSES = [
 ]
 
 const Profile: React.FC<UserProps> = () => {
+  const [message, setMessage] = useState<string>('')
   const [projects, setProjects] = useState<ProjectsType>([])
   const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
   const [filteredData, setFilteredData] = useState<ProjectsType>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number) => setCurrentPage(page)
-  const [pageSize] = useState<number>(12)
+  const [pageSize] = useState<number>(6)
   const slicedData = filteredData?.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize,
@@ -46,23 +47,38 @@ const Profile: React.FC<UserProps> = () => {
     setCurrentProjectStatus(status)
   }
 
+  const renderProfileEditBtn = () => {
+    if (userId === userProfile?.userId) {
+      return (
+        <div>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="Pro__ProfileEditBtn"
+          >
+            수정
+          </Button>
+        </div>
+      )
+    }
+    return null
+  }
+
   const performSearchAndSort = useCallback(() => {
     let filtered = [...projects] // 원본 데이터를 보존하기 위해 복사
 
     if (currentProjectStatus) {
       filtered = filtered.filter(
-        item => item.projectInfo.projectStatus === currentProjectStatus,
+        item => item?.projectStatus === currentProjectStatus,
       )
     }
 
     const sortFunctions: any = {
       latest: (a: ProjectType, b: ProjectType) =>
-        new Date(b.projectInfo.generateDate).getTime() -
-        new Date(a.projectInfo.generateDate).getTime(),
-      views: (a: ProjectType, b: ProjectType) =>
-        b.projectInfo.views - a.projectInfo.views,
-      likes: (a: ProjectType, b: ProjectType) =>
-        b.projectInfo.likes - a.projectInfo.likes,
+        new Date(b?.generateDate).getTime() -
+        new Date(a?.generateDate).getTime(),
+      views: (a: ProjectType, b: ProjectType) => b?.views - a?.views,
+      likes: (a: ProjectType, b: ProjectType) => b?.likes - a?.likes,
     }
 
     if (sortOption && sortFunctions[sortOption]) {
@@ -72,13 +88,11 @@ const Profile: React.FC<UserProps> = () => {
     setFilteredData(filtered)
   }, [projects, currentProjectStatus, sortOption])
 
-  console.log(userApplicationData)
-
   useEffect(() => {
     const fetchBoardData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_ENDPOINT}/api/projects_list`,
+          `${import.meta.env.VITE_API_ENDPOINT}/api/projects/${userId}`,
         )
 
         if (response.status === 200) {
@@ -118,7 +132,8 @@ const Profile: React.FC<UserProps> = () => {
         if (response.status === 200) {
           setUserApplicationData(response.data)
           console.log('신청 리스트 출력')
-        } else {
+        } else if (response.status === 400) {
+          setUserApplicationData(response.data)
         }
       } catch (error) {
         console.error('신청 리스트 출력 오류', error)
@@ -131,39 +146,98 @@ const Profile: React.FC<UserProps> = () => {
     performSearchAndSort()
   }, [projects, currentProjectStatus, sortOption])
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (
+      !userProfile?.userId ||
+      !userProfile?.password ||
+      !userProfile?.name ||
+      !userProfile?.nickname ||
+      !userProfile?.email ||
+      !userProfile?.gitAddress
+    ) {
+      setMessage('모든 회원 정보를 입력하세요.')
+      return // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
+    }
+  }
   return (
     <div style={{ marginTop: '10px' }}>
       <div>
-        <section>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              marginRight: '30px',
-            }}
-          >
-            <img
-              style={{ maxWidth: '15px', maxHeight: '15px' }}
-              src="src/assets/favicon.png"
-            />
-            <div>포인트: {userProfile?.point}</div>
+        <form onSubmit={handleSubmit}>
+          <div className="Pro__NicknameAndPointContainer">
+            <section className="Pro__PointAndGrade">
+              <div className="Pro__Point">
+                <img
+                  style={{ maxWidth: '17px', maxHeight: '17px' }}
+                  src="src/assets/favicon.png"
+                />
+                <div>포인트: {userProfile?.point}</div>
+              </div>
+              <div className="Pro__Grade">
+                <div>등급: </div>
+              </div>
+            </section>
           </div>
-        </section>
-        <section
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <div>이름: {userProfile?.name}</div>
-          <div>아이디: {userProfile?.userId}</div>
-          <div>닉네임: {userProfile?.nickname}</div>
-          <div>비밀번호: {userProfile?.password}</div>
-          <div>이메일: {userProfile?.email}</div>
-          <div>Git 주소: {userProfile?.gitAddress}</div>
-        </section>
+          <section className="Pro__UserProfileContainer">
+            <div className="Pro__form_div">
+              <label>닉네임</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.nickname}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
+              <label>이름</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.name}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
+              <label>아이디</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.userId}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
+              <label>비밀번호</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.password}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
+              <label>이메일</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.email}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
+              <label>Git 주소</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.gitAddress}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <p className="error__m">{message}</p>
+            {renderProfileEditBtn()}
+          </section>
+        </form>
         <section style={{ marginLeft: '30px' }}>
           <div>신청한 프로젝트</div>
           <ul>
@@ -178,7 +252,10 @@ const Profile: React.FC<UserProps> = () => {
           </ul>
         </section>
       </div>
-      <section style={{ marginRight: '30px', marginLeft: '30px' }}>
+      <div className="" style={{ marginLeft: '30px', marginTop: '10px' }}>
+        내 프로젝트
+      </div>
+      <div>
         <ul className="P__sort__menu">
           {PROJECT_STATUSES.map(status => (
             <li
@@ -196,12 +273,9 @@ const Profile: React.FC<UserProps> = () => {
             </li>
           ))}
         </ul>
-      </section>
+      </div>
       <section>
         <div>
-          <div style={{ marginLeft: '30px', marginTop: '10px' }}>
-            내 프로젝트
-          </div>
           <List
             style={{
               marginTop: '30px',
