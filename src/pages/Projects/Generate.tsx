@@ -17,8 +17,8 @@ const Generate: React.FC = () => {
   const [form] = Form.useForm()
   const [initialValue, setInitialValue] = useState({
     projectTitle: '',
-    projectStatus: '진행 중',
-    status: '모집 중',
+    projectStatus: 'Ps_pr',
+    status: 'S_pr',
     recruitmentCount: 0,
   })
   const [messageApi, contextHolder] = message.useMessage()
@@ -99,40 +99,31 @@ const Generate: React.FC = () => {
     techstacks: any,
     fileList: any,
   ) => {
-    const formData = new FormData()
-
-    formData.append(
-      'projectInfo',
-      JSON.stringify({
+    console.log('values', values)
+    const requestData = {
+      project: {
         projectId: type === 'edit' ? projectId : null,
         projectTitle: values.projectTitle,
-        userId: type === 'generate' ? values.userId : undefined,
         description: textEditor,
-        recruitmentCount: values.recruitmentCount,
+        userId: values.userId,
         projectStatus: values.projectStatus,
         status: values.status,
-      }),
-    )
-
-    const thumbnailFile = fileList[0]?.originFileObj as Blob
-    formData.append('thumbnail', thumbnailFile)
-    formData.append(
-      'techIds',
-      JSON.parse(techstacks)
+      },
+      thumbnail: null,
+      techIds: JSON.parse(techstacks)
         ?.filter((item: any) => values?.techId.includes(item.techName))
         .map((tech: any) => tech.techId),
-    )
+    }
 
     const response = await axios.post(
       `${import.meta.env.VITE_API_ENDPOINT}/api/generate_project`,
-      formData,
+      requestData,
       {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       },
     )
-
     return response
   }
 
