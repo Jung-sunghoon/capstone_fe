@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ProjectType } from '@src/types'
+import { CommentType, ProjectType } from '@src/types'
 import { Button, List, Tag, message } from 'antd'
 import {
   DeleteOutlined,
@@ -20,13 +20,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export interface ProjectDetails {}
-
-export interface CommentType {
-  commentId: number
-  userId: string
-  content: string
-  createdAt: string
-}
 
 const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [messageApi, contextHolder] = message.useMessage()
@@ -248,9 +241,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       try {
         // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
         await axios.delete(
-          `${
-            import.meta.env.VITE_API_ENDPOINT
-          }/api/comments_delete/${projectId}?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
+          `${import.meta.env.VITE_API_ENDPOINT}/api/comments_delete/${
+            comment?.commentId
+          }?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
         )
         console.log('댓글 삭제 성공')
         setCommentText('')

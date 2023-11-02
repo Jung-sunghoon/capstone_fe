@@ -102,7 +102,7 @@ const Generate: React.FC = () => {
     const formData = new FormData()
 
     formData.append(
-      'project',
+      'projectInfo',
       JSON.stringify({
         projectId: type === 'edit' ? projectId : null,
         projectTitle: values.projectTitle,
@@ -117,7 +117,7 @@ const Generate: React.FC = () => {
     const thumbnailFile = fileList[0]?.originFileObj as Blob
     formData.append('thumbnail', thumbnailFile)
     formData.append(
-      'techName',
+      'techIds',
       JSON.parse(techstacks)
         ?.filter((item: any) => values?.techId.includes(item.techName))
         .map((tech: any) => tech.techId),

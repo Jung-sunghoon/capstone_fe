@@ -31,3 +31,10 @@ export interface UserType {
 }
 
 export type UsersType = UserType[]
+
+export type CommentType = {
+  commentId: number
+  userId: string
+  content: string
+  createdAt: string
+}
