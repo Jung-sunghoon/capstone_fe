@@ -34,9 +34,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const techstacks = localStorage.getItem('techstacks')
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
-  const [applyBtn, setApplyBtn] = useState<boolean>(false)
   const [showList, setShowList] = useState(false)
   const [listData, setListData] = useState<string[]>([])
+  const [applylist, setApplylist] = useState<[] | undefined>([])
   const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
 
@@ -64,31 +64,49 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       }
     }
   }
+  const fetchApplylist = async () => {
+    try {
+      const response = await axios.get(
+        `${
+          import.meta.env.VITE_API_ENDPOINT
+        }/api/apply_list?projectId=${projectId}`,
+      )
+      if (response.status === 200) {
+        // 가져온 프로젝트 목록을 설정
+        setApplylist(response.data)
+      } else {
+        setApplylist(undefined)
+      }
+    } catch (error) {
+      // 오류 처리
+      console.error('Error fetching project list:', error)
+    }
+  }
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_API_ENDPOINT
+        }/api/single_information_project?projectId=${projectId}`,
+        { projectId },
+      )
+      if (response.status === 200) {
+        // 가져온 프로젝트 목록을 설정
+        setProject(response.data)
+      } else {
+        setProject(undefined)
+      }
+    } catch (error) {
+      // 오류 처리
+      console.error('Error fetching project list:', error)
+    }
+  }
 
   //초기 렌더링 시 프로젝트 정보 가져오기
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          `${
-            import.meta.env.VITE_API_ENDPOINT
-          }/api/single_information_project?projectId=${projectId}`,
-          { projectId },
-        )
-        if (response.status === 200) {
-          // 가져온 프로젝트 목록을 설정
-          setProject(response.data)
-        } else {
-          setProject(undefined)
-        }
-      } catch (error) {
-        // 오류 처리
-        console.error('Error fetching project list:', error)
-      }
-    }
-
     // 초기 렌더링 시 데이터 가져오기
     fetchData()
+    fetchApplylist()
   }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
 
   //댓글 텍스트 상태 업데이트
@@ -134,49 +152,22 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       )
       if (response.status === 201) {
         console.log('프로젝트 신청 성공')
+        fetchApplylist()
         messageApi.success('프로젝트 신청 성공')
-        setApplyBtn(true)
       } else {
         console.log('프로젝트 신청 실패')
-        setApplyBtn(false)
       }
     } catch (error) {
       // 오류 처리
       messageApi.error('프로젝트 신청 오류:')
-      setApplyBtn(false)
     }
   }
-
-  //프로젝트 신청자 목록 확인 함수
-  const handleShowList = async () => {
-    if (!showList) {
-      try {
-        const response = await axios.get(
-          `${
-            import.meta.env.VITE_API_ENDPOINT
-          }/api/apply_list?projectId=${projectId}`,
-        )
-        if (response.status === 201) {
-          console.log('신청 리스트 보기 성공')
-        } else {
-          console.log('신청 리스트 보기 실패')
-        }
-      } catch (error) {
-        // 오류 처리
-        messageApi.error('신청 리스트 보기 오류:')
-      }
-    }
-  }
-
   //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
   const renderProjectApplyBtn = () => {
     if (project?.userId === localStorage.userId) {
       return (
         <div>
-          <Button
-            className="projectDetails__projectApplyListBtn"
-            onClick={handleShowList}
-          >
+          <Button className="projectDetails__projectApplyListBtn">
             <UnorderedListOutlined />
           </Button>
           {showList && (
@@ -188,8 +179,13 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         </div>
       )
     } else {
-      if (applyBtn) {
-        //신청 시 신청 버튼 비활성화(상태 저장해야할 듯?)
+      if (
+        applylist &&
+        applylist?.filter((list: any) => list?.userId === localStorage.userId)
+          .length > 0
+      ) {
+        //신청 시 신청 버튼 비활성화(상태 저장해야할 듯?)\
+
         return (
           <Button
             className="projectDetails__projectApplybtn"
@@ -199,7 +195,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             <UserAddOutlined />
           </Button>
         )
-      } else if (project?.status === 'S_pr' && !applyBtn) {
+      } else if (project?.status === 'S_pr') {
         return (
           <Button
             className="projectDetails__projectApplybtn"
@@ -338,9 +334,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       )
       .then(response => {
         if (response.status === 200) {
-          setComments(response.data)
+          console.log('response.data', response.data)
+          setComments(response.data.reverse())
         } else if (response.status === 204) {
-          setComments(response.data)
+          setComments(response.data.reverse())
         }
       })
       .catch(error => {
