@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
 import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { convertApplyStatus } from '@src/utils/common'
-import { Button, Input, List, Pagination } from 'antd'
+import { Button, Input, List, Pagination, Space, Table, Tag } from 'antd'
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
 import './profile.css'
@@ -13,13 +13,31 @@ export interface UserProps {
 
 export interface ApplicationData {
   projectId: number
-  userId: string
   status: string
+  applyDate: string
+  projectTitle: string
 }
 
 const PROJECT_STATUSES = [
   { label: '진행 중', value: 'Ps_pr' },
   { label: '프로젝트 공유', value: 'Ps_co' },
+]
+
+const columns = [
+  { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
+  { title: 'ProjectId', dataIndex: 'projectId', key: 'projectId' },
+  {
+    title: 'Applystatus',
+    dataIndex: 'status',
+    key: 'status',
+    render: (status: string | undefined) => convertApplyStatus(status),
+  },
+  {
+    title: 'recruitmentCount',
+    dataIndex: 'recruitmentCount',
+    key: 'recruitmentCount',
+  },
+  { title: 'Action', dataIndex: 'Action', key: 'Action' },
 ]
 
 const Profile: React.FC<UserProps> = () => {
@@ -129,11 +147,36 @@ const Profile: React.FC<UserProps> = () => {
             import.meta.env.VITE_API_ENDPOINT
           }/api/my_applications?userId=${userId}`,
         )
-        if (response.status === 200) {
-          setUserApplicationData(response.data)
+        if (response.status === 200 || response.status === 400) {
+          const applications: ApplicationData[] = response.data.reverse()
+          setUserApplicationData(applications)
           console.log('신청 리스트 출력')
-        } else if (response.status === 400) {
-          setUserApplicationData(response.data)
+
+          const projectIds: number[] = applications.map(app => app.projectId)
+
+          const detailedDataPromises = projectIds.map(projectId => {
+            return axios.post<ProjectType>(
+              `${
+                import.meta.env.VITE_API_ENDPOINT
+              }/api/single_information_project?projectId=${projectId}`,
+            )
+          })
+
+          const detailedDataResponses = await Promise.all(detailedDataPromises)
+
+          const detailedData: ProjectType[] = detailedDataResponses.map(
+            response => response.data,
+          )
+          // const dataSource = detailedData.map(project => {
+          //   return {
+          //     projectTitle: project.projectTitle,
+          //     projectId: project.projectId,
+          //     status: project.status,
+          //     recruitmentCount: project.recruitmentCount,
+          //     Action: '', // Action 필드는 여기서 필요한 데이터에 따라 설정하세요.
+          //   }
+          // })
+          console.log(detailedData)
         }
       } catch (error) {
         console.error('신청 리스트 출력 오류', error)
@@ -238,19 +281,6 @@ const Profile: React.FC<UserProps> = () => {
             {renderProfileEditBtn()}
           </section>
         </form>
-        <section style={{ marginLeft: '30px' }}>
-          <div>신청한 프로젝트</div>
-          <ul>
-            {userApplicationData?.map(applydata => (
-              <>
-                <li key={applydata.projectId}>
-                  projectId: {applydata?.projectId}
-                </li>
-                <li>status: {convertApplyStatus(applydata?.status)}</li>
-              </>
-            ))}
-          </ul>
-        </section>
       </div>
       <div className="" style={{ marginLeft: '30px', marginTop: '10px' }}>
         내 프로젝트
@@ -299,6 +329,60 @@ const Profile: React.FC<UserProps> = () => {
           showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
           onChange={handlePageChange}
         />
+      </section>
+      <section style={{ marginLeft: '30px' }}>
+        <Table<ApplicationData>
+          dataSource={userApplicationData}
+          columns={columns}
+        >
+          {/* <Column
+            title="ProjectTitle"
+            dataIndex="projectTitle"
+            key="projectTitle"
+          />
+          <Column title="ProjectId" dataIndex="projectId" key="projectId" />
+          <Column title="Address" dataIndex="address" key="address" />
+          <Column
+            title="ApplyStatus"
+            dataIndex="applyStatus"
+            key="applyStatus"
+            render={(tags: string[]) => (
+              <>
+                {tags?.map(tag => {
+                  let color = tag === 'PENDING' ? 'geekblue' : 'green'
+                  if (tag === 'REJECTED') {
+                    color = 'volcano'
+                  }
+                  return (
+                    <Tag color={color} key={tag}>
+                      {tag.toUpperCase()}
+                    </Tag>
+                  )
+                })}
+              </>
+            )}
+          />
+          <Column
+            title="Action"
+            key="action"
+            render={(_: any) => (
+              <Space size="middle">
+                <a>Delete</a>
+              </Space>
+            )}
+          /> */}
+        </Table>
+        <div>신청한 프로젝트</div>
+        <ul>
+          {userApplicationData?.map(applydata => (
+            <>
+              <li key={applydata.projectId}>
+                projectId: {applydata?.projectId}
+              </li>
+              <li>status: {convertApplyStatus(applydata?.status)}</li>
+            </>
+          ))}
+        </ul>
       </section>
     </div>
   )
