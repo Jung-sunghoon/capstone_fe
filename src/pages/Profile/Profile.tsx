@@ -132,19 +132,39 @@ const Profile: React.FC<UserProps> = () => {
   }, [projects, currentProjectStatus, sortOption])
 
   return (
-    <div>
+    <div style={{ marginTop: '10px' }}>
       <div>
         <section>
-          <div>내 정보</div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginRight: '30px',
+            }}
+          >
+            <img
+              style={{ maxWidth: '15px', maxHeight: '15px' }}
+              src="src/assets/favicon.png"
+            />
+            <div>포인트: {userProfile?.point}</div>
+          </div>
+        </section>
+        <section
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <div>이름: {userProfile?.name}</div>
           <div>아이디: {userProfile?.userId}</div>
           <div>닉네임: {userProfile?.nickname}</div>
           <div>비밀번호: {userProfile?.password}</div>
           <div>이메일: {userProfile?.email}</div>
           <div>Git 주소: {userProfile?.gitAddress}</div>
-          <div>포인트: {userProfile?.point}</div>
         </section>
-        <section>
+        <section style={{ marginLeft: '30px' }}>
           <div>신청한 프로젝트</div>
           <ul>
             {userApplicationData?.map(applydata => (
@@ -157,54 +177,55 @@ const Profile: React.FC<UserProps> = () => {
             ))}
           </ul>
         </section>
-        <section>
-          <ul className="P__sort__menu">
-            {PROJECT_STATUSES.map(status => (
-              <li
-                key={status.label}
-                onClick={() => handleProjectStatusClick(status?.value)}
-                className={
-                  currentProjectStatus === status.value ? 'active' : ''
+      </div>
+      <section style={{ marginRight: '30px', marginLeft: '30px' }}>
+        <ul className="P__sort__menu">
+          {PROJECT_STATUSES.map(status => (
+            <li
+              key={status.label}
+              onClick={() => handleProjectStatusClick(status?.value)}
+              className={currentProjectStatus === status.value ? 'active' : ''}
+            >
+              <Button
+                type={
+                  currentProjectStatus === status.value ? 'primary' : 'default'
                 }
               >
-                <Button
-                  type={
-                    currentProjectStatus === status.value
-                      ? 'primary'
-                      : 'default'
-                  }
-                >
-                  {status.label}
-                </Button>
-              </li>
-            ))}
-          </ul>
-          <div>
-            <List
-              style={{
-                marginTop: '30px',
-                marginLeft: '30px',
-                marginRight: '30px',
-              }}
-              grid={{ gutter: 12, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 6 }}
-              dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
-              renderItem={(item: ProjectType) => (
-                <List.Item>
-                  <Project projectData={item} />
-                </List.Item>
-              )}
-            />
+                {status.label}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <div>
+          <div style={{ marginLeft: '30px', marginTop: '10px' }}>
+            내 프로젝트
           </div>
-          <Pagination
-            className="Board__page"
-            current={currentPage}
-            total={filteredData?.length}
-            pageSize={pageSize}
-            showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
-            onChange={handlePageChange}
+          <List
+            style={{
+              marginTop: '30px',
+              marginLeft: '30px',
+              marginRight: '30px',
+            }}
+            grid={{ gutter: 12, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 6 }}
+            dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
+            renderItem={(item: ProjectType) => (
+              <List.Item>
+                <Project projectData={item} />
+              </List.Item>
+            )}
           />
-        </section>
-      </div>
+        </div>
+        <Pagination
+          className="Board__page"
+          current={currentPage}
+          total={filteredData?.length}
+          pageSize={pageSize}
+          showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
+          onChange={handlePageChange}
+        />
+      </section>
     </div>
   )
 }
