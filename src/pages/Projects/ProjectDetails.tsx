@@ -6,7 +6,7 @@ import {
   EditOutlined,
   EyeFilled,
   LikeFilled,
-  UnorderedListOutlined,
+  SaveOutlined,
   UserAddOutlined,
 } from '@ant-design/icons'
 import './ProjectDetails.css'
@@ -23,6 +23,8 @@ export interface ProjectDetails {}
 
 const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [messageApi, contextHolder] = message.useMessage()
+  const [content, setContent] = useState('')
+  const [updateContentId, setUpdateContentId] = useState(0)
   const [project, setProject] = useState<ProjectType | undefined>(undefined)
   const currentURL = window.location.href
   const segments = currentURL.split('/')
@@ -234,9 +236,38 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     return null
   }
 
+  //댓글 수정
+  const handleEditComment = async (commentId: number, content: string) => {
+    const confirmDelete = window.confirm('댓글을 수정 하시겠습니까?')
+    if (confirmDelete) {
+      try {
+        // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
+        await axios.put(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/comments_edit/${commentId}`,
+          {
+            commentId: commentId,
+            projectId: projectId,
+            userId: userId,
+            content: content,
+            createdAt: new Date().toLocaleDateString(),
+          },
+        )
+        console.log('댓글 삭제 성공', commentId)
+
+        // comment reload
+        fetchComments()
+        setUpdateContentId(0)
+        setContent('')
+      } catch (error) {
+        // 오류 처리
+        console.error('댓글 삭제 오류:', error)
+      }
+    }
+  }
+
   //댓글 삭제 함수
   const handleDeleteComment = async (commentId: number) => {
-    const confirmDelete = window.confirm('댓글을 삭제하시겠습니까?')
+    const confirmDelete = window.confirm('댓글을 삭제 하시겠습니까?')
     if (confirmDelete) {
       try {
         // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
@@ -262,16 +293,25 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const renderCommentEditAndDeleteButtons = (
     commentUserId: string,
     commentId: number,
+    content?: any,
   ) => {
     if (localStorage.userId === commentUserId) {
       return (
         <div>
-          {/* <Button
+          <Button
             className="projectDetails__commentEditBtn"
-            onClick={handleEditComment}
+            onClick={() => {
+              //handleEditComment
+              if (updateContentId === commentId) {
+                setUpdateContentId(0)
+              } else {
+                setUpdateContentId(commentId)
+                setContent(content)
+              }
+            }}
           >
             <EditOutlined />
-          </Button> */}
+          </Button>
           <Button
             onClick={() => {
               handleDeleteComment(commentId)
@@ -450,10 +490,39 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                     {renderCommentEditAndDeleteButtons(
                       comment?.userId,
                       comment?.commentId,
+                      comment?.content,
                     )}
                   </section>
+
                   <section className="commentList__content">
-                    <p className="commentList__content">{comment?.content}</p>
+                    <p className="commentList__content">
+                      {updateContentId === 0 ? (
+                        comment?.content
+                      ) : updateContentId === comment?.commentId ? (
+                        <div className="commentList__update_content">
+                          <input
+                            type="text"
+                            style={{ width: '100%' }}
+                            value={content}
+                            onChange={(e: any) => {
+                              setContent(e.target.value)
+                            }}
+                          />
+                          <div>
+                            <Button
+                              className="projectDetails__commentSaveBtn"
+                              onClick={() => {
+                                handleEditComment(comment?.commentId, content)
+                              }}
+                            >
+                              <SaveOutlined />
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        comment?.content
+                      )}
+                    </p>
                   </section>
                 </li>
               ))}

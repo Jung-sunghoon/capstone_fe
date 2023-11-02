@@ -290,6 +290,12 @@ ul {
   overflow-wrap: break-all;
 }
 
+.commentList__update_content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .commentList__wrapper,
 .commentList__userInfo {
   display: flex;
@@ -317,4 +323,12 @@ ul {
   color: green;
   margin-right: 10px;
   border-color: green;
+}
+
+.projectDetails__commentSaveBtn {
+  color: rgb(34, 81, 209);
+  border-color: rgb(34, 81, 209);
+  margin-left: 4px;
+  height: 28px !important;
+  padding: 2px 10px !important;
 }
