@@ -34,17 +34,27 @@ import thumbnail28 from './projectThumbnail/thumbnail28.gif'
 import thumbnail29 from './projectThumbnail/thumbnail29.png'
 import thumbnail30 from './projectThumbnail/thumbnail30.png'
 
-// import thumbnail31 from './projectThumbnail/thumbnail22.png'
-// import thumbnail32 from './projectThumbnail/thumbnail22.png'
-// import thumbnail33 from './projectThumbnail/thumbnail22.png'
-// import thumbnail34 from './projectThumbnail/thumbnail22.png'
-// import thumbnail35 from './projectThumbnail/thumbnail22.png'
+import avatar1 from './users/avatar-1.jpg'
+import avatar2 from './users/avatar-2.jpg'
+import avatar3 from './users/avatar-3.jpg'
+import avatar4 from './users/avatar-4.jpg'
+import avatar5 from './users/avatar-5.jpg'
+import avatar6 from './users/avatar-6.jpg'
+import avatar7 from './users/avatar-7.jpg'
+import avatar8 from './users/avatar-8.jpg'
+import avatar9 from './users/avatar-9.jpg'
+import avatar10 from './users/avatar-10.jpg'
 
-// import thumbnail36 from './projectThumbnail/thumbnail22.png'
-// import thumbnail37 from './projectThumbnail/thumbnail22.png'
-// import thumbnail38 from './projectThumbnail/thumbnail22.png'
-// import thumbnail39 from './projectThumbnail/thumbnail22.png'
-// import thumbnail40 from './projectThumbnail/thumbnail22.png'
+import avatar11 from './users/avatar-11.jpg'
+import avatar12 from './users/avatar-12.jpg'
+import avatar13 from './users/avatar-13.jpg'
+import avatar14 from './users/avatar-14.jpg'
+import avatar15 from './users/avatar-15.jpg'
+import avatar16 from './users/avatar-16.jpg'
+import avatar17 from './users/avatar-17.jpg'
+import avatar18 from './users/avatar-18.jpg'
+import avatar19 from './users/avatar-19.jpg'
+import avatar20 from './users/avatar-20.png'
 
 export default {
   thumbnail1,
@@ -77,4 +87,26 @@ export default {
   thumbnail28,
   thumbnail29,
   thumbnail30,
+
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
+  avatar6,
+  avatar7,
+  avatar8,
+  avatar9,
+  avatar10,
+
+  avatar11,
+  avatar12,
+  avatar13,
+  avatar14,
+  avatar15,
+  avatar16,
+  avatar17,
+  avatar18,
+  avatar19,
+  avatar20,
 }
