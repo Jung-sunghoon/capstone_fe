@@ -29,7 +29,7 @@ const Profile: React.FC<UserProps> = () => {
   const [filteredData, setFilteredData] = useState<ProjectsType>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number) => setCurrentPage(page)
-  const [pageSize] = useState<number>(6)
+  const [pageSize] = useState<number>(3)
   const slicedData = filteredData?.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize,
@@ -180,7 +180,7 @@ const Profile: React.FC<UserProps> = () => {
             </section>
           </div>
           <section className="Pro__UserProfileContainer">
-            <div className="Pro__form_div">
+            <div className="Pro__UserProfile_div">
               <label>닉네임</label>
               <Input
                 className="Pro__UserProfile"
@@ -231,7 +231,7 @@ const Profile: React.FC<UserProps> = () => {
                 className="Pro__UserProfile"
                 value={userProfile?.gitAddress}
                 disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
+                // style={{ backgroundColor: 'white', color: 'black' }}
               />
             </div>
             <p className="error__m">{message}</p>

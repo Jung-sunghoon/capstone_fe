@@ -76,7 +76,7 @@ const Generate: React.FC = () => {
           projectStatus: projectInfo.projectStatus,
           status: projectInfo.status,
           recruitmentCount: projectInfo.recruitmentCount,
-          techId:
+          techIds:
             techstacks &&
             JSON.parse(techstacks)
               .filter((item: TechstackType) => techIds?.includes(item.techId))

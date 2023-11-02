@@ -7,6 +7,7 @@ import {
   EyeFilled,
   LikeFilled,
   SaveOutlined,
+  UnorderedListOutlined,
   UserAddOutlined,
 } from '@ant-design/icons'
 import './ProjectDetails.css'
@@ -34,8 +35,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
   const [applyBtn, setApplyBtn] = useState<boolean>(false)
-  // const [showList, setShowList] = useState(false)
-  // const [listData, setListData] = useState<string[]>([])
+  const [showList, setShowList] = useState(false)
+  const [listData, setListData] = useState<string[]>([])
   const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
 
@@ -147,45 +148,45 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
 
   //프로젝트 신청자 목록 확인 함수
-  // const handleShowList = async () => {
-  //   if (!showList) {
-  //     try {
-  //       const response = await axios.get(
-  //         `${
-  //           import.meta.env.VITE_API_ENDPOINT
-  //         }/api/apply_list?projectId=${projectId}`,
-  //       )
-  //       if (response.status === 201) {
-  //         console.log('신청 리스트 보기 성공')
-  //       } else {
-  //         console.log('신청 리스트 보기 실패')
-  //       }
-  //     } catch (error) {
-  //       // 오류 처리
-  //       messageApi.error('신청 리스트 보기 오류:')
-  //     }
-  //   }
-  // }
+  const handleShowList = async () => {
+    if (!showList) {
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_API_ENDPOINT
+          }/api/apply_list?projectId=${projectId}`,
+        )
+        if (response.status === 201) {
+          console.log('신청 리스트 보기 성공')
+        } else {
+          console.log('신청 리스트 보기 실패')
+        }
+      } catch (error) {
+        // 오류 처리
+        messageApi.error('신청 리스트 보기 오류:')
+      }
+    }
+  }
 
   //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
   const renderProjectApplyBtn = () => {
     if (project?.userId === localStorage.userId) {
-      // return (
-      //   <div>
-      //     <Button
-      //       className="projectDetails__projectApplyListBtn"
-      //       onClick={handleShowList}
-      //     >
-      //       <UnorderedListOutlined />
-      //     </Button>
-      //     {showList && (
-      //       <List
-      //         dataSource={listData}
-      //         renderItem={item => <List.Item>{item}</List.Item>}
-      //       />
-      //     )}
-      //   </div>
-      // )
+      return (
+        <div>
+          <Button
+            className="projectDetails__projectApplyListBtn"
+            onClick={handleShowList}
+          >
+            <UnorderedListOutlined />
+          </Button>
+          {showList && (
+            <List
+              dataSource={listData}
+              renderItem={item => <List.Item>{item}</List.Item>}
+            />
+          )}
+        </div>
+      )
     } else {
       if (applyBtn) {
         //신청 시 신청 버튼 비활성화(상태 저장해야할 듯?)
