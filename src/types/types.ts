@@ -11,6 +11,7 @@ export interface ProjectType {
   views: number
   thumbnail: string
   techIds: number[]
+  applications?: any
 }
 
 export type ProjectsType = ProjectType[]

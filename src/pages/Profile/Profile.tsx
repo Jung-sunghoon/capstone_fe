@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
 import { FormEvent, useCallback, useEffect, useState } from 'react'
-import { convertApplyStatus } from '@src/utils/common'
+import { convertApplyStatus, convertStatus } from '@src/utils/common'
 import { Button, Input, List, Pagination, Space, Table, Tag } from 'antd'
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
@@ -27,9 +27,15 @@ const columns = [
   { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
   { title: 'ProjectId', dataIndex: 'projectId', key: 'projectId' },
   {
-    title: 'Applystatus',
+    title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: (status: string | undefined) => convertStatus(status),
+  },
+  {
+    title: 'Applystatus',
+    dataIndex: 'applystatus',
+    key: 'applystatus',
     render: (status: string | undefined) => convertApplyStatus(status),
   },
   {
@@ -149,7 +155,6 @@ const Profile: React.FC<UserProps> = () => {
         )
         if (response.status === 200 || response.status === 400) {
           const applications: ApplicationData[] = response.data.reverse()
-          setUserApplicationData(applications)
           console.log('신청 리스트 출력')
 
           const projectIds: number[] = applications.map(app => app.projectId)
@@ -176,7 +181,22 @@ const Profile: React.FC<UserProps> = () => {
           //     Action: '', // Action 필드는 여기서 필요한 데이터에 따라 설정하세요.
           //   }
           // })
-          console.log(detailedData)
+
+          const mergedData: any = detailedData.map((project: any) => {
+            // 프로젝트의 projectId에 일치하는 지원서들을 찾습니다.
+            let projectApplications = applications.filter(
+              app => app.projectId === project.projectId,
+            )
+
+            // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
+            // @ts-ignore
+            project.applystatus = projectApplications[0].status
+
+            return project
+          })
+          console.log('mergedData', mergedData)
+
+          setUserApplicationData(mergedData)
         }
       } catch (error) {
         console.error('신청 리스트 출력 오류', error)
@@ -321,57 +341,29 @@ const Profile: React.FC<UserProps> = () => {
             )}
           />
         </div>
-        <Pagination
-          className="Board__page"
-          current={currentPage}
-          total={filteredData?.length}
-          pageSize={pageSize}
-          showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
-          onChange={handlePageChange}
-        />
+        <div
+          style={{
+            paddingLeft: '30px',
+          }}
+        >
+          <Pagination
+            className="Board__page"
+            current={currentPage}
+            total={filteredData?.length}
+            pageSize={pageSize}
+            showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
+            onChange={handlePageChange}
+          />
+        </div>
       </section>
-      <section style={{ marginLeft: '30px' }}>
+      <section style={{ marginLeft: '30px', marginTop: '30px' }}>
         <Table<ApplicationData>
           dataSource={userApplicationData}
           columns={columns}
-        >
-          {/* <Column
-            title="ProjectTitle"
-            dataIndex="projectTitle"
-            key="projectTitle"
-          />
-          <Column title="ProjectId" dataIndex="projectId" key="projectId" />
-          <Column title="Address" dataIndex="address" key="address" />
-          <Column
-            title="ApplyStatus"
-            dataIndex="applyStatus"
-            key="applyStatus"
-            render={(tags: string[]) => (
-              <>
-                {tags?.map(tag => {
-                  let color = tag === 'PENDING' ? 'geekblue' : 'green'
-                  if (tag === 'REJECTED') {
-                    color = 'volcano'
-                  }
-                  return (
-                    <Tag color={color} key={tag}>
-                      {tag.toUpperCase()}
-                    </Tag>
-                  )
-                })}
-              </>
-            )}
-          />
-          <Column
-            title="Action"
-            key="action"
-            render={(_: any) => (
-              <Space size="middle">
-                <a>Delete</a>
-              </Space>
-            )}
-          /> */}
-        </Table>
+          pagination={{
+            position: ['bottomCenter'],
+          }}
+        ></Table>
         <div>신청한 프로젝트</div>
         <ul>
           {userApplicationData?.map(applydata => (
