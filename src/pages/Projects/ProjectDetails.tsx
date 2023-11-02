@@ -235,18 +235,20 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
 
   //댓글 삭제 함수
-  const handleDeleteComment = async () => {
+  const handleDeleteComment = async (commentId: number) => {
     const confirmDelete = window.confirm('댓글을 삭제하시겠습니까?')
     if (confirmDelete) {
       try {
         // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
         await axios.delete(
-          `${import.meta.env.VITE_API_ENDPOINT}/api/comments_delete/${
-            comment?.commentId
-          }?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
+          `${
+            import.meta.env.VITE_API_ENDPOINT
+          }/api/comments_delete/${commentId}?projectGenerationUserId=${projectGenerationUserId}&userId=${userId}`,
         )
-        console.log('댓글 삭제 성공')
-        setCommentText('')
+        console.log('댓글 삭제 성공', commentId)
+
+        // comment reload
+        fetchComments()
       } catch (error) {
         // 오류 처리
         console.error('댓글 삭제 오류:', error)
@@ -257,7 +259,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   //댓글 수정 함수
 
   //댓글 수정 및 삭제 버튼
-  const renderCommentEditAndDeleteButtons = (commentUserId: string) => {
+  const renderCommentEditAndDeleteButtons = (
+    commentUserId: string,
+    commentId: number,
+  ) => {
     if (localStorage.userId === commentUserId) {
       return (
         <div>
@@ -268,7 +273,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             <EditOutlined />
           </Button> */}
           <Button
-            onClick={handleDeleteComment}
+            onClick={() => {
+              handleDeleteComment(commentId)
+            }}
             className="projectDetails__commentDeleteBtn"
           >
             <DeleteOutlined />
@@ -281,6 +288,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //댓글 목록 가져오기
   useEffect(() => {
+    fetchComments()
+  }, [commentText, projectId])
+
+  const fetchComments = () => {
     axios
       .get(
         `${import.meta.env.VITE_API_ENDPOINT}/api/comments_list/${projectId}`,
@@ -288,12 +299,14 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       .then(response => {
         if (response.status === 200) {
           setComments(response.data)
+        } else if (response.status === 204) {
+          setComments(response.data)
         }
       })
       .catch(error => {
         console.error('댓글 가져오기 오류:', error)
       })
-  }, [commentText, projectId])
+  }
 
   return (
     <div id="root">
@@ -389,7 +402,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <span className="projectDetails__commentCount"></span>
             </div>
             <div className="projectDetails__commentContainer">
-              {localStorage.userId}
               <textarea
                 className="projectDetails__commentText"
                 placeholder="댓글을 입력하세요."
@@ -419,28 +431,32 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             </div>
           </div>
           <ul className="projectDetails__commentList">
-            {comments.map(comment => (
-              <li className="commentItem__container" key={comment?.commentId}>
-                <section className="commentList__header">
-                  <div className="commentList__wrapper">
-                    <div className="commentList__userInfo">
-                      <div className="commentList__userId">
-                        {comment?.userId}
-                      </div>
-                      <div className="commentList__generateDate">
-                        {comment?.createdAt}
-                        {/* ? formatDate(new Date(comment?.createdAt))
+            {comments &&
+              comments?.map(comment => (
+                <li className="commentItem__container" key={comment?.commentId}>
+                  <section className="commentList__header">
+                    <div className="commentList__wrapper">
+                      <div className="commentList__userInfo">
+                        <div className="commentList__userId">
+                          {comment?.userId}
+                        </div>
+                        <div className="commentList__generateDate">
+                          {comment?.createdAt}
+                          {/* ? formatDate(new Date(comment?.createdAt))
                           : ''} */}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  {renderCommentEditAndDeleteButtons(comment?.userId)}
-                </section>
-                <section className="commentList__content">
-                  <p className="commentList__content">{comment?.content}</p>
-                </section>
-              </li>
-            ))}
+                    {renderCommentEditAndDeleteButtons(
+                      comment?.userId,
+                      comment?.commentId,
+                    )}
+                  </section>
+                  <section className="commentList__content">
+                    <p className="commentList__content">{comment?.content}</p>
+                  </section>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
