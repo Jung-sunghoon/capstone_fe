@@ -1,0 +1,122 @@
+/* 모든 카드의 높이를 동일하게 설정 */
+.card-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-card {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ant-card .ant-card-cover {
+  height: 200px; /* 원하는 높이로 설정 */
+  overflow: hidden;
+}
+.medal {
+  position: relative;
+  width: 120px;
+  height: 220px;
+  display: inline-block;
+  margin: 20px;
+}
+
+.medal:before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 40%;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    #fff 50%,
+    transparent 60%
+  );
+}
+.medal {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 2em;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: radial-gradient(
+    circle at center,
+    white 60%,
+    transparent 60%
+  );
+}
+
+.medal::before,
+.medal::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 20px solid;
+}
+
+.medal::after {
+  top: auto;
+  bottom: -15px;
+  border-bottom: none;
+  border-top: 20px solid;
+}
+
+.medal.gold {
+  border: 5px double gold;
+  background-color: gold;
+}
+
+.medal.gold::before {
+  border-bottom-color: gold;
+}
+
+.medal.gold::after {
+  border-top-color: gold;
+}
+
+.medal.silver {
+  border: 5px double silver;
+  background-color: silver;
+}
+
+.medal.silver::before {
+  border-bottom-color: silver;
+}
+
+.medal.silver::after {
+  border-top-color: silver;
+}
+
+.medal.bronze {
+  border: 5px double #cd7f32;
+  background-color: #cd7f32;
+}
+
+.medal.bronze::before {
+  border-bottom-color: #cd7f32;
+}
+
+.medal.bronze::after {
+  border-top-color: #cd7f32;
+}
+
+.medal span {
+  position: relative;
+  z-index: 2;
+}
