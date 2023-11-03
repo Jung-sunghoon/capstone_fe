@@ -172,15 +172,6 @@ const Profile: React.FC<UserProps> = () => {
           const detailedData: ProjectType[] = detailedDataResponses.map(
             response => response.data,
           )
-          // const dataSource = detailedData.map(project => {
-          //   return {
-          //     projectTitle: project.projectTitle,
-          //     projectId: project.projectId,
-          //     status: project.status,
-          //     recruitmentCount: project.recruitmentCount,
-          //     Action: '', // Action 필드는 여기서 필요한 데이터에 따라 설정하세요.
-          //   }
-          // })
 
           const mergedData: any = detailedData.map((project: any) => {
             // 프로젝트의 projectId에 일치하는 지원서들을 찾습니다.

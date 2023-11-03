@@ -1,26 +1,22 @@
 // export const mockProjects = [
 //   {
-//     projectInfo: {
-//       projectId: 1,
-//       projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
-//       description: `<div style="font-size:16px;" class="readme-markdown"><p align="center"><a href="https://github.com/baealex/BLEX" target="_blank"><img alt="blex color logo"  src="https://user-images.githubusercontent.com/35596687/76856570-de2b8a80-6896-11ea-8827-fc2f1966fa23.png"></a></p><p align="center"><strong>BLOG EXPRESS ME</strong></p><p align="center"><img src="https://img.shields.io/badge/nextjs-11.0.1-yellow?style=flat-square"><img src="https://img.shields.io/badge/django-3.2.5-blue?style=flat-square"></p><h2>Service</h2><p><em><strong>"예쁘고 유니크한 블로그 없을까요?"</strong></em> 🙋&zwj;♂️ <a href="https://blex.me" target="_blank">여기 있습니다!</a> 연락은 <a href="mailto:baealex@hey.com" target="_blank">baealex@hey.com</a> 의견은 <a href="https://github.com/baealex/BLEX/discussions" target="_blank">discussions</a>에!</p><p><img style="width:1000px" src="https://user-images.githubusercontent.com/35596687/128170987-c76cb8ad-5e14-4728-9b16-15f1e14d52cb.png" alt="1"><img style="width:1000px" src="https://user-images.githubusercontent.com/35596687/128170993-8efe31c1-ffa4-4d7a-8c52-ff7016df00dc.png" alt="2"><img style="width:1000px" src="https://user-images.githubusercontent.com/35596687/128170997-1f0cd0af-7b7d-45f2-baf5-678e70791f78.png" alt="3"></p><h2>Features</h2><ul class="contains-task-list"><li class="task-list-item"><input type="checkbox" disabled="" checked=""> 마크다운으로 글 · 댓글 작성 ✍️</li></ul><h2>Links</h2><h4>For Developer</h4><ul><li>사용하는 기술들 (<code>documents/Tech-Stack.md</code>)</li></ul><h4>For User</h4><ul><li><a href="https://blex.me/notion" target="_blank">블렉스 노션</a></li></ul><h2>Contributors</h2><a href="https://github.com/baealex/BLEX/graphs/contributors" target="_blank"><img src="https://contributors-img.web.app/image?repo=baealex/BLEX"></a><h2>License</h2><p>This is released under the MIT license. See <a href="https://github.com/baealex/BLEX/blob/master/LICENSE" target="_blank">LICENSE</a> for details.</p></div>`,
-//       userId: 'test1',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-10-06 13:34',
-//       likes: 10,
-//       views: 123,
-//       thumbnail: 'thumbnail1',
-//     },
-//     techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+//     projectId: 1,
+//     projectTitle: '미니멀한 디자인과 신기술을 응용한 빠른 블로그',
+//     description: `<div style="font-size:16px;" class="readme-markdown"><p align="center"><a href="https://github.com/baealex/BLEX" target="_blank"><img alt="blex color logo"  src="https://user-images.githubusercontent.com/35596687/76856570-de2b8a80-6896-11ea-8827-fc2f1966fa23.png"></a></p><p align="center"><strong>BLOG EXPRESS ME</strong></p><p align="center"><img src="https://img.shields.io/badge/nextjs-11.0.1-yellow?style=flat-square"><img src="https://img.shields.io/badge/django-3.2.5-blue?style=flat-square"></p><h2>Service</h2><p><em><strong>"예쁘고 유니크한 블로그 없을까요?"</strong></em> 🙋&zwj;♂️ <a href="https://blex.me" target="_blank">여기 있습니다!</a> 연락은 <a href="mailto:baealex@hey.com" target="_blank">baealex@hey.com</a> 의견은 <a href="https://github.com/baealex/BLEX/discussions" target="_blank">discussions</a>에!</p><p><img style="width:1000px" src="https://user-images.githubusercontent.com/35596687/128170987-c76cb8ad-5e14-4728-9b16-15f1e14d52cb.png" alt="1"><img style="width:1000px" src="https://user-images.githubusercontent.com/35596687/128170993-8efe31c1-ffa4-4d7a-8c52-ff7016df00dc.png" alt="2"><img style="width:1000px" src="https://user-images.githubusercontent.com/35596687/128170997-1f0cd0af-7b7d-45f2-baf5-678e70791f78.png" alt="3"></p><h2>Features</h2><ul class="contains-task-list"><li class="task-list-item"><input type="checkbox" disabled="" checked=""> 마크다운으로 글 · 댓글 작성 ✍️</li></ul><h2>Links</h2><h4>For Developer</h4><ul><li>사용하는 기술들 (<code>documents/Tech-Stack.md</code>)</li></ul><h4>For User</h4><ul><li><a href="https://blex.me/notion" target="_blank">블렉스 노션</a></li></ul><h2>Contributors</h2><a href="https://github.com/baealex/BLEX/graphs/contributors" target="_blank"><img src="https://contributors-img.web.app/image?repo=baealex/BLEX"></a><h2>License</h2><p>This is released under the MIT license. See <a href="https://github.com/baealex/BLEX/blob/master/LICENSE" target="_blank">LICENSE</a> for details.</p></div>`,
+//     userId: 'test1',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-10-06 13:34',
+//     likes: 10,
+//     views: 123,
 //     thumbnail: 'thumbnail1',
+//     techIds: [1, 3, 4],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 2,
-//       projectTitle: '[BE] ARS(Algorithm Review Service) 개인 프로젝트 Backend',
-//       description: `<div style="font-size:16px;"  class="readme-markdown">
+//     projectId: 2,
+//     projectTitle: '[BE] ARS(Algorithm Review Service) 개인 프로젝트 Backend',
+//     description: `<div style="font-size:16px;"  class="readme-markdown">
 //       <h2>개인 프로젝트</h2>
 //       <h1>ARS (Algorithm Review Service)</h1>
 //       <p>알고리즘 복습을 편하게 할 수 있는 "저"만의 웹서비스입니다.<br>태그별 문제 리스트를 조회할 수 있고, 검색을 통해 리뷰 리스트를 조회할 수 있습니다.<br>등록된 문제에 계속해서 복습 내용을 추가할 수 있고, 문제 상세 보기에 복습 목록이 함께 보여집니다.<br>복습 알림 서비스 기능으로 알림 날짜를 설정하면 해당 날짜에 Slack을 통해 복습 알림을 받을 수 있습니다.<br></p>
@@ -54,23 +50,20 @@
 //         <img src="https://images.velog.io/images/ayoung0073/post/bf9c1032-6f6e-475f-9e66-adc2e4826e76/image.png" alt="" style="max-width: 100%;">
 //       </p>
 //       </div>`,
-//       userId: 'test2',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2023-10-01 13:34',
-//       likes: 3,
-//       views: 12,
-//       thumbnail: 'thumbnail2',
-//     },
-//     techNames: ['Java', 'Nginx', 'Spring Boot', 'Docker', 'Redis'],
+//     userId: 'test2',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2023-10-01 13:34',
+//     likes: 3,
+//     views: 12,
 //     thumbnail: 'thumbnail2',
+//     techIds: [4, 6, 7],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 3,
-//       projectTitle: '썸네일 메이커(thumbnail_maker)',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 3,
+//     projectTitle: '썸네일 메이커(thumbnail_maker)',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <p>
 //         <img src="https://media.vlpt.us/images/oneook/post/735203c3-e8a3-4f91-8f09-b5b28a18aef9/ezgif-7-1105d89ad507.gif" alt="" style="max-width: 100%;">
 //       </p>
@@ -328,23 +321,20 @@
 //         <img src="https://images.velog.io/images/oneook/post/b77a8951-215a-49d0-a61b-0a78723d22b8/shckinghand.png" alt="" style="max-width: 100%;">
 //       </p>
 //       </div>`,
-//       userId: 'test3',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2023-10-12 13:34',
-//       likes: 0,
-//       views: 1,
-//       thumbnail: 'thumbnail3',
-//     },
-//     techNames: ['Javascript', 'HTML', 'CSS'],
+//     userId: 'test3',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2023-10-12 13:34',
+//     likes: 0,
+//     views: 1,
 //     thumbnail: 'thumbnail3',
+//     techIds: [2, 6, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 4,
-//       projectTitle: '실시간 브레인스토밍 협업 플랫폼',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 4,
+//     projectTitle: '실시간 브레인스토밍 협업 플랫폼',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>STORM Android</h1>
 //       <img src="https://user-images.githubusercontent.com/55133871/87793056-b0277880-c87f-11ea-9f5a-62bcb3054a31.gif" width="100%" style="max-width: 100%;">
 //       <img src="https://user-images.githubusercontent.com/56873136/87791082-a7817300-c87c-11ea-919b-9d77ccdaf75e.png" width="70%" style="max-width: 100%;">
@@ -476,23 +466,20 @@
 //         <li><a href="https://junwoo45.github.io/2020-02-06-commit_template/" target="_blank">좋은 커밋 메시지를 작성하기 위한 커밋 템플릿 만들어보기</a></li>
 //       </ul>
 //       </div>`,
-//       userId: 'test4',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-09-06 13:34',
-//       likes: 2,
-//       views: 3,
-//       thumbnail: 'thumbnail4',
-//     },
-//     techNames: ['Kotlin'],
+//     userId: 'test4',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-09-06 13:34',
+//     likes: 2,
+//     views: 3,
 //     thumbnail: 'thumbnail4',
+//     techIds: [3],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 5,
-//       projectTitle: '오늘의 부동산',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 5,
+//     projectTitle: '오늘의 부동산',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <div align="center"><br>
 //         <img src="https://github.com/today-real-estate/today-real-estate_front-end/raw/master/readme_assets/today-real-estate_logo.png" alt="오늘의 부동산" style="max-width: 100%;"><br>
 //         <h1>오늘의 부동산</h1><br>
@@ -1019,23 +1006,20 @@
 //         <li><strong>main 메서드 실행하기</strong></li>
 //       </ol>
 //       </div>`,
-//       userId: 'test5',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-09-08 13:34',
-//       likes: 23,
-//       views: 23,
-//       thumbnail: 'thumbnail5',
-//     },
-//     techNames: ['JavaScript', 'HTML', 'CSS'],
+//     userId: 'test5',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-09-08 13:34',
+//     likes: 23,
+//     views: 23,
 //     thumbnail: 'thumbnail5',
+//     techIds: [1, 2, 3],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 6,
-//       projectTitle: '실시간 날씨 현황 확인 사이트',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 6,
+//     projectTitle: '실시간 날씨 현황 확인 사이트',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>WeatherApp</h1>
 //       <blockquote>
 //         <p>날씨 OpenAPI를 이용해서 Apple 기본 날씨앱 또는 Yahoo 날씨앱과 유사한 기능셋을 구현하기</p>
@@ -1521,23 +1505,20 @@
 //         </li>
 //       </ul>
 //       </div>`,
-//       userId: 'test6',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-09-10 13:34',
-//       likes: 3,
-//       views: 13,
-//       thumbnail: 'thumbnail6',
-//     },
-//     techNames: ['Swift'],
+//     userId: 'test6',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-09-10 13:34',
+//     likes: 3,
+//     views: 13,
 //     thumbnail: 'thumbnail6',
+//     techIds: [7],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 7,
-//       projectTitle: '백엔드 없는 태스크 플래너 플러터 앱',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 7,
+//     projectTitle: '백엔드 없는 태스크 플래너 플러터 앱',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h2>Flutter Task Planner App Design</h2>
 //       <p>
 //         Task Planner App is built in flutter. App design is based on <a href="https://dribbble.com/shots/10951333/attachments/2566966?mode=media" target="_blank">Task Planner App</a> designed by <a href="https://dribbble.com/purrwebui" target="_blank">Purrweb UI</a>.
@@ -1583,23 +1564,20 @@
 //         samples, guidance on mobile development, and a full API reference.
 //       </p>
 //       </div>`,
-//       userId: 'test7',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-08-06 13:34',
-//       likes: 543,
-//       views: 1233,
-//       thumbnail: 'thumbnail7',
-//     },
-//     techNames: ['Swift', 'Dart', 'Kotlin'],
+//     userId: 'test7',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-08-06 13:34',
+//     likes: 543,
+//     views: 1233,
 //     thumbnail: 'thumbnail7',
+//     techIds: [7, 8, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 8,
-//       projectTitle: '아동 급식 카드 가맹점을 조회할 수 있는 앱 `드림트리`',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 8,
+//     projectTitle: '아동 급식 카드 가맹점을 조회할 수 있는 앱 `드림트리`',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h3 align="center">🏆 제 12기 SW 마에스트로 해커톤 2등 수상 🏆</h3>
 //       <h1 align="center">🌳 DreamTree 🌳</h1>
 //       <p align="center">
@@ -1726,23 +1704,20 @@
 //           </tr>
 //         </tbody></table>
 //       </div>`,
-//       userId: 'test8',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2023-07-06 13:34',
-//       likes: 0,
-//       views: 12324,
-//       thumbnail: 'thumbnail8',
-//     },
-//     techNames: ['Kotlin', 'MVVM', 'RxJava', 'Okhttp', 'NaverMap'],
+//     userId: 'test8',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2023-07-06 13:34',
+//     likes: 0,
+//     views: 12324,
 //     thumbnail: 'thumbnail8',
+//     techIds: [1, 5, 8],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 9,
-//       projectTitle: '[IOS] 🐟가슴속 3천원🐟',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 9,
+//     projectTitle: '[IOS] 🐟가슴속 3천원🐟',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <p>
 //         <img src="https://user-images.githubusercontent.com/7058293/110066182-30213500-7db4-11eb-881e-fa3ea0537b7a.png" alt="KakaoTalk_Photo_2021-03-05-13-10-26" style="max-width: 100%;">
 //       </p>
@@ -1789,23 +1764,20 @@
 //         <li>리소스 시스템 관련해서 <a href="https://let-us-go-2020-fall.vercel.app/" target="_blank">let us go 2020 fall</a>에서 발표를 진행했습니다.</li>
 //       </ul>
 //       </div>`,
-//       userId: 'test9',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-06-06 13:34',
-//       likes: 56,
-//       views: 188,
-//       thumbnail: 'thumbnail9',
-//     },
-//     techNames: ['Swift', 'SnapKit', 'RxSwift', 'MVVM'],
+//     userId: 'test9',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-06-06 13:34',
+//     likes: 56,
+//     views: 188,
 //     thumbnail: 'thumbnail9',
+//     techIds: [2, 6, 7],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 10,
-//       projectTitle: '[풀스택] 이거사면 내 평균 주식 단가는 얼마?',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 10,
+//     projectTitle: '[풀스택] 이거사면 내 평균 주식 단가는 얼마?',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <div align="center">
 //         <img src="https://github.com/ddongule/stockulator/raw/master/public/logo.png" alt="logo" style="max-width: 100%;"><br><br><a href="" target="_blank"><img src="https://img.shields.io/badge/license-MIT-red" alt="license" style="max-width: 100%;">
 //       <img src="https://img.shields.io/badge/version-1.0.0-yellow" alt="license" style="max-width: 100%;"></a>
@@ -1851,23 +1823,20 @@
 //         <li><a href="javascript:void(0)" target="_blank"><code>MIT License</code></a></li>
 //       </ul>
 //       </div>`,
-//       userId: 'test10',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-07-07 13:34',
-//       likes: 45,
-//       views: 12123,
-//       thumbnail: 'thumbnail10',
-//     },
-//     techNames: ['React', 'JavaScript', 'Express', 'SCSS', 'Snowpack'],
+//     userId: 'test10',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-07-07 13:34',
+//     likes: 45,
+//     views: 12123,
 //     thumbnail: 'thumbnail10',
+//     techIds: [4, 5, 8],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 11,
-//       projectTitle: '리액트로 만든 픽셀 아트 CSS 생성기',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 11,
+//     projectTitle: '리액트로 만든 픽셀 아트 CSS 생성기',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <p align="center">
 //         <img width="200" src="https://github.com/jvalen/pixel-art-react/raw/master/screenshots/tree-pixelartcss.png" style="max-width: 100%;">
 //       </p>
@@ -1952,24 +1921,21 @@
 //         Copyright © 2016 Javier Valencia Romero (@jvalen)
 //       </p>
 //       </div>`,
-//       userId: 'test11',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-07-31 13:34',
-//       likes: 97,
-//       views: 423,
-//       thumbnail: 'thumbnail11',
-//     },
-//     techNames: ['React', 'Redux', 'JavaScript'],
+//     userId: 'test11',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-07-31 13:34',
+//     likes: 97,
+//     views: 423,
 //     thumbnail: 'thumbnail11',
+//     techIds: [3, 4, 8],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 12,
-//       projectTitle:
-//         '[풀스택]🐇 토닥토닥 (Todak-Todak) /사회적 연대 강화를 위한 지역 기반 커뮤니티 서비스',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 12,
+//     projectTitle:
+//       '[풀스택]🐇 토닥토닥 (Todak-Todak) /사회적 연대 강화를 위한 지역 기반 커뮤니티 서비스',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <div align="center"><br>
 //         <img src="https://github.com/JeongHwan-dev/todak-todak/raw/Azure/readme_assets/todak_logo.png" alt="토닥토닥" height="150px" style="max-width: 100%;"><br>
 //         <h1>토닥토닥 (Todak-Todak)</h1><a href="https://blackpink.fashion-scanner.site/" target="_blank"><img src="https://img.shields.io/badge/NGINX-Deactivate-ff7f00?&amp;logo=nginx&amp;logoColor=white" alt="NGINX" style="max-width: 100%;"></a><br>
@@ -2460,23 +2426,20 @@
 //       # 리모델링이 안된다면 migration 디렉토리를 삭제 후 SQLalchemy를 최초 실행해주세요
 //       </code></pre>
 //       </div>`,
-//       userId: 'test12',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-09-26 13:34',
-//       likes: 1,
-//       views: 4,
-//       thumbnail: 'thumbnail12',
-//     },
-//     techNames: ['React', 'Python', 'Bootstrap', 'Flask', 'Neo4j', 'D3.js'],
+//     userId: 'test12',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-09-26 13:34',
+//     likes: 1,
+//     views: 4,
 //     thumbnail: 'thumbnail12',
+//     techIds: [5, 7, 8],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 13,
-//       projectTitle: '내 손 안의 스트레스 휴지통, [비움] Server repository',
-//       description: `<div style="font-size:16px;"  class="readme-markdown">
+//     projectId: 13,
+//     projectTitle: '내 손 안의 스트레스 휴지통, [비움] Server repository',
+//     description: `<div style="font-size:16px;"  class="readme-markdown">
 //       <h1>비움 B-um</h1>
 //       <p>
 //         <img src="https://github.com/TeamB-um/B-umServer/raw/main/bum.JPG" alt="ex_screenshot" style="width: 600px;"><br>살아가며 필연적으로 마주치는 크고 작은 스트레스들...<br>완벽한 해결이 아니더라도 한 스푼 덜어드리겠습니다.
@@ -2707,23 +2670,20 @@
 //         </ul>
 //       </div>
 //       </div>`,
-//       userId: 'test13',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-09-16 13:34',
-//       likes: 2,
-//       views: 7,
-//       thumbnail: 'thumbnail13',
-//     },
-//     techNames: ['Nodejs', 'Typescript', 'MongoDB'],
+//     userId: 'test13',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-09-16 13:34',
+//     likes: 2,
+//     views: 7,
 //     thumbnail: 'thumbnail13',
+//     techIds: [2, 4, 5],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 14,
-//       projectTitle: '[BE] 👨‍🦯시각 장애인을 위한 딥 러닝 기반의 스마트 지팡이',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 14,
+//     projectTitle: '[BE] 👨‍🦯시각 장애인을 위한 딥 러닝 기반의 스마트 지팡이',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>SmartCane-Back-end</h1>
 //       <p>SmartCane-Back-end</p>
 //       <h3>4학년 1학기 졸업작품 시각장애인용 딥러닝 기반 스마트 지팡이</h3>
@@ -2757,23 +2717,20 @@
 //         <p>python3 manage.py runserver</p>
 //       </blockquote>
 //       </div>`,
-//       userId: 'test14',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-05-06 13:34',
-//       likes: 0,
-//       views: 18,
-//       thumbnail: 'thumbnail14',
-//     },
-//     techNames: ['Nginx', 'Python', 'Docker'],
+//     userId: 'test14',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-05-06 13:34',
+//     likes: 0,
+//     views: 18,
 //     thumbnail: 'thumbnail14',
+//     techIds: [6, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 15,
-//       projectTitle: '👭 Autoencoder를 사용한 딥페이크 영상 프로젝트',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 15,
+//     projectTitle: '👭 Autoencoder를 사용한 딥페이크 영상 프로젝트',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>DeepFake v1</h1>
 //       <h4>* I do not allow malicious video production through this source code. This is just a practice code. (해당 소스 코드를 통한 악의적인 영상 제작을 불허합니다.)</h4>
 //       <h2>Version</h2>
@@ -2948,40 +2905,34 @@
 //       <h5>Image Source</h5>
 //       <p><a href="https://medium.com/@jonathan_hui/how-deep-learning-fakes-videos-deepfakes-and-how-to-detect-it-c0b50fbf7cb9" target="_blank">https://medium.com/@jonathan_hui/how-deep-learning-fakes-videos-deepfakes-and-how-to-detect-it-c0b50fbf7cb9</a></p>
 //       </div>`,
-//       userId: 'test15',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2023-06-09 13:34',
-//       likes: 23,
-//       views: 41,
-//       thumbnail: 'thumbnail15',
-//     },
-//     techNames: ['Python', 'Tensorflow', 'Jupyter Notebook'],
+//     userId: 'test15',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2023-06-09 13:34',
+//     likes: 23,
+//     views: 41,
 //     thumbnail: 'thumbnail15',
+//     techIds: [2, 5, 6],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 16,
-//       projectTitle: '심모(심심한 사람들의 모임) for Android',
-//       description: `<div style="font-size:16px;" class="readme-markdown"><h1>심모(심심한 사람들의 모임) for Android</h1><img src="https://user-images.githubusercontent.com/35266591/79560068-d2bfbf00-80e1-11ea-8a00-0c29ab40c20e.png" width="90%"><p>관심사 기반의 번개 모임 서비스 안드로이드 어플리케이션 <a href="https://play.google.com/store/apps/details?id=com.yapp14th.yappapp" target="_blank">[플레이 스토어]</a></p><h2>Screenshots</h2><p><img src="https://user-images.githubusercontent.com/35266591/79560759-25e64180-80e3-11ea-9140-9089aaa1b188.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560761-27b00500-80e3-11ea-9447-fab090de3e93.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560959-7f4e7080-80e3-11ea-8e54-4d6b807adf13.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560787-326a9a00-80e3-11ea-8b22-bc2ac55af73a.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560777-2ed71300-80e3-11ea-97c2-4cce2bb916b4.jpg" width="20%"></p><h2>Tech / Framework / Library</h2><ul style="font-size: 16px;margin-left: 20px;"><li>Android with JAVA</li><li>Google Map</li><li>FCM</li><li>Glide</li><li>Retrofit2</li><li>Butterknife</li><li>Album</li><li>CircleImageView</li><li>Toasty</li><li>ChipsLayoutManager</li><li>AndroidViewAnimations</li><li>Loading</li><li>HashTagHelper</li></ul></div>`,
-//       userId: 'test16',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-10-16 13:34',
-//       likes: 12,
-//       views: 51,
-//       thumbnail: 'thumbnail16',
-//     },
-//     techNames: ['Java', 'Nodejs', 'AWS', 'Android'],
+//     projectId: 16,
+//     projectTitle: '심모(심심한 사람들의 모임) for Android',
+//     description: `<div style="font-size:16px;" class="readme-markdown"><h1>심모(심심한 사람들의 모임) for Android</h1><img src="https://user-images.githubusercontent.com/35266591/79560068-d2bfbf00-80e1-11ea-8a00-0c29ab40c20e.png" width="90%"><p>관심사 기반의 번개 모임 서비스 안드로이드 어플리케이션 <a href="https://play.google.com/store/apps/details?id=com.yapp14th.yappapp" target="_blank">[플레이 스토어]</a></p><h2>Screenshots</h2><p><img src="https://user-images.githubusercontent.com/35266591/79560759-25e64180-80e3-11ea-9140-9089aaa1b188.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560761-27b00500-80e3-11ea-9447-fab090de3e93.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560959-7f4e7080-80e3-11ea-8e54-4d6b807adf13.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560787-326a9a00-80e3-11ea-8b22-bc2ac55af73a.jpg" width="20%"><img src="https://user-images.githubusercontent.com/35266591/79560777-2ed71300-80e3-11ea-97c2-4cce2bb916b4.jpg" width="20%"></p><h2>Tech / Framework / Library</h2><ul style="font-size: 16px;margin-left: 20px;"><li>Android with JAVA</li><li>Google Map</li><li>FCM</li><li>Glide</li><li>Retrofit2</li><li>Butterknife</li><li>Album</li><li>CircleImageView</li><li>Toasty</li><li>ChipsLayoutManager</li><li>AndroidViewAnimations</li><li>Loading</li><li>HashTagHelper</li></ul></div>`,
+//     userId: 'test16',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-10-16 13:34',
+//     likes: 12,
+//     views: 51,
 //     thumbnail: 'thumbnail16',
+//     techIds: [3, 5, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 17,
-//       projectTitle: '🔎 패션 스캐너 (FASHION SCANNER)',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 17,
+//     projectTitle: '🔎 패션 스캐너 (FASHION SCANNER)',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <div align="center"><br>
 //         <img src="https://github.com/JeongHwan-dev/fashion-scanner/raw/master/readme_assets/fs_banner.png" alt="FASHION SCANNER" style="max-width: 100%;"><br>
 //         <h1>패션 스캐너 (FASHION SCANNER)</h1><a href="https://blackpink.fashion-scanner.site/" target="_blank"><img src="https://img.shields.io/badge/NGINX-Deactivate-ff7f00?&amp;logo=nginx&amp;logoColor=white" alt="NGINX" style="max-width: 100%;"></a><br>
@@ -3555,23 +3506,20 @@
 //       <pre><code class="language-bash">$ npm start
 //       </code></pre>
 //       </div>`,
-//       userId: 'test17',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-01-06 13:34',
-//       likes: 15,
-//       views: 52,
-//       thumbnail: 'thumbnail17',
-//     },
-//     techNames: ['React', 'Django', 'Nginx', 'CSS', 'Docker'],
+//     userId: 'test17',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-01-06 13:34',
+//     likes: 15,
+//     views: 52,
 //     thumbnail: 'thumbnail17',
+//     techIds: [1, 7, 8],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 18,
-//       projectTitle: '[풀스택] 두굿모닝 (Do Good morning)',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 18,
+//     projectTitle: '[풀스택] 두굿모닝 (Do Good morning)',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <div align="center"><br>
 //         <img src="https://github.com/do-good-morning/do-good-morning/raw/master/images/dgm_logo.png" height="150px" style="max-width: 100%;">
 //         <h1>두굿모닝 (Do Good morning)</h1>
@@ -3879,23 +3827,20 @@
 //       <pre><code class="language-bash">$ npm start
 //       </code></pre>
 //       </div>`,
-//       userId: 'test18',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2023-08-13 13:34',
-//       likes: 2,
-//       views: 74,
-//       thumbnail: 'thumbnail18',
-//     },
-//     techNames: ['React', 'Python', 'Flask', 'Swiper'],
+//     userId: 'test18',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2023-08-13 13:34',
+//     likes: 2,
+//     views: 74,
 //     thumbnail: 'thumbnail18',
+//     techIds: [1, 4, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 19,
-//       projectTitle: '블로그 글을 쉽게 트윗할 수 있는 서비스',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 19,
+//     projectTitle: '블로그 글을 쉽게 트윗할 수 있는 서비스',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>Hashnode to Twitter</h1>
 //       <p>This app allows you to post bite-sized tweets summarizing your <a href="https://hashnode.com" target="_blank">Hashnode</a> blog post.</p>
 //       <p><strong><a href="https://hashnode-to-twitter.vercel.app" target="_blank">Live Demo</a></strong></p>
@@ -3940,23 +3885,20 @@
 //         <p>If you like this and want to support my open-source work, please <a href="https://coffee.soumya.dev/" target="_blank">buy me a coffee</a>.</p>
 //       </to>
 //       </div>`,
-//       userId: 'test19',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-09-23 13:34',
-//       likes: 5,
-//       views: 34,
-//       thumbnail: 'thumbnail19',
-//     },
-//     techNames: ['Next.js', 'Tailwind CSS', 'Auth0', 'Twitter API'],
+//     userId: 'test19',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-09-23 13:34',
+//     likes: 5,
+//     views: 34,
 //     thumbnail: 'thumbnail19',
+//     techIds: [5, 6],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 20,
-//       projectTitle: '[BE] Cherish 당신의 소중한 사람들을 위한 연락관리 서비스',
-//       description: `<div style="font-size:16px;"  class="readme-markdown">
+//     projectId: 20,
+//     projectTitle: '[BE] Cherish 당신의 소중한 사람들을 위한 연락관리 서비스',
+//     description: `<div style="font-size:16px;"  class="readme-markdown">
 //       <img src="https://user-images.githubusercontent.com/42789819/104716209-f1cfa800-576a-11eb-8275-3d2e69cce546.png" style="max-width: 100%;"><br>
 //       <h2>
 //         <img width="20px" src="https://user-images.githubusercontent.com/42789819/115147514-42221300-a096-11eb-9526-a68b8094f79c.png" style="max-width: 100%;"> Project
@@ -4516,23 +4458,20 @@
 //       UIImage+Extension.swift
 //       </code></pre><br>
 //       </div>`,
-//       userId: 'test20',
-//       projectStatus: 'Ps_pr',
-//       status: 'S_pr',
-//       recruitmentCount: 2,
-//       generateDate: '2023-03-06 13:34',
-//       likes: 34,
-//       views: 89,
-//       thumbnail: 'thumbnail20',
-//     },
-//     techNames: ['Nodejs', 'Express'],
+//     userId: 'test20',
+//     projectStatus: 'Ps_pr',
+//     status: 'S_pr',
+//     recruitmentCount: 2,
+//     generateDate: '2023-03-06 13:34',
+//     likes: 34,
+//     views: 89,
 //     thumbnail: 'thumbnail20',
+//     techIds: [3, 4],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 21,
-//       projectTitle: '👨‍👨‍👧 원라인코스(One-Line Course)',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 21,
+//     projectTitle: '👨‍👨‍👧 원라인코스(One-Line Course)',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <p><a href="https://github.com/JuHyun419/one-line-course/actions/workflows/github-action.yml" target="_blank"><img src="https://github.com/JuHyun419/one-line-course/actions/workflows/github-action.yml/badge.svg" alt="GitHub-Action with Java Maven" style="max-width: 100%;"></a></p>
 //       <h2>👨&zwj;👨&zwj;👧 원라인코스(One-Line Course)</h2>
 //       <ul>
@@ -4694,23 +4633,20 @@
 //         <li><a href="https://miniminis.github.io/2019/10/13/spring/springboot-deploy/" target="_blank">https://miniminis.github.io/2019/10/13/spring/springboot-deploy/</a></li>
 //       </ul>
 //       </div>`,
-//       userId: 'test21',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 3,
-//       generateDate: '2023-01-01 13:34',
-//       likes: 7849,
-//       views: 63498,
-//       thumbnail: 'thumbnail21',
-//     },
-//     techNames: ['React', 'Spring Boot', 'JPA', 'Typescript', 'SCSS'],
+//     userId: 'test21',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 3,
+//     generateDate: '2023-01-01 13:34',
+//     likes: 7849,
+//     views: 63498,
 //     thumbnail: 'thumbnail21',
+//     techIds: [1, 2, 3, 4, 5],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 22,
-//       projectTitle: '곽철용 짤 생성기',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 22,
+//     projectTitle: '곽철용 짤 생성기',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>🎴 곽철용 짤 생성기</h1>
 //       <p>
 //         <img src="https://raw.githubusercontent.com/wormwlrm/kwakcheolyong/master/preview.gif" alt="preview" style="max-width: 100%;">
@@ -5013,23 +4949,20 @@
 //       <p>사실 이 프로젝트는 곽철용이라는 인터넷 밈의 인기에 편승(?)한 거라… 뭔가 숟가락만 얹은 느낌도 들어서 괜히 찔리네요. 앞으로는 좀 더 개발자스럽게, 이 프로젝트를 기술적으로 어떻게 더 개선할 수 있을지에 대해서 고민해보아야겠습니다.</p>
 //       <p>코드는 <a href="https://github.com/wormwlrm/kwakcheolyong" target="_blank">Github</a>에도 공개되어 있으니, 이 프로젝트가 마음에 드신다면 스타(⭐)를, 개선이 필요한 점이 있다면 풀 리퀘스트를 보내주시면 감사하겠습니다. 덧글도 언제든 환영입니다.</p>
 //       </div>`,
-//       userId: 'test22',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2022-01-05 13:34',
-//       likes: 1012,
-//       views: 1238763,
-//       thumbnail: 'thumbnail22',
-//     },
-//     techNames: ['Vue.js', 'JavaScript', 'HTML', 'CSS'],
+//     userId: 'test22',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2022-01-05 13:34',
+//     likes: 1012,
+//     views: 1238763,
 //     thumbnail: 'thumbnail22',
+//     techIds: [6, 7, 8, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 23,
-//       projectTitle: '[FE] 1일 1미션 인증 및 공유 웹 어플리케이션',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 23,
+//     projectTitle: '[FE] 1일 1미션 인증 및 공유 웹 어플리케이션',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>
 //         <img src="https://user-images.githubusercontent.com/39932233/80936920-056df500-8e0e-11ea-8a57-2cf418edd852.png" alt="logo 74f7f9d7" style="max-width: 100%;">
 //       </h1>
@@ -5149,23 +5082,20 @@
 //         <img src="https://user-images.githubusercontent.com/39932233/83716004-a8ae6600-a669-11ea-8ce8-bb0816e0f603.png" alt="BEM" style="max-width: 100%;">
 //       </p>
 //       </div>`,
-//       userId: 'test23',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2023-10-06 13:34',
-//       likes: 11240,
-//       views: 124593,
-//       thumbnail: 'thumbnail23',
-//     },
-//     techNames: ['React', 'Redux', 'React Router', 'Redux-thunk', 'Sass'],
+//     userId: 'test23',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2023-10-06 13:34',
+//     likes: 11240,
+//     views: 124593,
 //     thumbnail: 'thumbnail23',
+//     techIds: [2, 4, 7, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 24,
-//       projectTitle: '미리 맞이하는 당신의 이른 죽음 - Android repository',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 24,
+//     projectTitle: '미리 맞이하는 당신의 이른 죽음 - Android repository',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>ApophisAndroid : <em>Never-Die-Zombieroid</em> 🌠🧛&zwj;♀️</h1><br>
 //       <img src="https://user-images.githubusercontent.com/63586451/104689431-d8683500-5745-11eb-8a57-5532602f7260.jpg" alt="프로필" style="max-width: 100%;">
 //       <blockquote>
@@ -5942,24 +5872,20 @@
 //           </tr>
 //         </tbody></table><br>
 //       </div>`,
-//       userId: 'test1',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2022-11-09 13:34',
-//       likes: 105,
-//       views: 18798,
-//       thumbnail: 'thumbnail24',
-//     },
-//     techNames: ['React', 'Django', 'SQLite', 'Next.js', 'Nginx', 'PostgreSQL'],
+//     userId: 'test1',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2022-11-09 13:34',
+//     likes: 105,
+//     views: 18798,
 //     thumbnail: 'thumbnail24',
+//     techIds: [2, 4, 6, 8, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 25,
-//       projectTitle:
-//         '✨ 운동 포스터 제작 및 공유 Bodymood ✨- Flutter repository',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 25,
+//     projectTitle: '✨ 운동 포스터 제작 및 공유 Bodymood ✨- Flutter repository',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>Bodymood</h1>
 //       <p>디프만 10기 5조, 바디무드 프로젝트</p>
 //       <ul>
@@ -6018,23 +5944,20 @@
 //       <h2>WISeR</h2>
 //       <p><code>Widget</code>, <code>Interactor</code>, <code>State</code>, <code>Entity</code>, <code>Router</code> 아키텍쳐</p>
 //       </div>`,
-//       userId: 'test25',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2021-03-01 13:34',
-//       likes: 1056,
-//       views: 125643,
-//       thumbnail: 'thumbnail25',
-//     },
-//     techNames: ['HTML', 'Dart', 'Ruby'],
+//     userId: 'test25',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2021-03-01 13:34',
+//     likes: 1056,
+//     views: 125643,
 //     thumbnail: 'thumbnail25',
+//     techIds: [1, 5, 6],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 26,
-//       projectTitle: '📚[풀스택]책무리 프로젝트 (Chakmuri Project)',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 26,
+//     projectTitle: '📚[풀스택]책무리 프로젝트 (Chakmuri Project)',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1 align="center">📚 책무리 프로젝트 (Chakmuri Project)</h1>
 //       <h3 align="center">책으로 하나되어 모이다. "책무리"</h3>
 //       <p>
@@ -6196,32 +6119,20 @@
 //         <li>코드 포맷팅, 미디어 쿼리 수정, 푸터가 하단에 고정되지 않는 문제 수정, 입력하지 않은 도서정보 렌더링 수정</li>
 //       </ul><br>
 //       </div>`,
-//       userId: 'test26',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2022-03-18 13:34',
-//       likes: 103,
-//       views: 1243,
-//       thumbnail: 'thumbnail26',
-//     },
-//     techNames: [
-//       'Java',
-//       'React',
-//       'Spring Boot',
-//       'JPA',
-//       'JavaScript',
-//       'Ant design',
-//       'Styled-components',
-//       'Gradle',
-//     ],
+//     userId: 'test26',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2022-03-18 13:34',
+//     likes: 103,
+//     views: 1243,
 //     thumbnail: 'thumbnail26',
+//     techIds: [1, 2, 3, 4, 5, 6, 7],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 27,
-//       projectTitle: '[FE] 😊 주접 생성기',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 27,
+//     projectTitle: '[FE] 😊 주접 생성기',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h2>주접떠는 사이트</h2>
 //       <p><a href="https://github.com/jong-hui/JuJeob/blob/master/CONTRIBUTING.md" target="_blank">여러분의 주접도 추가해주세요!</a></p>
 //       <h3>감사합니다!</h3>
@@ -6247,23 +6158,20 @@
 //         <img src="https://user-images.githubusercontent.com/42797995/98429243-db60fc80-20e8-11eb-9d8f-1094b63362ac.gif" alt="gif" style="max-width: 100%;">
 //       </p>
 //       </div>`,
-//       userId: 'test26',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2022-07-21 13:34',
-//       likes: 924,
-//       views: 12123,
-//       thumbnail: 'thumbnail27',
-//     },
-//     techNames: ['Next.js', 'Styled-components', 'Typescript', 'Mobx'],
+//     userId: 'test26',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2022-07-21 13:34',
+//     likes: 924,
+//     views: 12123,
 //     thumbnail: 'thumbnail27',
+//     techIds: [3, 4, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 28,
-//       projectTitle: '[풀스택] 💉우리들의 백신 접종 후기 공유 플랫폼_CVI',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 28,
+//     projectTitle: '[풀스택] 💉우리들의 백신 접종 후기 공유 플랫폼_CVI',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <img src="https://user-images.githubusercontent.com/53412998/135798025-1158fe48-0841-4545-a28f-8015468c3328.png" width="100%" style="max-width: 100%;">
 //       <h1>프로젝트 소개</h1><br>
 //       <p align="center"><a target="_blank" href="https://www.youtube.com/watch?v=W1LziOGs_6g"><img src="https://user-images.githubusercontent.com/53412998/137051501-805cd497-b7d7-421e-b6ac-4f03549e0d93.png" width="50%" height="50%" style="max-width: 100%;"></a></p>
@@ -6360,32 +6268,20 @@
 //           </tr>
 //         </tbody></table>
 //       </div>`,
-//       userId: 'test1',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 2,
-//       generateDate: '2022-05-09 13:34',
-//       likes: 1024,
-//       views: 10092,
-//       thumbnail: 'thumbnail28',
-//     },
-//     techNames: [
-//       'React',
-//       'Redux',
-//       'Spring Boot',
-//       'JPA',
-//       'Oauth2',
-//       'Webpack',
-//       'Babel',
-//       'Logback',
-//     ],
+//     userId: 'test1',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 2,
+//     generateDate: '2022-05-09 13:34',
+//     likes: 1024,
+//     views: 10092,
 //     thumbnail: 'thumbnail28',
+//     techIds: [2, 3, 4, 5, 8, 9],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 29,
-//       projectTitle: '🌻Sunflower-farmer 블록체인 기반 해바라기 게임',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 29,
+//     projectTitle: '🌻Sunflower-farmer 블록체인 기반 해바라기 게임',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>Sunflower Farmer</h1>
 //       <p>A blockchain based game where players can play to earn Sunflower Farmer Tokens.</p>
 //       <p>You can play the game here: <a href="https://www.sunflower-farmers.com/" target="_blank">https://www.sunflower-farmers.com/</a></p>
@@ -6407,23 +6303,20 @@
 //       <p>We are open source and bootstrapped with zero funds. Hence we have used a base asset pack - <a href="https://danieldiggle.itch.io/sunnyside" target="_blank">https://danieldiggle.itch.io/sunnyside</a></p>
 //       <p>You can find the designer and his amazing work here - <a href="https://twitter.com/DanielDiggle" target="_blank">https://twitter.com/DanielDiggle</a></p>
 //       </div>`,
-//       userId: 'test1',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 3,
-//       generateDate: '2022-08-16 13:34',
-//       likes: 9238,
-//       views: 22123,
-//       thumbnail: 'thumbnail29',
-//     },
-//     techNames: ['JavaScript', 'CSS', 'Typescript', 'Solidity'],
+//     userId: 'test1',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 3,
+//     generateDate: '2022-08-16 13:34',
+//     likes: 9238,
+//     views: 22123,
 //     thumbnail: 'thumbnail29',
+//     techIds: [2, 5, 7, 8],
 //   },
 //   {
-//     projectInfo: {
-//       projectId: 30,
-//       projectTitle: '혼술 패키지 프로젝트',
-//       description: `<div style="font-size:16px;" class="readme-markdown">
+//     projectId: 30,
+//     projectTitle: '혼술 패키지 프로젝트',
+//     description: `<div style="font-size:16px;" class="readme-markdown">
 //       <h1>🚀spacebar_web</h1>
 //       <h1><strong>일상으로부터의 한 칸, 당신의 한잔을 위한 혼술 패키지 및 홈페이지</strong></h1>
 //       <blockquote>
@@ -6548,16 +6441,14 @@
 //           </tr>
 //         </tbody></table>
 //       </div>`,
-//       userId: 'test3',
-//       projectStatus: 'Ps_co',
-//       status: 'S_co',
-//       recruitmentCount: 3,
-//       generateDate: '2021-10-06 13:34',
-//       likes: 10933,
-//       views: 857784,
-//       thumbnail: 'thumbnail30',
-//     },
-//     techNames: ['JavaScript', 'HTML', 'CSS', 'Arduino'],
+//     userId: 'test3',
+//     projectStatus: 'Ps_co',
+//     status: 'S_co',
+//     recruitmentCount: 3,
+//     generateDate: '2021-10-06 13:34',
+//     likes: 10933,
+//     views: 857784,
 //     thumbnail: 'thumbnail30',
+//     techIds: [1, 5, 6, 7],
 //   },
 // ]
