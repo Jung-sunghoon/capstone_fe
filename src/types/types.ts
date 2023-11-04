@@ -22,6 +22,8 @@ export interface UserType {
   name: string
   nickname: string
   email: string
+  studentNumber: number
+  department: string
   gitAddress: string
   point: number
 }

@@ -9,6 +9,8 @@ interface UserData {
   userId: string
   password: string
   name: string
+  department: string
+  studentNumber: number | undefined
   nickname: string
   email: string
   gitAddress: string
@@ -25,6 +27,8 @@ const SignUp: React.FC = () => {
     userId: '',
     password: '',
     name: '',
+    department: '',
+    studentNumber: undefined,
     nickname: '',
     email: '',
     gitAddress: '',
@@ -107,7 +111,9 @@ const SignUp: React.FC = () => {
       !userData.name ||
       !userData.nickname ||
       !userData.email ||
-      !userData.gitAddress
+      !userData.gitAddress ||
+      !userData.department ||
+      !userData.studentNumber
     ) {
       setMessage('모든 회원 정보를 입력하세요.')
       return // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
@@ -200,6 +206,28 @@ const SignUp: React.FC = () => {
             name="email"
             className="Su__t__box"
             value={userData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="Signup__form_div">
+          <label>학과</label>
+          <Input
+            placeholder="학과를 입력하시오"
+            type="text"
+            name="department"
+            className="Su__t__box"
+            value={userData.department}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="Signup__form_div">
+          <label>학번</label>
+          <Input
+            placeholder="학번을 입력하시오"
+            type="text"
+            name="studentNumber"
+            className="Su__t__box"
+            value={userData.studentNumber}
             onChange={handleChange}
           />
         </div>

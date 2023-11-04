@@ -2,16 +2,19 @@ import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
 import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { convertApplyStatus, convertStatus } from '@src/utils/common'
-import { Button, Input, List, Pagination, Space, Table, Tag } from 'antd'
+import { Button, Input, List, Pagination, Table, Tag } from 'antd'
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
 import './profile.css'
+
+const techstacks = localStorage.getItem('techstacks')
 
 export interface UserProps {
   userData: UserType
 }
 
 export interface ApplicationData {
+  userId: string
   projectId: number
   status: string
   applyDate: string
@@ -23,30 +26,89 @@ const PROJECT_STATUSES = [
   { label: '프로젝트 공유', value: 'Ps_co' },
 ]
 
-const columns = [
-  { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
-  { title: 'ProjectId', dataIndex: 'projectId', key: 'projectId' },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (status: string | undefined) => convertStatus(status),
-  },
-  {
-    title: 'Applystatus',
-    dataIndex: 'applystatus',
-    key: 'applystatus',
-    render: (status: string | undefined) => convertApplyStatus(status),
-  },
-  {
-    title: 'recruitmentCount',
-    dataIndex: 'recruitmentCount',
-    key: 'recruitmentCount',
-  },
-  { title: 'Action', dataIndex: 'Action', key: 'Action' },
-]
-
 const Profile: React.FC<UserProps> = () => {
+  const columns = [
+    { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
+    {
+      title: 'TechIds',
+      dataIndex: 'techIds',
+      key: 'techIds',
+      render: (techIds: number[] | undefined) => {
+        const techStacksData = techstacks ? JSON.parse(techstacks) : []
+        return (
+          <div>
+            {techIds &&
+              techIds.map((techId, index) => {
+                const tech = techStacksData?.find(
+                  (item: any) => item.techId === techId,
+                )
+                return (
+                  <Tag key={'tag_' + index} color="magenta">
+                    {tech?.techName}
+                  </Tag>
+                )
+              })}
+          </div>
+        )
+      },
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: string | undefined) => convertStatus(status),
+    },
+    {
+      title: 'Applystatus',
+      dataIndex: 'applystatus',
+      key: 'applystatus',
+      render: (status: string | undefined) => convertApplyStatus(status),
+    },
+    {
+      title: 'recruitmentCount',
+      dataIndex: 'recruitmentCount',
+      key: 'recruitmentCount',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'Action',
+      key: 'Action',
+      render: (_text: any, record: any) => (
+        <Button onClick={() => handleCancelApply(record)}>취소</Button>
+      ),
+    },
+  ]
+
+  const handleCancelApply = async (projectApplyData: ApplicationData) => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/cancel_apply`,
+        {
+          data: {
+            userId: localStorage.userId,
+            projectId: projectApplyData.projectId,
+            status: projectApplyData.status,
+            applyDate: projectApplyData.applyDate,
+          },
+        },
+      )
+
+      if (response.status === 200) {
+        const updatedData = userApplicationData.filter(item => {
+          return (
+            item.userId !== projectApplyData.userId ||
+            item.projectId !== projectApplyData.projectId
+          )
+        })
+        console.log('신청 취소 완료')
+        setUserApplicationData(updatedData)
+      } else {
+      }
+    } catch (error) {
+      console.error('신청 취소하는 중 오류 발생:', error)
+    }
+  }
+
   const [message, setMessage] = useState<string>('')
   const [projects, setProjects] = useState<ProjectsType>([])
   const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
@@ -182,6 +244,7 @@ const Profile: React.FC<UserProps> = () => {
             // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
             // @ts-ignore
             project.applystatus = projectApplications[0].status
+            project.applyDate = projectApplications[0].applyDate
 
             return project
           })
@@ -198,7 +261,7 @@ const Profile: React.FC<UserProps> = () => {
 
   useEffect(() => {
     performSearchAndSort()
-  }, [projects, currentProjectStatus, sortOption])
+  }, [projects, currentProjectStatus, sortOption, userApplicationData])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -228,9 +291,9 @@ const Profile: React.FC<UserProps> = () => {
                 />
                 <div>포인트: {userProfile?.point}</div>
               </div>
-              <div className="Pro__Grade">
+              {/* <div className="Pro__Grade">
                 <div>등급: </div>
-              </div>
+              </div> */}
             </section>
           </div>
           <section className="Pro__UserProfileContainer">
@@ -280,12 +343,30 @@ const Profile: React.FC<UserProps> = () => {
               />
             </div>
             <div className="Pro__form_div">
+              <label>학과</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.department + '학과'}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
+              <label>학번</label>
+              <Input
+                className="Pro__UserProfile"
+                value={userProfile?.studentNumber}
+                disabled
+                style={{ backgroundColor: 'white', color: 'black' }}
+              />
+            </div>
+            <div className="Pro__form_div">
               <label>Git 주소</label>
               <Input
                 className="Pro__UserProfile"
                 value={userProfile?.gitAddress}
                 disabled
-                // style={{ backgroundColor: 'white', color: 'black' }}
+                style={{ backgroundColor: 'white', color: 'black' }}
               />
             </div>
             <p className="error__m">{message}</p>
@@ -355,17 +436,6 @@ const Profile: React.FC<UserProps> = () => {
             position: ['bottomCenter'],
           }}
         ></Table>
-        <div>신청한 프로젝트</div>
-        <ul>
-          {userApplicationData?.map(applydata => (
-            <>
-              <li key={applydata.projectId}>
-                projectId: {applydata?.projectId}
-              </li>
-              <li>status: {convertApplyStatus(applydata?.status)}</li>
-            </>
-          ))}
-        </ul>
       </section>
     </div>
   )
