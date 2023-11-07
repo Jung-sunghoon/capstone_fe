@@ -38,7 +38,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
           }}
           alt="example"
           //@ts-ignore
-          src={thumbnail}
+          src={info?.thumbnail}
           onClick={() => {
             navigate(`/project/${info?.projectId}`)
           }}
