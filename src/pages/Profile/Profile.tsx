@@ -11,7 +11,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 const techstacks = localStorage.getItem('techstacks')
 
 export interface UserProps {
-  userData: UserType
+  userData?: UserType
 }
 
 export interface ApplicationData {
@@ -28,6 +28,10 @@ const PROJECT_STATUSES = [
 ]
 
 const Profile: React.FC<UserProps> = ({}) => {
+  const currentURL = window.location.href
+  const segments = currentURL.split('/')
+  const targetUserId = segments[segments.length - 1]
+
   const columns = [
     { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
     {
@@ -129,7 +133,12 @@ const Profile: React.FC<UserProps> = ({}) => {
   const [userApplicationData, setUserApplicationData] = useState<
     ApplicationData[]
   >([])
-  const userId = localStorage.userId
+
+  console.log('targetUserId', targetUserId)
+  const userId =
+    targetUserId && targetUserId !== 'profile'
+      ? targetUserId
+      : localStorage.userId
   const handleProjectStatusClick = (status: string) => {
     setCurrentProjectStatus(status)
   }
