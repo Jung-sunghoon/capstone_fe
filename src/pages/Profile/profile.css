@@ -67,7 +67,14 @@
 }
 
 .UserProfileName__text {
+  position: relative;
+  display: flex;
+  align-items: center;
   font-size: 14pt;
+  width: 300px;
+  height: 40px;
+  margin-bottom: 5px;
+  margin-left: 10px;
 }
 
 .UserProfile__text {

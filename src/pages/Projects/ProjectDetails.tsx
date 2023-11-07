@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, SetStateAction } from 'react'
 import { CommentType, ProjectType } from '@src/types'
-import { Button, List, Tag, message } from 'antd'
+import { Button, Modal, Table, Tag, message } from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons'
 import './ProjectDetails.css'
 import {
+  convertApplyStatus,
   convertStatus,
   convertprojectStatus,
   formatDate,
@@ -21,6 +22,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export interface ProjectDetails {}
+
+export interface ApplyData {
+  userId: string
+  applyDate: string
+  projectId: number
+  status: string
+}
 
 const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [messageApi, contextHolder] = message.useMessage()
@@ -34,11 +42,10 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const techstacks = localStorage.getItem('techstacks')
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
-  const [showList, setShowList] = useState(false)
-  const [listData, setListData] = useState<string[]>([])
-  const [applylist, setApplylist] = useState<[] | undefined>([])
+  const [applylist, setApplylist] = useState<ApplyData[] | undefined>([])
   const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
+  const [open, setOpen] = useState(false)
 
   //프로젝트 수정
   const handleEditProject = async () => {
@@ -64,6 +71,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       }
     }
   }
+
   const fetchApplylist = async () => {
     try {
       const response = await axios.get(
@@ -71,9 +79,51 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           import.meta.env.VITE_API_ENDPOINT
         }/api/apply_list?projectId=${projectId}`,
       )
-      if (response.status === 200) {
-        // 가져온 프로젝트 목록을 설정
-        setApplylist(response.data)
+      if (response.status === 200 || response.data === 400) {
+        const applylistData: ApplyData[] = response.data
+        setApplylist(applylistData)
+
+        const userIds = applylistData.map(
+          (item: { userId: string }) => item.userId,
+        )
+
+        const userInfoPromises = userIds.map(async (userId: string) => {
+          try {
+            const userInfoResponse = await axios.get(
+              `${
+                import.meta.env.VITE_API_ENDPOINT
+              }/api/user_information?userId=${userId}`,
+            )
+            return userInfoResponse.data
+          } catch (userInfoError) {
+            console.error('Error fetching user information:', userInfoError)
+            return null
+          }
+        })
+
+        const userInformation = await Promise.all(userInfoPromises)
+
+        const mergedData: any = userInformation.map((apply: any) => {
+          // 프로젝트의 projectId에 일치하는 지원서들을 찾습니다.
+          let projectUserInformationList = applylistData.filter(
+            app => app.userId === apply.userId,
+          )
+
+          // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
+          // @ts-ignore
+          apply.status = projectUserInformationList[0].status
+          apply.applyDate = projectUserInformationList[0].applyDate
+          apply.projectId = projectUserInformationList[0].projectId
+
+          return apply
+        })
+
+        console.log('userInformation', userInformation)
+        console.log('applylistData', applylistData)
+
+        console.log('mergedData', mergedData)
+
+        setApplylist(mergedData)
       } else {
         setApplylist(undefined)
       }
@@ -82,6 +132,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       console.error('Error fetching project list:', error)
     }
   }
+
   const fetchData = async () => {
     try {
       const response = await axios.post(
@@ -163,19 +214,149 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     }
   }
   //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
+
+  const columns = [
+    { title: 'userId', dataIndex: 'userId', key: 'userId' },
+    {
+      title: 'studentNumber',
+      dataIndex: 'studentNumber',
+      key: 'studentNumber',
+    },
+    { title: 'department', dataIndex: 'department', key: 'department' },
+    { title: 'gitAddress', dataIndex: 'gitAddress', key: 'gitAddress' },
+    {
+      title: 'applyStatus',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: string | undefined) => {
+        let color = 'green'
+
+        if (status === 'PENDING') {
+          color = 'blue'
+        } else if (status === 'REJECTED') {
+          color = 'red'
+        }
+        return (
+          <div>
+            <Tag color={color}>{convertApplyStatus(status)}</Tag>
+          </div>
+        )
+      },
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (_text: any, record: any) => (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Tag
+            style={{ cursor: 'pointer' }}
+            color="green"
+            onClick={() => handleAccepted(record)}
+          >
+            승인
+          </Tag>
+          <Tag
+            style={{ cursor: 'pointer' }}
+            color="red"
+            onClick={() => handleRejected(record)}
+          >
+            거절
+          </Tag>
+        </div>
+      ),
+      width: '100px',
+    },
+    {
+      title: 'View Detatils',
+      dataIndex: 'view_Detatils',
+      key: 'view_Detatils',
+    },
+  ]
+
+  const handleAccepted = async (projectApplyData: ApplyData) => {
+    const confirmDelete = window.confirm('신청을 승인 하시겠습니까?')
+    if (confirmDelete) {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/accpet`,
+          {
+            userId: projectApplyData.userId,
+            projectId: projectApplyData.projectId,
+            status: projectApplyData.status,
+            passDate: '',
+          },
+        )
+        if (response.status === 200) {
+          const filteredApplylist = applylist?.filter(apply => {
+            return apply.projectId !== projectApplyData.projectId
+          })
+          setApplylist(filteredApplylist)
+        } else {
+        }
+      } catch (error) {
+        // 오류 처리
+        console.log('projectApplyData.status', projectApplyData.status)
+        console.log('projectApplyData.userId', projectApplyData.userId)
+        console.log('projectApplyData.projectId', projectApplyData.projectId)
+        console.log('projectApplyData', projectApplyData)
+
+        console.error('Error fetching project list:', error)
+      }
+    }
+  }
+
+  const handleRejected = async (projectApplyData: ApplyData) => {
+    const confirmDelete = window.confirm('신청을 거절 하시겠습니까?')
+    if (confirmDelete) {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/rejected`,
+          {
+            userId: projectApplyData.userId,
+            projectId: projectApplyData.projectId,
+            status: projectApplyData.status,
+          },
+        )
+        if (response.status === 200) {
+          const filteredApplylist = applylist?.filter(apply => {
+            return apply.projectId !== projectApplyData.projectId
+          })
+          setApplylist(filteredApplylist)
+        } else {
+        }
+      } catch (error) {
+        // 오류 처리
+        console.error('Error fetching project list:', error)
+      }
+    }
+  }
+
   const renderProjectApplyBtn = () => {
     if (project?.userId === localStorage.userId) {
       return (
         <div>
-          <Button className="projectDetails__projectApplyListBtn">
+          <Button
+            className="projectDetails__projectApplyListBtn"
+            onClick={() => setOpen(true)}
+          >
             <UnorderedListOutlined />
           </Button>
-          {showList && (
-            <List
-              dataSource={listData}
-              renderItem={item => <List.Item>{item}</List.Item>}
-            />
-          )}
+          <Modal
+            centered
+            open={open}
+            onOk={() => setOpen(false)}
+            onCancel={() => setOpen(false)}
+            width={1500}
+          >
+            <Table<ApplyData>
+              dataSource={applylist}
+              columns={columns}
+              pagination={{
+                position: ['bottomCenter'],
+              }}
+            ></Table>
+          </Modal>
         </div>
       )
     } else {
@@ -184,8 +365,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         applylist?.filter((list: any) => list?.userId === localStorage.userId)
           .length > 0
       ) {
-        //신청 시 신청 버튼 비활성화(상태 저장해야할 듯?)\
-
         return (
           <Button
             className="projectDetails__projectApplybtn"

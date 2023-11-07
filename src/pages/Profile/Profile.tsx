@@ -33,7 +33,12 @@ const Profile: React.FC<UserProps> = ({}) => {
   const targetUserId = segments[segments.length - 1]
 
   const columns = [
-    { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
+    {
+      title: 'ProjectTitle',
+      dataIndex: 'projectTitle',
+      key: 'projectTitle',
+      width: '200px',
+    },
     {
       title: 'TechIds',
       dataIndex: 'techIds',
@@ -58,16 +63,23 @@ const Profile: React.FC<UserProps> = ({}) => {
       },
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: string | undefined) => convertStatus(status),
-    },
-    {
       title: 'Applystatus',
       dataIndex: 'applystatus',
       key: 'applystatus',
-      render: (status: string | undefined) => convertApplyStatus(status),
+      render: (status: string | undefined) => {
+        let color = 'green'
+
+        if (status === 'PENDING') {
+          color = 'blue'
+        } else if (status === 'REJECTED') {
+          color = 'red'
+        }
+        return (
+          <div>
+            <Tag color={color}>{convertApplyStatus(status)}</Tag>
+          </div>
+        )
+      },
     },
     {
       title: 'recruitmentCount',
@@ -79,38 +91,47 @@ const Profile: React.FC<UserProps> = ({}) => {
       dataIndex: 'Action',
       key: 'Action',
       render: (_text: any, record: any) => (
-        <Button onClick={() => handleCancelApply(record)}>취소</Button>
+        <Tag
+          style={{ cursor: 'pointer' }}
+          color="red"
+          onClick={() => handleCancelApply(record)}
+        >
+          취소
+        </Tag>
       ),
     },
   ]
 
   const handleCancelApply = async (projectApplyData: ApplicationData) => {
-    try {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/cancel_apply`,
-        {
-          data: {
-            userId: localStorage.userId,
-            projectId: projectApplyData.projectId,
-            status: projectApplyData.status,
-            applyDate: projectApplyData.applyDate,
+    const confirmDelete = window.confirm('프로젝트 신청을 취소 하시겠습니까?')
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/cancel_apply`,
+          {
+            data: {
+              userId: localStorage.userId,
+              projectId: projectApplyData.projectId,
+              status: projectApplyData.status,
+              applyDate: projectApplyData.applyDate,
+            },
           },
-        },
-      )
+        )
 
-      if (response.status === 200) {
-        const updatedData = userApplicationData.filter(item => {
-          return (
-            item.userId !== projectApplyData.userId ||
-            item.projectId !== projectApplyData.projectId
-          )
-        })
-        console.log('신청 취소 완료')
-        setUserApplicationData(updatedData)
-      } else {
+        if (response.status === 200) {
+          const updatedData = userApplicationData.filter(item => {
+            return (
+              item.userId !== projectApplyData.userId ||
+              item.projectId !== projectApplyData.projectId
+            )
+          })
+          console.log('신청 취소 완료')
+          setUserApplicationData(updatedData)
+        } else {
+        }
+      } catch (error) {
+        console.error('신청 취소하는 중 오류 발생:', error)
       }
-    } catch (error) {
-      console.error('신청 취소하는 중 오류 발생:', error)
     }
   }
 
@@ -144,7 +165,7 @@ const Profile: React.FC<UserProps> = ({}) => {
   }
 
   const renderProfileEditBtn = () => {
-    if (userId === userProfile?.userId) {
+    if (targetUserId !== userProfile?.userId) {
       return (
         <div>
           <Button
@@ -182,7 +203,7 @@ const Profile: React.FC<UserProps> = ({}) => {
     }
 
     setFilteredData(filtered)
-  }, [projects, currentProjectStatus, sortOption])
+  }, [projects, currentProjectStatus, sortOption, targetUserId])
 
   useEffect(() => {
     const fetchBoardData = async () => {
@@ -317,7 +338,7 @@ const Profile: React.FC<UserProps> = ({}) => {
               <div className="Pro__userProfileAvatar">아바타 자리</div>
               <div className="Pro__userProfileName">
                 <label>이름</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfileName__text">
                     {userProfile?.name}
                   </span>
@@ -325,11 +346,6 @@ const Profile: React.FC<UserProps> = ({}) => {
                   <Input
                     className="UserProfileName__details"
                     value={userProfile?.name}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
@@ -339,7 +355,7 @@ const Profile: React.FC<UserProps> = ({}) => {
             <section className="Pro__userEditProfileContainer">
               <div className="Pro__form_div">
                 <label>닉네임</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfile__text">
                     {userProfile?.nickname}
                   </span>
@@ -347,11 +363,6 @@ const Profile: React.FC<UserProps> = ({}) => {
                   <Input
                     className="Pro__userProfile"
                     value={userProfile?.nickname}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
@@ -359,7 +370,7 @@ const Profile: React.FC<UserProps> = ({}) => {
 
               <div className="Pro__form_div">
                 <label>아이디</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfile__text">
                     {userProfile?.userId}
                   </span>
@@ -367,18 +378,13 @@ const Profile: React.FC<UserProps> = ({}) => {
                   <Input
                     className="Pro__userProfile"
                     value={userProfile?.userId}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
               </div>
               <div className="Pro__form_div">
                 <label>이메일</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfile__text">
                     {userProfile?.email}
                   </span>
@@ -386,37 +392,27 @@ const Profile: React.FC<UserProps> = ({}) => {
                   <Input
                     className="Pro__userProfile"
                     value={userProfile?.email}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
               </div>
               <div className="Pro__form_div">
                 <label>학과</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfile__text">
-                    {userProfile?.department} + '학과'
+                    {userProfile?.department}학과
                   </span>
                 ) : (
                   <Input
                     className="Pro__userProfile"
                     value={userProfile?.department + '학과'}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
               </div>
               <div className="Pro__form_div">
                 <label>학번</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfile__text">
                     {userProfile?.studentNumber}
                   </span>
@@ -424,18 +420,13 @@ const Profile: React.FC<UserProps> = ({}) => {
                   <Input
                     className="Pro__userProfile"
                     value={userProfile?.studentNumber}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
               </div>
               <div className="Pro__form_div">
                 <label>Git 주소</label>
-                {localStorage.getItem(userId) === userProfile?.userId ? (
+                {targetUserId === userProfile?.userId ? (
                   <span className="UserProfile__text">
                     {userProfile?.gitAddress}
                   </span>
@@ -443,17 +434,12 @@ const Profile: React.FC<UserProps> = ({}) => {
                   <Input
                     className="Pro__userProfile"
                     value={userProfile?.gitAddress}
-                    disabled={
-                      localStorage.getItem(userId) === userProfile?.userId
-                        ? true
-                        : false
-                    }
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
               </div>
               <div className="Pro__form_div">
-                {localStorage.getItem(userId) === userProfile?.userId ? null : (
+                {targetUserId === userProfile?.userId ? null : (
                   <>
                     <label>비밀번호</label>
                     <Input.Password
@@ -461,11 +447,6 @@ const Profile: React.FC<UserProps> = ({}) => {
                       value={userProfile?.password}
                       iconRender={visible =>
                         visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                      }
-                      disabled={
-                        localStorage.getItem(userId) === userProfile?.userId
-                          ? true
-                          : false
                       }
                       style={{ backgroundColor: 'white', color: 'black' }}
                     />

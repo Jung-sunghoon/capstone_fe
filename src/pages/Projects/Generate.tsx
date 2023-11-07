@@ -108,6 +108,7 @@ const Generate: React.FC = () => {
       description: textEditor,
       userId: values.userId,
       projectStatus: values.projectStatus,
+      recruitmentCount: values.recruitmentCount,
       status: values.status,
       thumbnail: fileList && fileList[0]?.thumbUrl,
       techIds: JSON.parse(techstacks)
