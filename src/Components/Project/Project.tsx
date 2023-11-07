@@ -25,13 +25,14 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
       style={{
         marginBottom: '30px',
         maxWidth: '400px',
+        maxHeight: '300px',
       }}
       // cover={<img alt="example" src="URL_OF_YOUR_THUMBNAIL_IMAGE" />}
       cover={
         //@ts-ignore
         // info?.thumbnail ? (
         <img
-          height={120}
+          height={160}
           style={{
             objectFit: 'cover',
             cursor: 'pointer',
@@ -112,7 +113,23 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
                 projectData?.techIds.includes(item.techId),
               )
               .map((tech: any, index: number) => {
-                return (
+                console.log(
+                  info?.projectTitle,
+                  JSON.parse(techstacks)?.filter((item: any) =>
+                    projectData?.techIds.includes(item.techId),
+                  ),
+                )
+
+                if (index > 3) return
+
+                return index === 3 ? (
+                  <Tag key={'tag_' + index} color="magenta">
+                    +{' '}
+                    {JSON.parse(techstacks)?.filter((item: any) =>
+                      projectData?.techIds.includes(item.techId),
+                    ).length - 3}
+                  </Tag>
+                ) : (
                   <Tag key={'tag_' + index} color="magenta">
                     {tech?.techName}
                   </Tag>

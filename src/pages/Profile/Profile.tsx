@@ -2,10 +2,11 @@ import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
 import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { convertApplyStatus, convertStatus } from '@src/utils/common'
-import { Button, Input, List, Pagination, Table, Tag } from 'antd'
+import { Button, Input, List, Menu, Pagination, Table, Tag } from 'antd'
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
 import './profile.css'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
 const techstacks = localStorage.getItem('techstacks')
 
@@ -26,7 +27,7 @@ const PROJECT_STATUSES = [
   { label: '프로젝트 공유', value: 'Ps_co' },
 ]
 
-const Profile: React.FC<UserProps> = () => {
+const Profile: React.FC<UserProps> = ({}) => {
   const columns = [
     { title: 'ProjectTitle', dataIndex: 'projectTitle', key: 'projectTitle' },
     {
@@ -115,7 +116,7 @@ const Profile: React.FC<UserProps> = () => {
   const [filteredData, setFilteredData] = useState<ProjectsType>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number) => setCurrentPage(page)
-  const [pageSize] = useState<number>(3)
+  const [pageSize] = useState<number>(4)
   const slicedData = filteredData?.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize,
@@ -140,7 +141,7 @@ const Profile: React.FC<UserProps> = () => {
           <Button
             type="primary"
             htmlType="submit"
-            className="Pro__ProfileEditBtn"
+            className="Pro__profileEditBtn"
           >
             <div>수정</div>
           </Button>
@@ -278,164 +279,277 @@ const Profile: React.FC<UserProps> = () => {
       return // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
     }
   }
+
+  const [currentSection, setCurrentSection] = useState<string>('myProject')
+
+  const handleMenuClick = (e: { key: React.Key }) => {
+    setCurrentSection(e.key as string)
+  }
+
   return (
     <div style={{ marginTop: '10px' }}>
-      <div>
+      <>
         <form onSubmit={handleSubmit}>
-          <div className="Pro__NicknameAndPointContainer">
-            <section className="Pro__PointAndGrade">
-              <div className="Pro__Point">
-                <img
-                  style={{ maxWidth: '17px', maxHeight: '17px' }}
-                  src="src/assets/favicon.png"
-                />
-                <div>포인트: {userProfile?.point}</div>
-              </div>
-              {/* <div className="Pro__Grade">
+          <section className="Pro__pointAndGrade">
+            <div className="Pro__point">
+              <img
+                style={{ maxWidth: '17px', maxHeight: '17px' }}
+                src="src/assets/favicon.png"
+              />
+              <div>포인트: {userProfile?.point}</div>
+            </div>
+            {/* <div className="Pro__Grade">
                 <div>등급: </div>
               </div> */}
-            </section>
-          </div>
+          </section>
 
-          <div style={{ display: 'flex', marginTop: '30px' }}>
-            <div style={{ marginLeft: '30px' }}>
-              <div>{userProfile?.name}</div>
+          <div className="Pro__userProfileContainer">
+            <div className="Pro__userProfileNameAndAvatar">
+              <div className="Pro__userProfileAvatar">아바타 자리</div>
+              <div className="Pro__userProfileName">
+                <label>이름</label>
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfileName__text">
+                    {userProfile?.name}
+                  </span>
+                ) : (
+                  <Input
+                    className="UserProfileName__details"
+                    value={userProfile?.name}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
+              </div>
             </div>
-            <section className="Pro__UserProfileContainer">
+            <div className="UserProfile__line"></div>
+            <section className="Pro__userEditProfileContainer">
               <div className="Pro__form_div">
                 <label>닉네임</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.nickname}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.nickname}
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.nickname}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
               </div>
 
               <div className="Pro__form_div">
                 <label>아이디</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.userId}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
-              </div>
-              <div className="Pro__form_div">
-                <label>비밀번호</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.password}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.userId}
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.userId}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
               </div>
               <div className="Pro__form_div">
                 <label>이메일</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.email}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.email}
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.email}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
               </div>
               <div className="Pro__form_div">
                 <label>학과</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.department + '학과'}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.department} + '학과'
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.department + '학과'}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
               </div>
               <div className="Pro__form_div">
                 <label>학번</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.studentNumber}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.studentNumber}
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.studentNumber}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
               </div>
               <div className="Pro__form_div">
                 <label>Git 주소</label>
-                <Input
-                  className="Pro__UserProfile"
-                  value={userProfile?.gitAddress}
-                  disabled
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                />
+                {localStorage.getItem(userId) === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.gitAddress}
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.gitAddress}
+                    disabled={
+                      localStorage.getItem(userId) === userProfile?.userId
+                        ? true
+                        : false
+                    }
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
+              </div>
+              <div className="Pro__form_div">
+                {localStorage.getItem(userId) === userProfile?.userId ? null : (
+                  <>
+                    <label>비밀번호</label>
+                    <Input.Password
+                      className="Pro__userProfile"
+                      value={userProfile?.password}
+                      iconRender={visible =>
+                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                      }
+                      disabled={
+                        localStorage.getItem(userId) === userProfile?.userId
+                          ? true
+                          : false
+                      }
+                      style={{ backgroundColor: 'white', color: 'black' }}
+                    />
+                  </>
+                )}
               </div>
               <p className="error__m">{message}</p>
             </section>
           </div>
-          <div>{renderProfileEditBtn()}</div>
+          {renderProfileEditBtn()}
         </form>
+      </>
+
+      <div className="UserProfile__separater"></div>
+
+      <div className="UserProfile__menu">
+        <Menu
+          onClick={handleMenuClick}
+          selectedKeys={[currentSection]}
+          mode="horizontal"
+        >
+          <Menu.Item key="myProject">내 프로젝트</Menu.Item>
+          <Menu.Item key="myApplication">신청한 프로젝트</Menu.Item>
+        </Menu>
       </div>
 
-      <div className="" style={{ marginLeft: '30px', marginTop: '10px' }}>
-        내 프로젝트
-      </div>
-      <div>
-        <ul className="P__sort__menu">
-          {PROJECT_STATUSES.map(status => (
-            <li
-              key={status.label}
-              onClick={() => handleProjectStatusClick(status?.value)}
-              className={currentProjectStatus === status.value ? 'active' : ''}
-            >
-              <Button
-                type={
-                  currentProjectStatus === status.value ? 'primary' : 'default'
-                }
-              >
-                {status.label}
-              </Button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <section>
-        <div>
-          <List
-            style={{
-              marginTop: '30px',
-              marginLeft: '30px',
-              marginRight: '30px',
+      {currentSection === 'myProject' && (
+        <section className="Pro__myProject">
+          <div>
+            <ul className="P__sort__menu">
+              {PROJECT_STATUSES.map(status => (
+                <li
+                  key={status.label}
+                  onClick={() => handleProjectStatusClick(status?.value)}
+                  className={
+                    currentProjectStatus === status.value ? 'active' : ''
+                  }
+                >
+                  <Button
+                    type={
+                      currentProjectStatus === status.value
+                        ? 'primary'
+                        : 'default'
+                    }
+                  >
+                    {status.label}
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div>
+              <List
+                style={{
+                  marginTop: '30px',
+                  marginLeft: '30px',
+                  marginRight: '30px',
+                }}
+                grid={{ gutter: 12, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 6 }}
+                dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
+                renderItem={(item: ProjectType) => (
+                  <List.Item>
+                    <Project projectData={item} />
+                  </List.Item>
+                )}
+              />
+            </div>
+            <div>
+              <Pagination
+                className="Board__page"
+                current={currentPage}
+                total={filteredData?.length}
+                pageSize={pageSize}
+                showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
+                onChange={handlePageChange}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {currentSection === 'myApplication' && (
+        <section className="Pro__myApplication">
+          <Table<ApplicationData>
+            dataSource={userApplicationData}
+            columns={columns}
+            pagination={{
+              position: ['bottomCenter'],
             }}
-            grid={{ gutter: 12, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 6 }}
-            dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
-            renderItem={(item: ProjectType) => (
-              <List.Item>
-                <Project projectData={item} />
-              </List.Item>
-            )}
-          />
-        </div>
-        <div
-          style={{
-            paddingLeft: '30px',
-          }}
-        >
-          <Pagination
-            className="Board__page"
-            current={currentPage}
-            total={filteredData?.length}
-            pageSize={pageSize}
-            showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
-            onChange={handlePageChange}
-          />
-        </div>
-      </section>
-      <section style={{ marginLeft: '30px', marginTop: '30px' }}>
-        <Table<ApplicationData>
-          dataSource={userApplicationData}
-          columns={columns}
-          pagination={{
-            position: ['bottomCenter'],
-          }}
-        ></Table>
-      </section>
+          ></Table>
+        </section>
+      )}
     </div>
   )
 }
