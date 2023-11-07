@@ -100,6 +100,8 @@ const Generate: React.FC = () => {
     fileList: any,
   ) => {
     console.log('values', values)
+
+    console.log('fileList', fileList, fileList[0]?.thumbUrl)
     const requestData = {
       projectId: type === 'edit' ? projectId : null,
       projectTitle: values.projectTitle,
@@ -107,7 +109,7 @@ const Generate: React.FC = () => {
       userId: values.userId,
       projectStatus: values.projectStatus,
       status: values.status,
-      thumbnail: null,
+      thumbnail: fileList && fileList[0]?.thumbUrl,
       techIds: JSON.parse(techstacks)
         ?.filter((item: any) => values?.techId.includes(item.techName))
         .map((tech: any) => tech.techId),
