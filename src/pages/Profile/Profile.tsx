@@ -142,7 +142,7 @@ const Profile: React.FC<UserProps> = () => {
             htmlType="submit"
             className="Pro__ProfileEditBtn"
           >
-            수정
+            <div>수정</div>
           </Button>
         </div>
       )
@@ -296,84 +296,83 @@ const Profile: React.FC<UserProps> = () => {
               </div> */}
             </section>
           </div>
-          <section className="Pro__UserProfileContainer">
-            <div className="Pro__UserProfile_div">
-              <label>닉네임</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.nickname}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
+
+          <div style={{ display: 'flex', marginTop: '30px' }}>
+            <div style={{ marginLeft: '30px' }}>
+              <div>{userProfile?.name}</div>
             </div>
-            <div className="Pro__form_div">
-              <label>이름</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.name}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <div className="Pro__form_div">
-              <label>아이디</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.userId}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <div className="Pro__form_div">
-              <label>비밀번호</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.password}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <div className="Pro__form_div">
-              <label>이메일</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.email}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <div className="Pro__form_div">
-              <label>학과</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.department + '학과'}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <div className="Pro__form_div">
-              <label>학번</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.studentNumber}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <div className="Pro__form_div">
-              <label>Git 주소</label>
-              <Input
-                className="Pro__UserProfile"
-                value={userProfile?.gitAddress}
-                disabled
-                style={{ backgroundColor: 'white', color: 'black' }}
-              />
-            </div>
-            <p className="error__m">{message}</p>
-            {renderProfileEditBtn()}
-          </section>
+            <section className="Pro__UserProfileContainer">
+              <div className="Pro__form_div">
+                <label>닉네임</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.nickname}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+
+              <div className="Pro__form_div">
+                <label>아이디</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.userId}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+              <div className="Pro__form_div">
+                <label>비밀번호</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.password}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+              <div className="Pro__form_div">
+                <label>이메일</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.email}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+              <div className="Pro__form_div">
+                <label>학과</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.department + '학과'}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+              <div className="Pro__form_div">
+                <label>학번</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.studentNumber}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+              <div className="Pro__form_div">
+                <label>Git 주소</label>
+                <Input
+                  className="Pro__UserProfile"
+                  value={userProfile?.gitAddress}
+                  disabled
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                />
+              </div>
+              <p className="error__m">{message}</p>
+            </section>
+          </div>
+          <div>{renderProfileEditBtn()}</div>
         </form>
       </div>
+
       <div className="" style={{ marginLeft: '30px', marginTop: '10px' }}>
         내 프로젝트
       </div>
