@@ -1,6 +1,6 @@
-import { useState, useEffect, SetStateAction } from 'react'
+import { useState, useEffect } from 'react'
 import { CommentType, ProjectType } from '@src/types'
-import { Button, Modal, Table, Tag, message } from 'antd'
+import { Button, Collapse, Modal, Table, Tag, message } from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -20,14 +20,17 @@ import {
 // import { mockProjects } from './mock/mockProjects'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import type { ColumnsType } from 'antd/es/table'
 
 export interface ProjectDetails {}
 
 export interface ApplyData {
+  key: React.Key
   userId: string
   applyDate: string
   projectId: number
   status: string
+  viewDetails: any
 }
 
 const ProjectDetails: React.FC<ProjectDetails> = () => {
@@ -43,6 +46,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
   const [applylist, setApplylist] = useState<ApplyData[] | undefined>([])
+  const [expandedRowKeys, setExpandedRowKeys] = useState<React.Key[]>([])
   const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
   const [open, setOpen] = useState(false)
@@ -160,6 +164,11 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     fetchApplylist()
   }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
 
+  //댓글 목록 가져오기
+  useEffect(() => {
+    fetchComments()
+  }, [commentText, projectId])
+
   //댓글 텍스트 상태 업데이트
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.target.value)
@@ -223,7 +232,11 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       key: 'studentNumber',
     },
     { title: 'department', dataIndex: 'department', key: 'department' },
-    { title: 'gitAddress', dataIndex: 'gitAddress', key: 'gitAddress' },
+    {
+      title: 'applyDate',
+      dataIndex: 'applyDate',
+      key: 'applyDate',
+    },
     {
       title: 'applyStatus',
       dataIndex: 'status',
@@ -242,6 +255,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           </div>
         )
       },
+      width: 70,
     },
     {
       title: 'Action',
@@ -253,6 +267,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             style={{ cursor: 'pointer' }}
             color="green"
             onClick={() => handleAccepted(record)}
+            className="tag__hover"
           >
             승인
           </Tag>
@@ -260,26 +275,40 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             style={{ cursor: 'pointer' }}
             color="red"
             onClick={() => handleRejected(record)}
+            className="tag__hover"
           >
             거절
           </Tag>
         </div>
       ),
-      width: '100px',
+      width: 100,
     },
     {
-      title: 'View Detatils',
-      dataIndex: 'view_Detatils',
-      key: 'view_Detatils',
+      title: 'ViewDetails',
+      dataIndex: 'viewDetails',
+      key: 'viewDetails',
+      render: (_text: any, record: any) => (
+        <div>
+          <Tag
+            className="tag__hover"
+            style={{ cursor: 'pointer' }}
+            color="#ba55d3"
+            onClick={() => handleViewProfileDetails(record)}
+          >
+            View Details
+          </Tag>
+        </div>
+      ),
     },
   ]
 
+  //신청 승인 버튼
   const handleAccepted = async (projectApplyData: ApplyData) => {
     const confirmDelete = window.confirm('신청을 승인 하시겠습니까?')
     if (confirmDelete) {
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_API_ENDPOINT}/api/accpet`,
+          `${import.meta.env.VITE_API_ENDPOINT}/api/accept`,
           {
             userId: projectApplyData.userId,
             projectId: projectApplyData.projectId,
@@ -296,22 +325,18 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         }
       } catch (error) {
         // 오류 처리
-        console.log('projectApplyData.status', projectApplyData.status)
-        console.log('projectApplyData.userId', projectApplyData.userId)
-        console.log('projectApplyData.projectId', projectApplyData.projectId)
-        console.log('projectApplyData', projectApplyData)
-
         console.error('Error fetching project list:', error)
       }
     }
   }
 
+  //신청 거절 버튼
   const handleRejected = async (projectApplyData: ApplyData) => {
     const confirmDelete = window.confirm('신청을 거절 하시겠습니까?')
     if (confirmDelete) {
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_API_ENDPOINT}/api/rejected`,
+          `${import.meta.env.VITE_API_ENDPOINT}/api/reject`,
           {
             userId: projectApplyData.userId,
             projectId: projectApplyData.projectId,
@@ -319,10 +344,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           },
         )
         if (response.status === 200) {
-          const filteredApplylist = applylist?.filter(apply => {
-            return apply.projectId !== projectApplyData.projectId
-          })
-          setApplylist(filteredApplylist)
         } else {
         }
       } catch (error) {
@@ -332,6 +353,20 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     }
   }
 
+  const handleViewProfileDetails = async (projectApplyData: ApplyData) => {
+    navigate(`/profile/${projectApplyData.userId}`)
+  }
+
+  //프로젝트 신청 리스트 테이블 클릭 시 확장 함수
+  const handleRowClick = (record: any) => {
+    if (expandedRowKeys.includes(record.key)) {
+      setExpandedRowKeys(expandedRowKeys.filter(key => key !== record.key))
+    } else {
+      setExpandedRowKeys([...expandedRowKeys, record.key])
+    }
+  }
+
+  //프로젝트 신청 or 신청 리스트 버튼
   const renderProjectApplyBtn = () => {
     if (project?.userId === localStorage.userId) {
       return (
@@ -347,14 +382,26 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             open={open}
             onOk={() => setOpen(false)}
             onCancel={() => setOpen(false)}
-            width={1500}
+            width={1200}
           >
             <Table<ApplyData>
               dataSource={applylist}
               columns={columns}
+              style={{ cursor: 'pointer' }}
+              expandable={{
+                expandedRowRender: record => (
+                  <p style={{ margin: 0 }}>{record.userId}</p>
+                ),
+                rowExpandable: (_record: any) => true,
+              }}
+              onRow={record => ({
+                onClick: () => handleRowClick(record),
+              })}
+              expandedRowKeys={expandedRowKeys}
               pagination={{
                 position: ['bottomCenter'],
               }}
+              className="hide-expand-icon"
             ></Table>
           </Modal>
         </div>
@@ -500,11 +547,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     }
     return null
   }
-
-  //댓글 목록 가져오기
-  useEffect(() => {
-    fetchComments()
-  }, [commentText, projectId])
 
   const fetchComments = () => {
     axios

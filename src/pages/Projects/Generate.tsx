@@ -69,7 +69,18 @@ const Generate: React.FC = () => {
       // 정상으로 가져옴
       if (response.status === 200) {
         const projectInfo = response?.data
-        const techIds = response?.data?.techId
+        const techIds = response?.data?.techIds
+
+        console.log('response?.data', response?.data)
+        console.log('response?.data?.techIds', response?.data?.techIds)
+
+        console.log(
+          'tech',
+          techstacks &&
+            JSON.parse(techstacks)
+              .filter((item: TechstackType) => techIds?.includes(item.techId))
+              .map((tech: TechstackType) => tech.techName),
+        )
 
         form.setFieldsValue({
           projectTitle: projectInfo.projectTitle,
