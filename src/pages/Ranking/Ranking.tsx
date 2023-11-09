@@ -23,9 +23,7 @@ const Ranking: React.FC = () => {
   const otherUsers = sortedUsers.slice(3)
   const defaultAvatar = 'src/assets/images/users/defaultAvatar.png'
 
-  const [userRankingList, setUserRankingList] = useState<
-    UserType[] | undefined
-  >(undefined)
+  const [, setUserRankingList] = useState<UserType[] | undefined>(undefined)
 
   const fetchRankingList = async () => {
     try {
