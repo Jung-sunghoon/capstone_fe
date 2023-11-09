@@ -439,6 +439,20 @@ const Profile: React.FC<UserProps> = ({}) => {
                 )}
               </div>
               <div className="Pro__form_div">
+                <label>기술 스택</label>
+                {targetUserId === userProfile?.userId ? (
+                  <span className="UserProfile__text">
+                    {userProfile?.techStacks}
+                  </span>
+                ) : (
+                  <Input
+                    className="Pro__userProfile"
+                    value={userProfile?.techStacks}
+                    style={{ backgroundColor: 'white', color: 'black' }}
+                  />
+                )}
+              </div>
+              <div className="Pro__form_div">
                 {targetUserId === userProfile?.userId ? null : (
                   <>
                     <label>비밀번호</label>

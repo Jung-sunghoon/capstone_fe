@@ -26,6 +26,7 @@ export interface UserType {
   department: string
   gitAddress: string
   point: number
+  techStacks: string
 }
 
 export type UsersType = UserType[]

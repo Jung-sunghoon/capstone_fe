@@ -1,6 +1,15 @@
-import { useState, useEffect } from 'react'
-import { CommentType, ProjectType } from '@src/types'
-import { Button, Modal, Table, Tag, message } from 'antd'
+import { useState, useEffect, useCallback } from 'react'
+import { CommentType, ProjectType, ProjectsType, UserType } from '@src/types'
+import {
+  Button,
+  List,
+  Menu,
+  Modal,
+  Pagination,
+  Table,
+  Tag,
+  message,
+} from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -25,6 +34,26 @@ import type {
   ExpandableConfig,
   TableRowSelection,
 } from 'antd/es/table/interface'
+
+import { sortOptionEnums } from '@src/enums/enums'
+import Project from '@src/Components/Project'
+
+export interface UserProps {
+  userData?: UserType
+}
+
+export interface ApplicationData {
+  userId: string
+  projectId: number
+  status: string
+  applyDate: string
+  projectTitle: string
+}
+
+const PROJECT_STATUSES = [
+  { label: '진행 중', value: 'Ps_pr' },
+  { label: '프로젝트 공유', value: 'Ps_co' },
+]
 
 export interface ProjectDetails {}
 
@@ -55,6 +84,186 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
   const [open, setOpen] = useState(false)
+
+  const targetUserId = segments[segments.length - 1]
+  const [projects, setProjects] = useState<ProjectsType>([])
+  const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
+  const [filteredData, setFilteredData] = useState<ProjectsType>([])
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const handlePageChange = (page: number) => setCurrentPage(page)
+  const [pageSize] = useState<number>(4)
+  const slicedData = filteredData?.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  )
+  const [currentProjectStatus, setCurrentProjectStatus] =
+    useState<string>('Ps_pr')
+  const [userApplicationData, setUserApplicationData] = useState<
+    ApplicationData[]
+  >([])
+
+  const columnsTwo = [
+    {
+      title: 'ProjectTitle',
+      dataIndex: 'projectTitle',
+      key: 'projectTitle',
+      width: '200px',
+    },
+    {
+      title: 'TechIds',
+      dataIndex: 'techIds',
+      key: 'techIds',
+      render: (techIds: number[] | undefined) => {
+        const techStacksData = techstacks ? JSON.parse(techstacks) : []
+        return (
+          <div>
+            {techIds &&
+              techIds.map((techId, index) => {
+                const tech = techStacksData?.find(
+                  (item: any) => item.techId === techId,
+                )
+                return (
+                  <Tag key={'tag_' + index} color="magenta">
+                    {tech?.techName}
+                  </Tag>
+                )
+              })}
+          </div>
+        )
+      },
+    },
+    {
+      title: 'Applystatus',
+      dataIndex: 'applystatus',
+      key: 'applystatus',
+      render: (status: string | undefined) => {
+        let color = 'green'
+
+        if (status === 'PENDING') {
+          color = 'blue'
+        } else if (status === 'REJECTED') {
+          color = 'red'
+        }
+        return (
+          <div>
+            <Tag color={color}>{convertApplyStatus(status)}</Tag>
+          </div>
+        )
+      },
+    },
+    {
+      title: 'recruitmentCount',
+      dataIndex: 'recruitmentCount',
+      key: 'recruitmentCount',
+    },
+  ]
+
+  const handleProjectStatusClick = (status: string) => {
+    setCurrentProjectStatus(status)
+  }
+
+  const performSearchAndSort = useCallback(() => {
+    let filtered = [...projects] // 원본 데이터를 보존하기 위해 복사
+
+    if (currentProjectStatus) {
+      filtered = filtered.filter(
+        item => item?.projectStatus === currentProjectStatus,
+      )
+    }
+
+    const sortFunctions: any = {
+      latest: (a: ProjectType, b: ProjectType) =>
+        new Date(b?.generateDate).getTime() -
+        new Date(a?.generateDate).getTime(),
+      views: (a: ProjectType, b: ProjectType) => b?.views - a?.views,
+      likes: (a: ProjectType, b: ProjectType) => b?.likes - a?.likes,
+    }
+
+    if (sortOption && sortFunctions[sortOption]) {
+      filtered.sort(sortFunctions[sortOption])
+    }
+
+    setFilteredData(filtered)
+  }, [projects, currentProjectStatus, sortOption, targetUserId])
+
+  const fetchBoardData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/projects/${
+          selectedRecord?.userId
+        }`,
+      )
+
+      if (response.status === 200) {
+        // 가져온 프로젝트 목록을 설정
+        setProjects(response.data)
+      } else {
+        setProjects([])
+      }
+    } catch (error) {
+      console.error('게시물 목록을 가져오는 중 오류 발생:', error)
+    }
+    // setProjects(mockProjects)
+  }
+
+  const applicationData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/my_applications?userId=${
+          selectedRecord?.userId
+        }`,
+      )
+      if (response.status === 200 || response.status === 400) {
+        const applications: ApplicationData[] = response.data.reverse()
+        console.log('신청 리스트 출력')
+
+        const projectIds: number[] = applications.map(app => app.projectId)
+
+        const detailedDataPromises = projectIds.map(projectId => {
+          return axios.post<ProjectType>(
+            `${
+              import.meta.env.VITE_API_ENDPOINT
+            }/api/single_information_project?projectId=${projectId}`,
+          )
+        })
+
+        const detailedDataResponses = await Promise.all(detailedDataPromises)
+
+        const detailedData: ProjectType[] = detailedDataResponses.map(
+          response => response.data,
+        )
+
+        const mergedData: any = detailedData.map((project: any) => {
+          // 프로젝트의 projectId에 일치하는 지원서들을 찾습니다.
+          let projectApplications = applications.filter(
+            app => app.projectId === project.projectId,
+          )
+
+          // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
+          // @ts-ignore
+          project.applystatus = projectApplications[0].status
+          project.applyDate = projectApplications[0].applyDate
+
+          return project
+        })
+        console.log('mergedData', mergedData)
+
+        setUserApplicationData(mergedData)
+      }
+    } catch (error) {
+      console.error('신청 리스트 출력 오류', error)
+    }
+  }
+
+  useEffect(() => {
+    performSearchAndSort()
+  }, [projects, currentProjectStatus, sortOption, userApplicationData])
+
+  const [currentSection, setCurrentSection] = useState<string>('myProject')
+
+  const handleMenuClick = (e: { key: React.Key }) => {
+    setCurrentSection(e.key as string)
+  }
 
   //프로젝트 수정
   const handleEditProject = async () => {
@@ -125,12 +334,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
           return apply
         })
-
-        console.log('userInformation', userInformation)
-        console.log('applylistData', applylistData)
-
-        console.log('mergedData', mergedData)
-
         setApplylist(mergedData)
       } else {
         setApplylist(undefined)
@@ -164,9 +367,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   //초기 렌더링 시 프로젝트 정보 가져오기
   useEffect(() => {
     // 초기 렌더링 시 데이터 가져오기
-    fetchData()
-    fetchApplylist()
-  }, []) // 빈 배열을 두 번째 인수로 전달하면 useEffect가 초기 렌더링 시 한 번만 실행됩니다.
+    fetchData(), fetchApplylist(), applicationData(), fetchBoardData()
+  }, [])
 
   //댓글 목록 가져오기
   useEffect(() => {
@@ -315,7 +517,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         </div>
       ),
     },
-    // Table.EXPAND_COLUMN,
   ]
 
   useEffect(() => {
@@ -377,10 +578,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     }
   }
 
-  const handleViewProfileDetails = async (projectApplyData: ApplyData) => {
-    navigate(`/profile/${projectApplyData.userId}`)
-  }
-
   const defaultExpandable: any = {
     expandedRowRender: (record: any) => <p>{record.userId}</p>,
   }
@@ -417,7 +614,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
                 dataSource={applylist}
                 columns={columns}
                 bordered={true}
-                style={{ cursor: 'pointer' }}
                 pagination={{
                   position: ['bottomCenter'],
                 }}
@@ -497,7 +693,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             createdAt: new Date().toLocaleDateString(),
           },
         )
-        console.log('댓글 삭제 성공', commentId)
+        console.log('댓글 수정 성공', commentId)
 
         // comment reload
         fetchComments()
@@ -505,7 +701,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         setContent('')
       } catch (error) {
         // 오류 처리
-        console.error('댓글 삭제 오류:', error)
+        console.error('댓글 수정 오류:', error)
       }
     }
   }
@@ -531,8 +727,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       }
     }
   }
-
-  //댓글 수정 함수
 
   //댓글 수정 및 삭제 버튼
   const renderCommentEditAndDeleteButtons = (
@@ -779,6 +973,95 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
         width={800}
       >
         {JSON.stringify(selectedRecord)}
+        <div>안녕하세요</div>
+        <div style={{ marginTop: '10px' }}>
+          <div className="UserProfile__menu">
+            <Menu
+              onClick={handleMenuClick}
+              selectedKeys={[currentSection]}
+              mode="horizontal"
+            >
+              <Menu.Item key="myProject">내 프로젝트</Menu.Item>
+              <Menu.Item key="myApplication">신청한 프로젝트</Menu.Item>
+            </Menu>
+          </div>
+
+          {currentSection === 'myProject' && (
+            <section className="Pro__myProject">
+              <div>
+                <ul className="P__sort__menu">
+                  {PROJECT_STATUSES.map(status => (
+                    <li
+                      key={status.label}
+                      onClick={() => handleProjectStatusClick(status?.value)}
+                      className={
+                        currentProjectStatus === status.value ? 'active' : ''
+                      }
+                    >
+                      <Button
+                        type={
+                          currentProjectStatus === status.value
+                            ? 'primary'
+                            : 'default'
+                        }
+                      >
+                        {status.label}
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div>
+                  <List
+                    style={{
+                      marginTop: '30px',
+                      marginLeft: '30px',
+                      marginRight: '30px',
+                    }}
+                    grid={{
+                      gutter: 12,
+                      xs: 1,
+                      sm: 2,
+                      md: 3,
+                      lg: 3,
+                      xl: 4,
+                      xxl: 6,
+                    }}
+                    dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
+                    renderItem={(item: ProjectType) => (
+                      <List.Item>
+                        <Project projectData={item} />
+                      </List.Item>
+                    )}
+                  />
+                </div>
+                <div>
+                  <Pagination
+                    className="Board__page"
+                    current={currentPage}
+                    total={filteredData?.length}
+                    pageSize={pageSize}
+                    showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
+                    onChange={handlePageChange}
+                  />
+                </div>
+              </div>
+            </section>
+          )}
+
+          {currentSection === 'myApplication' && (
+            <section className="Pro__myApplication">
+              <Table<ApplicationData>
+                dataSource={userApplicationData}
+                columns={columnsTwo}
+                pagination={{
+                  position: ['bottomCenter'],
+                }}
+              ></Table>
+            </section>
+          )}
+        </div>
       </Modal>
     </div>
   )
