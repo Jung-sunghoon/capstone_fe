@@ -21,6 +21,10 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ColumnsType } from 'antd/es/table'
+import type {
+  ExpandableConfig,
+  TableRowSelection,
+} from 'antd/es/table/interface'
 
 export interface ProjectDetails {}
 
@@ -34,6 +38,8 @@ export interface ApplyData {
 }
 
 const ProjectDetails: React.FC<ProjectDetails> = () => {
+  const [selectedRecord, setSelectedRecord]: any = useState()
+  const [isViewDetail, setIsViewDetail] = useState(false)
   const [messageApi, contextHolder] = message.useMessage()
   const [content, setContent] = useState('')
   const [updateContentId, setUpdateContentId] = useState(0)
@@ -237,7 +243,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   const columns: ColumnsType<ApplyData> = [
     { title: 'userId', dataIndex: 'userId', key: 'userId' },
-    Table.EXPAND_COLUMN,
+
     { title: 'department', dataIndex: 'department', key: 'department' },
     {
       title: 'applyDate',
@@ -302,14 +308,21 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             className="tag__hover"
             style={{ cursor: 'pointer' }}
             color="#ba55d3"
-            onClick={() => handleViewProfileDetails(record)}
+            onClick={() => setSelectedRecord(record)}
           >
             View Details
           </Tag>
         </div>
       ),
     },
+    // Table.EXPAND_COLUMN,
   ]
+
+  useEffect(() => {
+    if (selectedRecord) {
+      setIsViewDetail(true)
+    }
+  }, [selectedRecord])
 
   //신청 승인 버튼
   const handleAccepted = async (projectApplyData: ApplyData) => {
@@ -368,6 +381,14 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     navigate(`/profile/${projectApplyData.userId}`)
   }
 
+  const defaultExpandable: any = {
+    expandedRowRender: (record: any) => <p>{record.userId}</p>,
+  }
+
+  const [expandable, setExpandable] = useState<
+    ExpandableConfig<any> | undefined
+  >(defaultExpandable)
+
   //프로젝트 신청 or 신청 리스트 버튼
   const renderProjectApplyBtn = () => {
     if (project?.userId === localStorage.userId) {
@@ -386,21 +407,24 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             onCancel={() => setOpen(false)}
             width={1200}
           >
-            <Table
-              dataSource={applylist}
-              columns={columns}
-              bordered={true}
-              style={{ cursor: 'pointer' }}
-              pagination={{
-                position: ['bottomCenter'],
+            <div
+              style={{
+                marginTop: '30px',
               }}
-              expandable={{
-                expandedRowRender: record => (
-                  <p style={{ margin: 0 }}>{record.userId}</p>
-                ),
-              }}
-              // className="hide-expand-icon"
-            ></Table>
+            >
+              <Table
+                rowKey="userId"
+                dataSource={applylist}
+                columns={columns}
+                bordered={true}
+                style={{ cursor: 'pointer' }}
+                pagination={{
+                  position: ['bottomCenter'],
+                }}
+                expandable={expandable}
+                className="hide-expand-icon"
+              ></Table>
+            </div>
           </Modal>
         </div>
       )
@@ -740,6 +764,22 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           </ul>
         </div>
       </div>
+
+      <Modal
+        centered
+        open={isViewDetail}
+        onOk={() => {
+          setIsViewDetail(false)
+          setSelectedRecord(null)
+        }}
+        onCancel={() => {
+          setIsViewDetail(false)
+          setSelectedRecord(null)
+        }}
+        width={800}
+      >
+        {JSON.stringify(selectedRecord)}
+      </Modal>
     </div>
   )
 }
