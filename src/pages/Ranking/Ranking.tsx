@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons'
 import { Avatar, Card, Table } from 'antd'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UserType } from '@src/types'
 const { Meta } = Card
 
@@ -23,23 +23,29 @@ const Ranking: React.FC = () => {
   const otherUsers = sortedUsers.slice(3)
   const defaultAvatar = 'src/assets/images/users/defaultAvatar.png'
 
-  const [rankingList, setRankingList] = useState<UserType[] | undefined>(
-    undefined,
-  )
+  const [userRankingList, setUserRankingList] = useState<
+    UserType[] | undefined
+  >(undefined)
 
   const fetchRankingList = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         `${import.meta.env.VITE_API_ENDPOINT}/api/point_ranking`,
       )
       if (response.status === 200) {
+        setUserRankingList(response.data)
       } else {
+        setUserRankingList([])
       }
     } catch (error) {
       // 오류 처리
       console.error('Error fetching project list:', error)
     }
   }
+
+  useEffect(() => {
+    fetchRankingList()
+  }, [])
 
   return (
     <div style={{ margin: '40px 30px 0 30px' }}>
