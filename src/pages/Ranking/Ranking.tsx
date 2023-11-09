@@ -57,7 +57,7 @@ const Ranking: React.FC = () => {
                         />
                       }
                       title={user.name}
-                      description={user.email}
+                      description={user.points}
                     />
                     {index < 3 ? (
                       <div

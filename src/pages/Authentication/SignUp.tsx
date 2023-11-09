@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import './SignUp.css'
-import { Button, Input, Space } from 'antd'
+import { Button, Input, Space, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 
 interface UserData {
@@ -18,8 +18,7 @@ interface UserData {
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate()
-  const [message, setMessage] = useState<string>('')
-  const [duplicateCheckMessage, setDuplicateCheckMessage] = useState<string>('')
+  const [messageApi, contextHolder] = message.useMessage()
   const [isUserIdChecked, setIsUserIdChecked] = useState<boolean>(false)
   const [isNicknameChecked, setIsNicknameChecked] = useState<boolean>(false)
 
@@ -42,7 +41,7 @@ const SignUp: React.FC = () => {
   //아이디 중복체크
   const handleUserIdCheck = async () => {
     if (!userData.userId) {
-      setMessage('아이디를 입력하세요.')
+      messageApi.error('아이디를 입력하세요.')
       return
     }
 
@@ -55,19 +54,19 @@ const SignUp: React.FC = () => {
       )
 
       if (response.status === 200) {
-        setDuplicateCheckMessage('사용 가능한 아이디입니다.')
         setIsUserIdChecked(true)
+        messageApi.success('사용 가능한 아이디입니다.')
       }
     } catch {
-      setDuplicateCheckMessage('이미 사용 중인 아이디입니다.')
       setIsUserIdChecked(false)
+      messageApi.error('이미 사용 중인 아이디입니다.')
     }
   }
 
   //닉네임 중복체크 api
   const handleNicknameCheck = async () => {
     if (!userData.nickname) {
-      setMessage('닉네임을 입력하세요.')
+      messageApi.error('닉네임을 입력하세요.')
       return
     }
 
@@ -82,12 +81,12 @@ const SignUp: React.FC = () => {
       )
 
       if (response.status === 200) {
-        setDuplicateCheckMessage('사용 가능한 닉네임입니다.')
         setIsNicknameChecked(true)
+        messageApi.success('사용 가능한 닉네임입니다.')
       }
     } catch {
-      setDuplicateCheckMessage('이미 사용 중인 닉네임입니다.')
       setIsNicknameChecked(false)
+      messageApi.error('이미 사용 중인 닉네임입니다.')
     }
   }
 
@@ -95,12 +94,12 @@ const SignUp: React.FC = () => {
     e.preventDefault()
 
     if (!isUserIdChecked) {
-      setMessage('아이디 중복을 확인하세요.')
+      messageApi.error('아이디 중복을 확인하세요.')
       return
     }
 
     if (!isNicknameChecked) {
-      setMessage('닉네임 중복을 확인하세요.')
+      messageApi.error('닉네임 중복을 확인하세요.')
       return
     }
 
@@ -115,7 +114,7 @@ const SignUp: React.FC = () => {
       !userData.department ||
       !userData.studentNumber
     ) {
-      setMessage('모든 회원 정보를 입력하세요.')
+      messageApi.error('모든 회원 정보를 입력하세요.')
       return // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
     }
 
@@ -136,7 +135,8 @@ const SignUp: React.FC = () => {
   }
 
   return (
-    <div>
+    <div style={{ marginTop: '60px' }}>
+      {contextHolder}
       <form onSubmit={handleSubmit} className="Signup__form">
         <div className="Signup__form_div">
           <label>아이디</label>
@@ -242,8 +242,6 @@ const SignUp: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-        <p className="error__m">{message}</p>
-        <p className="error__m">{duplicateCheckMessage}</p>
         <Button type="primary" htmlType="submit" className="Signup__btn">
           회원가입
         </Button>

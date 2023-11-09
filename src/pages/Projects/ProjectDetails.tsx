@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { CommentType, ProjectType } from '@src/types'
-import { Button, Collapse, Modal, Table, Tag, message } from 'antd'
+import { Button, Modal, Table, Tag, message } from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -20,7 +20,7 @@ import {
 // import { mockProjects } from './mock/mockProjects'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import type { ColumnsType } from 'antd/es/table'
+import { ColumnsType } from 'antd/es/table'
 
 export interface ProjectDetails {}
 
@@ -46,7 +46,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [commentText, setCommentText] = useState('')
   const [comments, setComments] = useState<CommentType[]>([])
   const [applylist, setApplylist] = useState<ApplyData[] | undefined>([])
-  const [expandedRowKeys, setExpandedRowKeys] = useState<React.Key[]>([])
   const projectGenerationUserId = project?.userId
   const userId = localStorage.userId
   const [open, setOpen] = useState(false)
@@ -113,7 +112,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             app => app.userId === apply.userId,
           )
 
-          // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
           // @ts-ignore
           apply.status = projectUserInformationList[0].status
           apply.applyDate = projectUserInformationList[0].applyDate
@@ -224,13 +222,22 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
   //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
 
-  const columns = [
+  const CustomTag = (props: any) => {
+    const { disabled, ...rest } = props
+
+    return (
+      <Tag
+        {...rest}
+        style={{ cursor: 'pointer', ...rest.style }}
+        className={`custom-tag ${disabled ? 'disabled' : ''}`}
+        onClick={!disabled ? rest.onClick : undefined}
+      />
+    )
+  }
+
+  const columns: ColumnsType<ApplyData> = [
     { title: 'userId', dataIndex: 'userId', key: 'userId' },
-    {
-      title: 'studentNumber',
-      dataIndex: 'studentNumber',
-      key: 'studentNumber',
-    },
+    Table.EXPAND_COLUMN,
     { title: 'department', dataIndex: 'department', key: 'department' },
     {
       title: 'applyDate',
@@ -261,24 +268,26 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       title: 'Action',
       dataIndex: 'action',
       key: 'action',
-      render: (_text: any, record: any) => (
+      render: (_text: any, record) => (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Tag
+          <CustomTag
             style={{ cursor: 'pointer' }}
             color="green"
             onClick={() => handleAccepted(record)}
             className="tag__hover"
+            disabled={record.status !== 'PENDING'}
           >
             승인
-          </Tag>
-          <Tag
+          </CustomTag>
+          <CustomTag
             style={{ cursor: 'pointer' }}
             color="red"
             onClick={() => handleRejected(record)}
             className="tag__hover"
+            disabled={record.status !== 'PENDING'}
           >
             거절
-          </Tag>
+          </CustomTag>
         </div>
       ),
       width: 100,
@@ -321,6 +330,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             return apply.projectId !== projectApplyData.projectId
           })
           setApplylist(filteredApplylist)
+          fetchApplylist()
         } else {
         }
       } catch (error) {
@@ -344,6 +354,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           },
         )
         if (response.status === 200) {
+          fetchApplylist()
         } else {
         }
       } catch (error) {
@@ -355,15 +366,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   const handleViewProfileDetails = async (projectApplyData: ApplyData) => {
     navigate(`/profile/${projectApplyData.userId}`)
-  }
-
-  //프로젝트 신청 리스트 테이블 클릭 시 확장 함수
-  const handleRowClick = (record: any) => {
-    if (expandedRowKeys.includes(record.key)) {
-      setExpandedRowKeys(expandedRowKeys.filter(key => key !== record.key))
-    } else {
-      setExpandedRowKeys([...expandedRowKeys, record.key])
-    }
   }
 
   //프로젝트 신청 or 신청 리스트 버튼
@@ -384,24 +386,20 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             onCancel={() => setOpen(false)}
             width={1200}
           >
-            <Table<ApplyData>
+            <Table
               dataSource={applylist}
               columns={columns}
+              bordered={true}
               style={{ cursor: 'pointer' }}
+              pagination={{
+                position: ['bottomCenter'],
+              }}
               expandable={{
                 expandedRowRender: record => (
                   <p style={{ margin: 0 }}>{record.userId}</p>
                 ),
-                rowExpandable: (_record: any) => true,
               }}
-              onRow={record => ({
-                onClick: () => handleRowClick(record),
-              })}
-              expandedRowKeys={expandedRowKeys}
-              pagination={{
-                position: ['bottomCenter'],
-              }}
-              className="hide-expand-icon"
+              // className="hide-expand-icon"
             ></Table>
           </Modal>
         </div>
