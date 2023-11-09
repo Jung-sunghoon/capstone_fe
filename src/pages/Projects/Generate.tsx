@@ -71,11 +71,9 @@ const Generate: React.FC = () => {
         const projectInfo = response?.data
         const techIds = response?.data?.techIds
 
-        console.log('response?.data', response?.data)
-        console.log('response?.data?.techIds', response?.data?.techIds)
-
         console.log(
           'tech',
+          techIds,
           techstacks &&
             JSON.parse(techstacks)
               .filter((item: TechstackType) => techIds?.includes(item.techId))
@@ -123,7 +121,7 @@ const Generate: React.FC = () => {
       status: values.status,
       thumbnail: fileList && fileList[0]?.thumbUrl,
       techIds: JSON.parse(techstacks)
-        ?.filter((item: any) => values?.techId.includes(item.techName))
+        ?.filter((item: any) => values?.techIds.includes(item.techName))
         .map((tech: any) => tech.techId),
     }
 
@@ -255,7 +253,7 @@ const Generate: React.FC = () => {
             </Upload>
           </Form.Item>
           <Form.Item
-            name="techId"
+            name="techIds"
             label="기술 스택"
             rules={[{ required: true, message: '기술 스택을 입력해주세요' }]}
           >

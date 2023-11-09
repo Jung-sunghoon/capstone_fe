@@ -40,3 +40,7 @@ a:active {
 #generate .ant-tooltip {
   display: none !important;
 }
+
+.note-group-image-url input {
+  width: 500px !important;
+}

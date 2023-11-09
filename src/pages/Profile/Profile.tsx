@@ -173,8 +173,6 @@ const Profile: React.FC<UserProps> = ({}) => {
     ApplicationData[]
   >([])
 
-  console.log('userProfile', userProfile)
-
   const userId =
     targetUserId && targetUserId !== 'profile'
       ? targetUserId
@@ -395,7 +393,7 @@ const Profile: React.FC<UserProps> = ({}) => {
 
           <div className="Pro__userProfileContainer">
             <div className="Pro__userProfileNameAndAvatar">
-              <div className="Pro__userProfileAvatar">아바타 자리</div>
+              <div className="Pro__userProfileAvatar">{/* 아바타 자리 */}</div>
               <div className="Pro__userProfileName">
                 <label>이름</label>
                 {targetUserId === userProfile?.userId ? (

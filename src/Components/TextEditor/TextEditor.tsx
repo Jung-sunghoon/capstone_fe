@@ -32,6 +32,7 @@ class TextEditor extends Component<TextEditorProps> {
         ['font', ['bold', 'underline', 'italic']],
         ['fontname', ['fontname', 'fontsize', 'color']],
         ['para', ['ul', 'ol', 'paragraph']],
+        ['insert', ['link', 'picture', 'video']],
         ['table', ['table']],
         ['view', ['fullscreen']],
       ],

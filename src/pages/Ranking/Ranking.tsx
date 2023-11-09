@@ -1,4 +1,4 @@
-import { Col, Row, Table } from 'reactstrap'
+import { Col, Row } from 'reactstrap'
 import { users } from './mock/users'
 import { isEmpty, size, map } from 'lodash'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ import {
   CrownOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Avatar, Card } from 'antd'
+import { Avatar, Card, Table } from 'antd'
 const { Meta } = Card
 
 const Ranking: React.FC = () => {
@@ -18,10 +18,15 @@ const Ranking: React.FC = () => {
   //@ts-ignore
   const sortedUsers = [...users].sort((a, b) => b.points - a.points)
 
+  const topThreeUsers = sortedUsers.slice(0, 3)
+  const otherUsers = sortedUsers.slice(3)
+
+  console.log(otherUsers)
+
   return (
-    <div style={{ marginTop: '40px', marginLeft: '20px' }}>
-      <Row>
-        {sortedUsers.map((user: any, index: number) => {
+    <div style={{ margin: '40px 30px 0 30px' }}>
+      <Row style={{ display: 'flex', justifyContent: 'center' }}>
+        {topThreeUsers.map((user: any, index: number) => {
           // @ts-ignore
           let img: any = images['thumbnail' + (index + 1)]
           return (
@@ -93,6 +98,63 @@ const Ranking: React.FC = () => {
           )
         })}
       </Row>
+      {/* 상위 3명 이외의 사용자를 테이블로 표시 */}
+      <Table
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '70%',
+          justifyContent: 'center',
+          margin: 'auto',
+        }}
+        dataSource={otherUsers}
+        pagination={{
+          position: ['bottomCenter'],
+        }}
+        columns={[
+          {
+            title: 'Avatar',
+            dataIndex: 'img',
+            key: 'img',
+            render: img => (
+              <img
+                src={img}
+                alt="Avatar"
+                style={{ width: '50px', height: '50px', borderRadius: '10px' }}
+              />
+            ),
+          },
+          {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+          },
+          {
+            title: 'Points',
+            dataIndex: 'points',
+            key: 'points',
+          },
+          {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+            width: '150px',
+            render: () => (
+              <span
+                style={{
+                  padding: '0',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <UserOutlined style={{ marginRight: 16 }} />
+                <ContainerOutlined style={{ marginRight: 16 }} />
+                <EllipsisOutlined />
+              </span>
+            ),
+          },
+        ]}
+      />
     </div>
   )
 }
