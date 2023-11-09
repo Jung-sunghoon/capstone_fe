@@ -49,3 +49,7 @@
 .su__container .Su__t__box {
   width: 310px;
 }
+
+.Signup__duplicate {
+  display: flex;
+}

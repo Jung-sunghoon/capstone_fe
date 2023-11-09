@@ -11,6 +11,9 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { Avatar, Card, Table } from 'antd'
+import axios from 'axios'
+import { useState } from 'react'
+import { UserType } from '@src/types'
 const { Meta } = Card
 
 const Ranking: React.FC = () => {
@@ -20,8 +23,25 @@ const Ranking: React.FC = () => {
 
   const topThreeUsers = sortedUsers.slice(0, 3)
   const otherUsers = sortedUsers.slice(3)
+  const defaultAvatar = 'src/assets/images/users/defaultAvatar.png'
 
-  console.log(otherUsers)
+  const [rankingList, setRankingList] = useState<UserType[] | undefined>(
+    undefined,
+  )
+
+  const fetchRankingList = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_ENDPOINT}/api/point_ranking`,
+      )
+      if (response.status === 200) {
+      } else {
+      }
+    } catch (error) {
+      // 오류 처리
+      console.error('Error fetching project list:', error)
+    }
+  }
 
   return (
     <div style={{ margin: '40px 30px 0 30px' }}>
@@ -62,7 +82,7 @@ const Ranking: React.FC = () => {
                           width: '70px',
                           height: '70px',
                         }}
-                        src={user.img}
+                        src={user.img || defaultAvatar}
                       />
                     }
                     title={user.name}
@@ -120,7 +140,7 @@ const Ranking: React.FC = () => {
               <img
                 src={img}
                 alt="Avatar"
-                style={{ width: '50px', height: '50px', borderRadius: '10px' }}
+                style={{ width: '50px', height: '50px', borderRadius: '100%' }}
               />
             ),
           },

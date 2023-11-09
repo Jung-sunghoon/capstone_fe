@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import './SignUp.css'
 import { Button, Divider, Input, InputRef, Select, Space, message } from 'antd'
 import {
+  CheckOutlined,
+  CloseOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
   PlusOutlined,
@@ -26,6 +28,8 @@ const SignUp: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage()
   const [isUserIdChecked, setIsUserIdChecked] = useState<boolean>(false)
   const [isNicknameChecked, setIsNicknameChecked] = useState<boolean>(false)
+  const [isStudentNumberChecked, setIsStudentNumberChecked] =
+    useState<boolean>(false)
 
   const [userData, setUserData] = useState<UserData>({
     userId: '',
@@ -96,6 +100,34 @@ const SignUp: React.FC = () => {
     }
   }
 
+  const handleStudentNumberCheck = async () => {
+    if (!userData.studentNumber) {
+      messageApi.error('학번을 입력하세요.')
+      return
+    }
+
+    try {
+      const response = await axios.get(
+        `${
+          import.meta.env.VITE_API_ENDPOINT
+        }/api/studentNumber_duplicate_check`,
+        {
+          params: {
+            studentNumber: userData?.studentNumber,
+          },
+        },
+      )
+
+      if (response.status === 200) {
+        setIsStudentNumberChecked(true)
+        messageApi.success('사용 가능한 학번입니다.')
+      }
+    } catch {
+      setIsStudentNumberChecked(false)
+      messageApi.error('이미 사용 중인 학번입니다.')
+    }
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -106,6 +138,11 @@ const SignUp: React.FC = () => {
 
     if (!isNicknameChecked) {
       messageApi.error('닉네임 중복을 확인하세요.')
+      return
+    }
+
+    if (!isStudentNumberChecked) {
+      messageApi.error('학번 중복을 확인하세요.')
       return
     }
 
@@ -170,7 +207,14 @@ const SignUp: React.FC = () => {
       {contextHolder}
       <form onSubmit={handleSubmit} className="Signup__form">
         <div className="Signup__form_div">
-          <label>아이디</label>
+          <div className="Signup__duplicate">
+            <label>아이디</label>
+            <div>
+              {isUserIdChecked ? (
+                <CheckOutlined style={{ color: 'green', marginLeft: '5px' }} />
+              ) : null}
+            </div>
+          </div>
           <div className="su__container">
             <Space direction="horizontal">
               <Input
@@ -212,7 +256,14 @@ const SignUp: React.FC = () => {
           />
         </div>
         <div className="Signup__form_div">
-          <label>닉네임</label>
+          <div className="Signup__duplicate">
+            <label>닉네임</label>
+            <div>
+              {isNicknameChecked ? (
+                <CheckOutlined style={{ color: 'green', marginLeft: '5px' }} />
+              ) : null}
+            </div>
+          </div>
           <div className="su__container">
             <Space direction="horizontal">
               <Input
@@ -252,15 +303,29 @@ const SignUp: React.FC = () => {
           />
         </div>
         <div className="Signup__form_div">
-          <label>학번</label>
-          <Input
-            placeholder="학번을 입력하시오"
-            type="text"
-            name="studentNumber"
-            className="Su__t__box"
-            value={userData.studentNumber}
-            onChange={handleChange}
-          />
+          <div className="Signup__duplicate">
+            <label>학번</label>
+            <div>
+              {isStudentNumberChecked ? (
+                <CheckOutlined style={{ color: 'green', marginLeft: '5px' }} />
+              ) : null}
+            </div>
+          </div>
+          <div className="su__container">
+            <Space direction="horizontal">
+              <Input
+                placeholder="학번을 입력하시오"
+                type="text"
+                name="studentNumber"
+                className="Su__t__box"
+                value={userData.studentNumber}
+                onChange={handleChange}
+              />
+              <Button onClick={handleStudentNumberCheck} style={{ width: 80 }}>
+                중복확인
+              </Button>
+            </Space>
+          </div>
         </div>
         <div className="Signup__form_div">
           <label>Git 주소</label>

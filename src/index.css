@@ -44,3 +44,7 @@ a:active {
 .note-group-image-url input {
   width: 500px !important;
 }
+
+img {
+  max-width: 100%;
+}
