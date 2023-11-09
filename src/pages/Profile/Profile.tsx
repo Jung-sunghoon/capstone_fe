@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
-import { convertApplyStatus, convertStatus } from '@src/utils/common'
+import { convertApplyStatus } from '@src/utils/common'
 import {
   Button,
   Divider,
@@ -25,8 +25,6 @@ import {
 } from '@ant-design/icons'
 
 const techstacks = localStorage.getItem('techstacks')
-
-const { Option } = Select
 
 export interface UserProps {
   userData?: UserType
@@ -155,7 +153,7 @@ const Profile: React.FC<UserProps> = ({}) => {
 
   const [message, setMessage] = useState<string>('')
   const [projects, setProjects] = useState<ProjectsType>([])
-  const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
+  const [sortOption] = useState<string>(sortOptionEnums.latest)
   const [filteredData, setFilteredData] = useState<ProjectsType>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number) => setCurrentPage(page)
@@ -371,8 +369,6 @@ const Profile: React.FC<UserProps> = ({}) => {
       return prevUserProfile // 현재 상태가 undefined일 경우 그대로 반환
     })
   }
-  const maxTagsToShow = 2
-  const tagsToShow = items.slice(0, maxTagsToShow)
 
   return (
     <div style={{ marginTop: '10px' }}>

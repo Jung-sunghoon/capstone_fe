@@ -1,7 +1,5 @@
 import { Col, Row } from 'reactstrap'
 import { users } from './mock/users'
-import { isEmpty, size, map } from 'lodash'
-import { Link } from 'react-router-dom'
 import images from '@src/assets/images'
 import './Ranking.css'
 import {

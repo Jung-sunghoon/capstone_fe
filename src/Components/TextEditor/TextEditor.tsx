@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import './summernote.css'
 import './bootstrap.css'
 
@@ -37,7 +37,7 @@ class TextEditor extends Component<TextEditorProps> {
         ['view', ['fullscreen']],
       ],
       callbacks: {
-        onChange: function (contents: any, $editable: any) {
+        onChange: function (contents: any) {
           OnSave(contents)
         },
       },
@@ -59,7 +59,7 @@ class TextEditor extends Component<TextEditorProps> {
         ['view', ['fullscreen']],
       ],
       callbacks: {
-        onChange: function (contents: any, $editable: any) {
+        onChange: function (contents: any) {
           OnSave(contents)
         },
       },

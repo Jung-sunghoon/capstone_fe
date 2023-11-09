@@ -30,10 +30,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ColumnsType } from 'antd/es/table'
-import type {
-  ExpandableConfig,
-  TableRowSelection,
-} from 'antd/es/table/interface'
+import type { ExpandableConfig } from 'antd/es/table/interface'
 
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
@@ -87,7 +84,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   const targetUserId = segments[segments.length - 1]
   const [projects, setProjects] = useState<ProjectsType>([])
-  const [sortOption, setSortOption] = useState<string>(sortOptionEnums.latest)
+  const [sortOption] = useState<string>(sortOptionEnums.latest)
   const [filteredData, setFilteredData] = useState<ProjectsType>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number) => setCurrentPage(page)
@@ -594,9 +591,9 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     expandedRowRender: (record: any) => <p>{record.userId}</p>,
   }
 
-  const [expandable, setExpandable] = useState<
-    ExpandableConfig<any> | undefined
-  >(defaultExpandable)
+  const [expandable] = useState<ExpandableConfig<any> | undefined>(
+    defaultExpandable,
+  )
 
   //프로젝트 신청 or 신청 리스트 버튼
   const renderProjectApplyBtn = () => {
