@@ -15,7 +15,7 @@ const { Option } = Select
 const Generate: React.FC = () => {
   const [editButton, setEditButton] = useState(false)
   const [form] = Form.useForm()
-  const [initialValue, setInitialValue] = useState({
+  const [initialValue] = useState({
     projectTitle: '',
     projectStatus: 'Ps_pr',
     status: 'S_pr',

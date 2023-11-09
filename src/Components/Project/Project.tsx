@@ -6,8 +6,6 @@ import { ProjectType } from '@src/types'
 import { formatDate } from '@src/utils/common'
 import { useNavigate } from 'react-router-dom'
 
-import images from '@src/assets/images'
-
 const { Meta } = Card
 
 interface ProjectProps {
@@ -16,7 +14,6 @@ interface ProjectProps {
 
 const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const info = projectData
-  const thumbnail = projectData?.thumbnail
   const navigate = useNavigate()
   const techstacks = localStorage.getItem('techstacks')
 
