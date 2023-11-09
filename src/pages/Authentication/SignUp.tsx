@@ -5,7 +5,6 @@ import './SignUp.css'
 import { Button, Divider, Input, InputRef, Select, Space, message } from 'antd'
 import {
   CheckOutlined,
-  CloseOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
   PlusOutlined,
