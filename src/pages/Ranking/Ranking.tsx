@@ -9,8 +9,8 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { Avatar, Card, Table } from 'antd'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { UserType } from '@src/types'
 const { Meta } = Card
 
