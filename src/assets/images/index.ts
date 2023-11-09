@@ -56,6 +56,8 @@ import avatar18 from './users/avatar-18.jpg'
 import avatar19 from './users/avatar-19.jpg'
 import avatar20 from './users/avatar-20.png'
 
+import defaultAvatar from './users/defaultAvatar.png'
+
 export default {
   thumbnail1,
   thumbnail2,
@@ -109,4 +111,6 @@ export default {
   avatar18,
   avatar19,
   avatar20,
+
+  defaultAvatar,
 }

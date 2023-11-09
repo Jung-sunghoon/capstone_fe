@@ -23,6 +23,7 @@ import {
   EyeTwoTone,
   PlusOutlined,
 } from '@ant-design/icons'
+import { useParams } from 'react-router-dom'
 
 const techstacks = localStorage.getItem('techstacks')
 
@@ -44,9 +45,7 @@ const PROJECT_STATUSES = [
 ]
 
 const Profile: React.FC<UserProps> = ({}) => {
-  const currentURL = window.location.href
-  const segments = currentURL.split('/')
-  const targetUserId = segments[segments.length - 1]
+  const { userId } = useParams()
 
   const columns = [
     {
@@ -171,16 +170,12 @@ const Profile: React.FC<UserProps> = ({}) => {
     ApplicationData[]
   >([])
 
-  const userId =
-    targetUserId && targetUserId !== 'profile'
-      ? targetUserId
-      : localStorage.userId
   const handleProjectStatusClick = (status: string) => {
     setCurrentProjectStatus(status)
   }
 
   const renderProfileEditBtn = () => {
-    if (targetUserId !== userProfile?.userId) {
+    if (userId === localStorage.getItem('userId')) {
       return (
         <div>
           <Button
@@ -218,7 +213,7 @@ const Profile: React.FC<UserProps> = ({}) => {
     }
 
     setFilteredData(filtered)
-  }, [projects, currentProjectStatus, sortOption, targetUserId])
+  }, [projects, currentProjectStatus, sortOption])
 
   useEffect(() => {
     const fetchBoardData = async () => {
@@ -294,7 +289,6 @@ const Profile: React.FC<UserProps> = ({}) => {
 
             return project
           })
-          console.log('mergedData', mergedData)
 
           setUserApplicationData(mergedData)
         }
@@ -303,7 +297,7 @@ const Profile: React.FC<UserProps> = ({}) => {
       }
     }
     profileData(), applicationData(), fetchBoardData()
-  }, [])
+  }, [userId])
 
   useEffect(() => {
     performSearchAndSort()
@@ -340,8 +334,6 @@ const Profile: React.FC<UserProps> = ({}) => {
   const [name, setName] = useState('')
   const inputRef = useRef<InputRef>(null)
   let index = 0
-
-  console.log('techStacksData', techStacksData)
 
   const addItem = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
@@ -392,7 +384,7 @@ const Profile: React.FC<UserProps> = ({}) => {
               <div className="Pro__userProfileAvatar">{/* 아바타 자리 */}</div>
               <div className="Pro__userProfileName">
                 <label>이름</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfileName__text">
                     {userProfile?.name}
                   </span>
@@ -409,7 +401,7 @@ const Profile: React.FC<UserProps> = ({}) => {
             <section className="Pro__userEditProfileContainer">
               <div className="Pro__form_div">
                 <label>닉네임</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfile__text">
                     {userProfile?.nickname}
                   </span>
@@ -424,7 +416,7 @@ const Profile: React.FC<UserProps> = ({}) => {
 
               <div className="Pro__form_div">
                 <label>아이디</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfile__text">
                     {userProfile?.userId}
                   </span>
@@ -438,7 +430,7 @@ const Profile: React.FC<UserProps> = ({}) => {
               </div>
               <div className="Pro__form_div">
                 <label>이메일</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfile__text">
                     {userProfile?.email}
                   </span>
@@ -452,21 +444,21 @@ const Profile: React.FC<UserProps> = ({}) => {
               </div>
               <div className="Pro__form_div">
                 <label>학과</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfile__text">
-                    {userProfile?.department}학과
+                    {userProfile?.department}
                   </span>
                 ) : (
                   <Input
                     className="Pro__userProfile"
-                    value={userProfile?.department + '학과'}
+                    value={userProfile?.department}
                     style={{ backgroundColor: 'white', color: 'black' }}
                   />
                 )}
               </div>
               <div className="Pro__form_div">
                 <label>학번</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfile__text">
                     {userProfile?.studentNumber}
                   </span>
@@ -480,7 +472,7 @@ const Profile: React.FC<UserProps> = ({}) => {
               </div>
               <div className="Pro__form_div">
                 <label>Git 주소</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <span className="UserProfile__text">
                     {userProfile?.gitAddress}
                   </span>
@@ -494,7 +486,7 @@ const Profile: React.FC<UserProps> = ({}) => {
               </div>
               <div className="Pro__form_div">
                 <label>기술 스택</label>
-                {targetUserId === userProfile?.userId ? (
+                {userId !== localStorage.getItem('userId') ? (
                   <div
                     className="Pro__userProfile"
                     style={{
@@ -553,7 +545,7 @@ const Profile: React.FC<UserProps> = ({}) => {
                 )}
               </div>
               <div className="Pro__form_div">
-                {targetUserId === userProfile?.userId ? null : (
+                {userId !== localStorage.getItem('userId') ? null : (
                   <>
                     <label>비밀번호</label>
                     <Input.Password

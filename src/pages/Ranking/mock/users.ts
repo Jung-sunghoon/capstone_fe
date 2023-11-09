@@ -174,4 +174,14 @@ export const users = [
     points: '136',
     tags: ['Php', 'Java', 'Python'],
   },
+  {
+    id: 19,
+    name: '정성훈',
+    designation: 'UI/UX Designer',
+    color: 'primary',
+    email: 'david@google.com',
+    points: '521',
+    img: '',
+    tags: ['Photoshop', 'illustrator'],
+  },
 ]

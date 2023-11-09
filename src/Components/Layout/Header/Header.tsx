@@ -8,6 +8,8 @@ const Header: React.FC = () => {
   const { isLoggedIn, logout }: { isLoggedIn: boolean; logout: () => void } =
     useAuth()
 
+  const userId = localStorage.getItem('userId')
+
   return (
     <header id="header">
       <div className="header__inner">
@@ -24,7 +26,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link to="/profile" className="h__link">
+              <Link to={`/profile/${userId}`} className="h__link">
                 프로필
               </Link>
             </li>
