@@ -1,9 +1,13 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
+import React, { useState, ChangeEvent, FormEvent, useRef } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import './SignUp.css'
-import { Button, Input, Space, message } from 'antd'
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
+import { Button, Divider, Input, InputRef, Select, Space, message } from 'antd'
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  PlusOutlined,
+} from '@ant-design/icons'
 
 interface UserData {
   userId: string
@@ -14,6 +18,7 @@ interface UserData {
   nickname: string
   email: string
   gitAddress: string
+  techStacks: string
 }
 
 const SignUp: React.FC = () => {
@@ -31,6 +36,7 @@ const SignUp: React.FC = () => {
     nickname: '',
     email: '',
     gitAddress: '',
+    techStacks: '',
   })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -134,8 +140,33 @@ const SignUp: React.FC = () => {
     }
   }
 
+  const [items, setItems] = useState<any>([])
+  const [name, setName] = useState('')
+  const inputRef = useRef<InputRef>(null)
+  let index = 0
+
+  const addItem = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    e.preventDefault()
+    setItems([...items, name || `New item ${index++}`])
+    setName('')
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 0)
+  }
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+  }
+
+  const handleTagChange = (value: string[]) => {
+    // 선택한 기술 스택을 띄어쓰기로 구분하여 문자열로 저장
+    const techStacksString = value.join(' ')
+    setUserData({ ...userData, techStacks: techStacksString })
+  }
+
   return (
-    <div style={{ marginTop: '60px' }}>
+    <div style={{ marginTop: '90px' }}>
       {contextHolder}
       <form onSubmit={handleSubmit} className="Signup__form">
         <div className="Signup__form_div">
@@ -241,6 +272,37 @@ const SignUp: React.FC = () => {
             value={userData.gitAddress}
             onChange={handleChange}
           />
+        </div>
+        <div className="Signup__form_div">
+          <label>기술 스택</label>
+          <Select
+            className="Su__t__box"
+            mode="multiple"
+            style={{ width: '400px' }}
+            onChange={handleTagChange}
+            dropdownRender={menu => (
+              <>
+                {menu}
+                <Divider style={{ margin: '8px 0' }} />
+                <Space style={{ padding: '0 8px 4px' }}>
+                  <Input
+                    placeholder="Please enter item"
+                    ref={inputRef}
+                    value={name}
+                    onChange={onNameChange}
+                    onKeyDown={e => e.stopPropagation()}
+                  />
+                  <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
+                    스택 추가
+                  </Button>
+                </Space>
+              </>
+            )}
+            options={items.map((item: any) => ({
+              label: item,
+              value: item,
+            }))}
+          ></Select>
         </div>
         <Button type="primary" htmlType="submit" className="Signup__btn">
           회원가입

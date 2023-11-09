@@ -91,7 +91,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [filteredData, setFilteredData] = useState<ProjectsType>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number) => setCurrentPage(page)
-  const [pageSize] = useState<number>(4)
+  const [pageSize] = useState<number>(3)
   const slicedData = filteredData?.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize,
@@ -249,7 +249,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
             return project
           })
-          console.log('mergedData', mergedData)
 
           setUserApplicationData(mergedData)
         }
@@ -418,24 +417,27 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //프로젝트 신청 함수
   const handleApplyproject = async () => {
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/apply`,
-        {
-          userId: userId,
-          projectId: projectId,
-        },
-      )
-      if (response.status === 201) {
-        console.log('프로젝트 신청 성공')
-        fetchApplylist()
-        messageApi.success('프로젝트 신청 성공')
-      } else {
-        console.log('프로젝트 신청 실패')
+    const confirmApply = window.confirm('프로젝트를 신청 하시겠습니까?')
+    if (confirmApply) {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/apply`,
+          {
+            userId: userId,
+            projectId: projectId,
+          },
+        )
+        if (response.status === 201) {
+          console.log('프로젝트 신청 성공')
+          fetchApplylist()
+          messageApi.success('프로젝트 신청 성공')
+        } else {
+          console.log('프로젝트 신청 실패')
+        }
+      } catch (error) {
+        // 오류 처리
+        messageApi.error('프로젝트 신청 오류:')
       }
-    } catch (error) {
-      // 오류 처리
-      messageApi.error('프로젝트 신청 오류:')
     }
   }
   //프로젝트 신청 버튼( 게시물 작성자는 목록보기 )
@@ -537,8 +539,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //신청 승인 버튼
   const handleAccepted = async (projectApplyData: ApplyData) => {
-    const confirmDelete = window.confirm('신청을 승인 하시겠습니까?')
-    if (confirmDelete) {
+    const confirmAccept = window.confirm('신청을 승인 하시겠습니까?')
+    if (confirmAccept) {
       try {
         const response = await axios.post(
           `${import.meta.env.VITE_API_ENDPOINT}/api/accept`,
@@ -566,8 +568,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //신청 거절 버튼
   const handleRejected = async (projectApplyData: ApplyData) => {
-    const confirmDelete = window.confirm('신청을 거절 하시겠습니까?')
-    if (confirmDelete) {
+    const confirmReject = window.confirm('신청을 거절 하시겠습니까?')
+    if (confirmReject) {
       try {
         const response = await axios.post(
           `${import.meta.env.VITE_API_ENDPOINT}/api/reject`,
@@ -689,8 +691,8 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   //댓글 수정
   const handleEditComment = async (commentId: number, content: string) => {
-    const confirmDelete = window.confirm('댓글을 수정 하시겠습니까?')
-    if (confirmDelete) {
+    const confirmEdit = window.confirm('댓글을 수정 하시겠습니까?')
+    if (confirmEdit) {
       try {
         // Axios를 사용하여 서버에 DELETE 요청을 보내 프로젝트 삭제
         await axios.put(
@@ -980,97 +982,128 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
           setIsViewDetail(false)
           setSelectedRecord(null)
         }}
-        width={800}
+        width={1000}
       >
-        {JSON.stringify(selectedRecord)}
-        <div>안녕하세요</div>
-        <div style={{ marginTop: '10px' }}>
-          <div className="UserProfile__menu">
-            <Menu
-              onClick={handleMenuClick}
-              selectedKeys={[currentSection]}
-              mode="horizontal"
-            >
-              <Menu.Item key="myProject">내 프로젝트</Menu.Item>
-              <Menu.Item key="myApplication">신청한 프로젝트</Menu.Item>
-            </Menu>
-          </div>
+        <div style={{ marginTop: '30px' }}>
+          <p style={{ marginLeft: '30px', fontSize: '16px' }}>상세정보</p>
+          <table
+            style={{
+              margin: '0 30px 0 30px',
+              borderCollapse: 'separate',
+              width: '100%',
+            }}
+          >
+            <tr>
+              <th>이름</th>
+              <th>e-mail</th>
+              <th>학번</th>
+              <th>Git 주소</th>
+              <th> 기술 스택 </th>
+            </tr>
+            <tr>
+              <td>{selectedRecord?.name}</td>
+              <td>{selectedRecord?.email}</td>
+              <td>{selectedRecord?.studentNumber}</td>
+              <td>{selectedRecord?.gitAddress}</td>
+              <td>
+                {selectedRecord?.techStacks
+                  .split(' ')
+                  .map((tech: any, index: number) => (
+                    <Tag key={index} color="magenta">
+                      {tech}
+                    </Tag>
+                  ))}
+              </td>
+            </tr>
+          </table>
+          <div style={{ marginTop: '10px' }}>
+            <div className="UserProfile__menu">
+              <Menu
+                onClick={handleMenuClick}
+                selectedKeys={[currentSection]}
+                mode="horizontal"
+              >
+                <Menu.Item key="myProject">내 프로젝트</Menu.Item>
+                <Menu.Item key="myApplication">신청한 프로젝트</Menu.Item>
+              </Menu>
+            </div>
 
-          {currentSection === 'myProject' && (
-            <section className="Pro__myProject">
-              <div>
-                <ul className="P__sort__menu">
-                  {PROJECT_STATUSES.map(status => (
-                    <li
-                      key={status.label}
-                      onClick={() => handleProjectStatusClick(status?.value)}
-                      className={
-                        currentProjectStatus === status.value ? 'active' : ''
-                      }
-                    >
-                      <Button
-                        type={
-                          currentProjectStatus === status.value
-                            ? 'primary'
-                            : 'default'
+            {currentSection === 'myProject' && (
+              <section className="Pro__myProject">
+                <div>
+                  <ul className="P__sort__menu">
+                    {PROJECT_STATUSES.map(status => (
+                      <li
+                        key={status.label}
+                        onClick={() => handleProjectStatusClick(status?.value)}
+                        className={
+                          currentProjectStatus === status.value ? 'active' : ''
                         }
                       >
-                        {status.label}
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <div>
-                  <List
-                    style={{
-                      marginTop: '30px',
-                      marginLeft: '30px',
-                      marginRight: '30px',
-                    }}
-                    grid={{
-                      gutter: 12,
-                      xs: 1,
-                      sm: 2,
-                      md: 3,
-                      lg: 3,
-                      xl: 4,
-                      xxl: 6,
-                    }}
-                    dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
-                    renderItem={(item: ProjectType) => (
-                      <List.Item>
-                        <Project projectData={item} />
-                      </List.Item>
-                    )}
-                  />
+                        <Button
+                          type={
+                            currentProjectStatus === status.value
+                              ? 'primary'
+                              : 'default'
+                          }
+                        >
+                          {status.label}
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <div>
-                  <Pagination
-                    className="Board__page"
-                    current={currentPage}
-                    total={filteredData?.length}
-                    pageSize={pageSize}
-                    showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
-                    onChange={handlePageChange}
-                  />
+                  <div>
+                    <List
+                      style={{
+                        marginTop: '30px',
+                        marginLeft: '30px',
+                        marginRight: '30px',
+                      }}
+                      grid={{
+                        gutter: 12,
+                        xs: 3,
+                        sm: 3,
+                        md: 3,
+                        lg: 3,
+                        xl: 3,
+                        xxl: 3,
+                      }}
+                      dataSource={slicedData} // 페이지네이션에 따라 잘라낸 데이터를 사용
+                      renderItem={(item: ProjectType) => (
+                        <List.Item>
+                          <Project projectData={item} />
+                        </List.Item>
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <Pagination
+                      className="Board__page"
+                      current={currentPage}
+                      total={filteredData?.length}
+                      pageSize={pageSize}
+                      showSizeChanger={false} // 페이지 크기 변경 옵션 숨김
+                      onChange={handlePageChange}
+                    />
+                  </div>
                 </div>
-              </div>
-            </section>
-          )}
+              </section>
+            )}
 
-          {currentSection === 'myApplication' && (
-            <section className="Pro__myApplication">
-              <Table<ApplicationData>
-                dataSource={userApplicationData}
-                columns={columnsTwo}
-                pagination={{
-                  position: ['bottomCenter'],
-                }}
-              ></Table>
-            </section>
-          )}
+            {currentSection === 'myApplication' && (
+              <section className="Pro__myApplication">
+                <Table<ApplicationData>
+                  dataSource={userApplicationData}
+                  columns={columnsTwo}
+                  pagination={{
+                    position: ['bottomCenter'],
+                  }}
+                ></Table>
+              </section>
+            )}
+          </div>
         </div>
       </Modal>
     </div>

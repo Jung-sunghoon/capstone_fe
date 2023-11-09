@@ -113,13 +113,6 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
                 projectData?.techIds.includes(item.techId),
               )
               .map((tech: any, index: number) => {
-                console.log(
-                  info?.projectTitle,
-                  JSON.parse(techstacks)?.filter((item: any) =>
-                    projectData?.techIds.includes(item.techId),
-                  ),
-                )
-
                 if (index > 3) return
 
                 return index === 3 ? (

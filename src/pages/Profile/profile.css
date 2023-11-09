@@ -160,3 +160,7 @@
 .Pro__myApplication {
   margin: 0 30px 0 30px;
 }
+
+.ant-select-selector {
+  width: 100%;
+}

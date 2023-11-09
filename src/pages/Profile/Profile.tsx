@@ -1,14 +1,32 @@
 import axios from 'axios'
 import { ProjectType, ProjectsType, UserType } from '@src/types'
-import { FormEvent, useCallback, useEffect, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { convertApplyStatus, convertStatus } from '@src/utils/common'
-import { Button, Input, List, Menu, Pagination, Table, Tag } from 'antd'
+import {
+  Button,
+  Divider,
+  Input,
+  InputRef,
+  List,
+  Menu,
+  Pagination,
+  Select,
+  Space,
+  Table,
+  Tag,
+} from 'antd'
 import { sortOptionEnums } from '@src/enums/enums'
 import Project from '@src/Components/Project'
 import './profile.css'
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  PlusOutlined,
+} from '@ant-design/icons'
 
 const techstacks = localStorage.getItem('techstacks')
+
+const { Option } = Select
 
 export interface UserProps {
   userData?: UserType
@@ -155,7 +173,8 @@ const Profile: React.FC<UserProps> = ({}) => {
     ApplicationData[]
   >([])
 
-  console.log('targetUserId', targetUserId)
+  console.log('userProfile', userProfile)
+
   const userId =
     targetUserId && targetUserId !== 'profile'
       ? targetUserId
@@ -303,7 +322,8 @@ const Profile: React.FC<UserProps> = ({}) => {
       !userProfile?.name ||
       !userProfile?.nickname ||
       !userProfile?.email ||
-      !userProfile?.gitAddress
+      !userProfile?.gitAddress ||
+      !userProfile?.techStacks
     ) {
       setMessage('모든 회원 정보를 입력하세요.')
       return // 필요한 정보가 입력되지 않았을 경우 회원가입 중단
@@ -315,6 +335,46 @@ const Profile: React.FC<UserProps> = ({}) => {
   const handleMenuClick = (e: { key: React.Key }) => {
     setCurrentSection(e.key as string)
   }
+
+  const techStacksData = userProfile?.techStacks
+    ? userProfile.techStacks.split(' ')
+    : []
+
+  const [items, setItems] = useState<any>([])
+  const [name, setName] = useState('')
+  const inputRef = useRef<InputRef>(null)
+  let index = 0
+
+  console.log('techStacksData', techStacksData)
+
+  const addItem = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    e.preventDefault()
+    setItems([...items, name || `New item ${index++}`])
+    setName('')
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 0)
+  }
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+  }
+  const handleTagChange = (value: string[]) => {
+    // 선택한 기술 스택을 띄어쓰기로 구분하여 문자열로 저장
+    const techStacksString = value.join(' ')
+    setUserProfile(prevUserProfile => {
+      if (prevUserProfile) {
+        return {
+          ...prevUserProfile,
+          techStacks: techStacksString,
+        }
+      }
+      return prevUserProfile // 현재 상태가 undefined일 경우 그대로 반환
+    })
+  }
+  const maxTagsToShow = 2
+  const tagsToShow = items.slice(0, maxTagsToShow)
 
   return (
     <div style={{ marginTop: '10px' }}>
@@ -441,15 +501,61 @@ const Profile: React.FC<UserProps> = ({}) => {
               <div className="Pro__form_div">
                 <label>기술 스택</label>
                 {targetUserId === userProfile?.userId ? (
-                  <span className="UserProfile__text">
-                    {userProfile?.techStacks}
-                  </span>
-                ) : (
-                  <Input
+                  <div
                     className="Pro__userProfile"
-                    value={userProfile?.techStacks}
-                    style={{ backgroundColor: 'white', color: 'black' }}
-                  />
+                    style={{
+                      border: 'none',
+                      backgroundColor: 'transparent',
+                      padding: '0',
+                    }}
+                  >
+                    {techStacksData.map((stack, index) => (
+                      <Tag key={'tag_' + index} color="magenta">
+                        {stack}
+                      </Tag>
+                    ))}
+                  </div>
+                ) : (
+                  <div>
+                    <Select
+                      className="Pro__userProfile"
+                      mode="multiple"
+                      value={techStacksData}
+                      onChange={handleTagChange}
+                      style={{
+                        backgroundColor: 'white',
+                        color: 'black',
+                        width: '300px%',
+                        border: ' none',
+                      }}
+                      dropdownRender={menu => (
+                        <>
+                          {menu}
+                          <Divider style={{ margin: '8px 0' }} />
+                          <Space style={{ padding: '0 8px 4px' }}>
+                            <Input
+                              placeholder="Please enter item"
+                              ref={inputRef}
+                              value={name}
+                              onChange={onNameChange}
+                              onKeyDown={e => e.stopPropagation()}
+                            />
+                            <Button
+                              type="text"
+                              icon={<PlusOutlined />}
+                              onClick={addItem}
+                            >
+                              Add item
+                            </Button>
+                          </Space>
+                        </>
+                      )}
+                      options={items.map((item: any) => ({
+                        label: item,
+                        value: item,
+                      }))}
+                    ></Select>
+                  </div>
                 )}
               </div>
               <div className="Pro__form_div">
