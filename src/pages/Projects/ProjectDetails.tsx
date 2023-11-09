@@ -188,17 +188,19 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   const fetchBoardData = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/projects/${
-          selectedRecord?.userId
-        }`,
-      )
+      if (selectedRecord) {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/projects/${
+            selectedRecord?.userId
+          }`,
+        )
 
-      if (response.status === 200) {
-        // 가져온 프로젝트 목록을 설정
-        setProjects(response.data)
-      } else {
-        setProjects([])
+        if (response.status === 200) {
+          // 가져온 프로젝트 목록을 설정
+          setProjects(response.data)
+        } else {
+          setProjects([])
+        }
       }
     } catch (error) {
       console.error('게시물 목록을 가져오는 중 오류 발생:', error)
@@ -208,47 +210,49 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
   const applicationData = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/my_applications?userId=${
-          selectedRecord?.userId
-        }`,
-      )
-      if (response.status === 200 || response.status === 400) {
-        const applications: ApplicationData[] = response.data.reverse()
-        console.log('신청 리스트 출력')
-
-        const projectIds: number[] = applications.map(app => app.projectId)
-
-        const detailedDataPromises = projectIds.map(projectId => {
-          return axios.post<ProjectType>(
-            `${
-              import.meta.env.VITE_API_ENDPOINT
-            }/api/single_information_project?projectId=${projectId}`,
-          )
-        })
-
-        const detailedDataResponses = await Promise.all(detailedDataPromises)
-
-        const detailedData: ProjectType[] = detailedDataResponses.map(
-          response => response.data,
+      if (selectedRecord) {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/my_applications?userId=${
+            selectedRecord?.userId
+          }`,
         )
+        if (response.status === 200 || response.status === 400) {
+          const applications: ApplicationData[] = response.data.reverse()
+          console.log('신청 리스트 출력')
 
-        const mergedData: any = detailedData.map((project: any) => {
-          // 프로젝트의 projectId에 일치하는 지원서들을 찾습니다.
-          let projectApplications = applications.filter(
-            app => app.projectId === project.projectId,
+          const projectIds: number[] = applications.map(app => app.projectId)
+
+          const detailedDataPromises = projectIds.map(projectId => {
+            return axios.post<ProjectType>(
+              `${
+                import.meta.env.VITE_API_ENDPOINT
+              }/api/single_information_project?projectId=${projectId}`,
+            )
+          })
+
+          const detailedDataResponses = await Promise.all(detailedDataPromises)
+
+          const detailedData: ProjectType[] = detailedDataResponses.map(
+            response => response.data,
           )
 
-          // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
-          // @ts-ignore
-          project.applystatus = projectApplications[0].status
-          project.applyDate = projectApplications[0].applyDate
+          const mergedData: any = detailedData.map((project: any) => {
+            // 프로젝트의 projectId에 일치하는 지원서들을 찾습니다.
+            let projectApplications = applications.filter(
+              app => app.projectId === project.projectId,
+            )
 
-          return project
-        })
-        console.log('mergedData', mergedData)
+            // 찾은 지원서들을 기존 프로젝트 객체에 추가합니다.
+            // @ts-ignore
+            project.applystatus = projectApplications[0].status
+            project.applyDate = projectApplications[0].applyDate
 
-        setUserApplicationData(mergedData)
+            return project
+          })
+          console.log('mergedData', mergedData)
+
+          setUserApplicationData(mergedData)
+        }
       }
     } catch (error) {
       console.error('신청 리스트 출력 오류', error)
@@ -369,6 +373,12 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     // 초기 렌더링 시 데이터 가져오기
     fetchData(), fetchApplylist(), applicationData(), fetchBoardData()
   }, [])
+
+  //초기 렌더링 시 프로젝트 정보 가져오기
+  useEffect(() => {
+    // 초기 렌더링 시 데이터 가져오기
+    fetchBoardData()
+  }, [selectedRecord])
 
   //댓글 목록 가져오기
   useEffect(() => {
