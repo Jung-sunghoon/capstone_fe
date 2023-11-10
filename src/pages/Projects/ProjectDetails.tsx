@@ -730,7 +730,6 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
 
         // comment reload
         fetchComments()
-        setCommentText('')
       } catch (error) {
         // 오류 처리
         console.error('댓글 삭제 오류:', error)
