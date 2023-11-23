@@ -1,10 +1,9 @@
 import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import './info.css'
 import Search from '../Projects/Search'
 import { Button, Pagination } from 'antd'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { PlusOutlined } from '@ant-design/icons'
 
 export interface InfoType {
