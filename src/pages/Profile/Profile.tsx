@@ -24,6 +24,7 @@ import {
   PlusOutlined,
 } from '@ant-design/icons'
 import { useParams } from 'react-router-dom'
+import pointImg from '@src/assets/favicon.png'
 
 const techstacks = localStorage.getItem('techstacks')
 
@@ -370,7 +371,7 @@ const Profile: React.FC<UserProps> = ({}) => {
             <div className="Pro__point">
               <img
                 style={{ maxWidth: '17px', maxHeight: '17px' }}
-                src="src/assets/favicon.png"
+                src={pointImg}
               />
               <div>포인트: {userProfile?.point}</div>
             </div>

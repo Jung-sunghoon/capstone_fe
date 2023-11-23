@@ -15,6 +15,7 @@ import {
   EditOutlined,
   EyeFilled,
   LikeFilled,
+  LikeOutlined,
   SaveOutlined,
   UnorderedListOutlined,
   UserAddOutlined,
@@ -98,6 +99,17 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   const [userApplicationData, setUserApplicationData] = useState<
     ApplicationData[]
   >([])
+
+  const [liked, setLiked] = useState(false)
+
+  const handleLikeClick = () => {
+    setLiked(prevLiked => !prevLiked)
+    // 좋아요 버튼 클릭 시 상태를 토글
+    message.success(
+      liked ? '좋아요가 취소되었습니다.' : '좋아요가 클릭되었습니다.',
+    )
+    // 예시로 메시지 표시
+  }
 
   const columnsTwo = [
     {
@@ -795,6 +807,15 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     <div id="root">
       {contextHolder}
       <div className="projectDetails__wraaper">
+        {/* <div className="projectDetails__likeBtn">
+          <Button
+            type="primary"
+            shape="circle"
+            icon={liked ? <LikeFilled /> : <LikeOutlined />}
+            size="large"
+            onClick={handleLikeClick}
+          />
+        </div> */}
         <section className="projectDetails__header">
           <div className="projectDetails__title">{project?.projectTitle}</div>
           <div className="projectDetails__userAndDate">
