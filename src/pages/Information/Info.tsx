@@ -1,12 +1,14 @@
 import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './info.css'
 import Search from '../Projects/Search'
-import { Pagination } from 'antd'
-import { Link } from 'react-router-dom'
+import { Button, Pagination } from 'antd'
+import { Link, Navigate } from 'react-router-dom'
+import { PlusOutlined } from '@ant-design/icons'
 
 export interface InfoType {
-  id: number
+  itInfoId: number
   title: string
   generateDate: string
   views: number
@@ -21,6 +23,7 @@ const Info: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [pageSize] = useState<number>(10)
   const handlePageChange = (page: number) => setCurrentPage(page)
+  const navigate = useNavigate()
 
   const slicedData = filteredData?.slice(
     (currentPage - 1) * pageSize,
@@ -45,30 +48,30 @@ const Info: React.FC = () => {
   }, [infos, searchText])
 
   const virtualData: InfoTypes = [
-    { id: 1, title: '안녕', generateDate: '2023-02-01', views: 1 },
-    { id: 2, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 3, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 4, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 5, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 6, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 7, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 8, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 9, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 10, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 11, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 12, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 13, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 14, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 15, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 16, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 17, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 18, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 19, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 20, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 21, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 22, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 23, title: '잘가', generateDate: '2023-02-01', views: 1 },
-    { id: 24, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 1, title: '안녕', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 2, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 3, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 4, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 5, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 6, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 7, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 8, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 9, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 10, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 11, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 12, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 13, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 14, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 15, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 16, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 17, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 18, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 19, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 20, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 21, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 22, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 23, title: '잘가', generateDate: '2023-02-01', views: 1 },
+    { itInfoId: 24, title: '잘가', generateDate: '2023-02-01', views: 1 },
 
     // ... 더 많은 가상 데이터 항목 추가
   ]
@@ -95,6 +98,22 @@ const Info: React.FC = () => {
   useEffect(() => {
     performSearchAndSort()
   }, [infos, searchText])
+
+  const handleNewPost = () => navigate('/infogenerate')
+
+  const renderGenerateBtn = () => {
+    if (localStorage.userId === 'master') {
+      return (
+        <div className="floating-button">
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={handleNewPost}
+          />
+        </div>
+      )
+    }
+  }
 
   return (
     <div>
@@ -128,10 +147,10 @@ const Info: React.FC = () => {
           </thead>
           <tbody>
             {slicedData?.map(item => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
+              <tr key={item.itInfoId}>
+                <td>{item.itInfoId}</td>
                 <td>
-                  <Link to={`/infodetails/${item.id}`}>{item.title}</Link>
+                  <Link to={`/infodetails/${item.itInfoId}`}>{item.title}</Link>
                 </td>
                 <td>{item.generateDate}</td>
                 <td>{item.views}</td>
@@ -149,7 +168,7 @@ const Info: React.FC = () => {
             onChange={handlePageChange}
           />
         </div>
-        <div></div>
+        {renderGenerateBtn()}
       </div>
     </div>
   )
