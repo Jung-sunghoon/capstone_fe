@@ -21,6 +21,11 @@ const Header: React.FC = () => {
         <div className="header__nav">
           <ul>
             <li>
+              <Link to="/info" className="h__link">
+                It 정보
+              </Link>
+            </li>
+            <li>
               <Link to="/projects" className="h__link">
                 프로젝트
               </Link>

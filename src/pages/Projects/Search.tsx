@@ -25,7 +25,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
       <form className="srh__form" onSubmit={e => e.preventDefault()}>
         <Input
           type="text"
-          placeholder="프로젝트 검색"
+          placeholder="제목으로 검색"
           value={searchText}
           className="srh__input"
           onChange={e => handleSearch(e.target.value)}

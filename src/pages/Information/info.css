@@ -1,0 +1,80 @@
+/* styles.css */
+body {
+  font-size: 20px;
+}
+
+/* 공통 스타일 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: center;
+}
+
+th {
+  display: table-cell;
+  vertical-align: inherit;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.infoTable {
+  width: 100%;
+  border-width: 2px 0 0 0;
+  border-color: #241055;
+  border-style: solid;
+  table-layout: fixed;
+}
+
+.infoTable thead th {
+  background: #f5f3fc;
+  border: 1px solid #dedede;
+  border-bottom: 1px solid #241055;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.infoTable th {
+  text-align: center;
+}
+
+.infoTable th,
+.infoTable td {
+  border-width: 0 1px 1px 1px;
+  border-color: #dedede;
+  border-style: solid;
+  padding: 7px 0;
+  text-align: center;
+}
+
+/* 각 열의 너비 설정 */
+.colNum {
+  width: 90px;
+}
+
+.colTitle {
+  width: auto;
+}
+
+.colDate {
+  width: 200px;
+}
+
+.colView {
+  width: 90px;
+}
+
+/* 첫 번째 열의 왼쪽 경계선 제거 */
+table th:first-child,
+table td:first-child {
+  border-left: 0;
+}

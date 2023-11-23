@@ -1,9 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, message, Upload, InputNumber, Select } from 'antd'
+import React, { useState, useEffect, useRef } from 'react'
+import {
+  Form,
+  Input,
+  Button,
+  message,
+  Upload,
+  InputNumber,
+  Select,
+  Divider,
+  Space,
+  InputRef,
+} from 'antd'
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
-import { FormOutlined, UploadOutlined } from '@ant-design/icons'
+import { FormOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
 
 type ProjectStatusType = { label: string; value: string }
@@ -180,6 +191,50 @@ const Generate: React.FC = () => {
     console.log(`selected ${value}`)
   }
 
+  const [techstacksVersion, setTechstacksVersion] = useState(0)
+  const [items, setItems] = useState<any>([])
+  const [name, setName] = useState('')
+  const inputRef = useRef<InputRef>(null)
+  let index = 8
+
+  const addItem = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    e.preventDefault()
+
+    const newItem = name || `New item ${index++}`
+
+    if (!items.includes(newItem)) {
+      setItems([...items, newItem || `New item ${index++}`])
+
+      // techIds에 이미 존재하는지 확인
+      const techIds = JSON.parse(techstacks || '[]')?.map(
+        (tech: any) => tech.techName,
+      )
+
+      if (!techIds.includes(newItem)) {
+        // Update techstacks in localStorage
+        const updatedTechstacks = JSON.parse(techstacks || '[]')
+        updatedTechstacks.push({ techId: index, techName: newItem })
+        localStorage.setItem('techstacks', JSON.stringify(updatedTechstacks))
+
+        // 기술스택 업데이트
+        setTechstacksVersion(prev => prev + 1)
+      }
+    } else {
+      // 이미 존재하는 경우 메시지 출력
+      messageApi.error('이미 존재하는 기술 스택입니다.')
+    }
+    setName('')
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 0)
+  }
+
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+  }
+
   return (
     <div>
       {contextHolder}
@@ -264,6 +319,35 @@ const Generate: React.FC = () => {
               onChange={handleChange}
               optionLabelProp="label"
               defaultValue={[]}
+              dropdownRender={menu => (
+                <>
+                  {menu}
+                  <Divider style={{ margin: '8px 0' }} />
+                  <Space
+                    style={{
+                      display: 'flex',
+                      padding: '0 8px 4px',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Input
+                      placeholder="기술 스택을 추가하세요"
+                      ref={inputRef}
+                      value={name}
+                      onChange={onNameChange}
+                      onKeyDown={e => e.stopPropagation()}
+                      style={{ width: '300px' }}
+                    />
+                    <Button
+                      type="text"
+                      icon={<PlusOutlined />}
+                      onClick={addItem}
+                    >
+                      스택 추가
+                    </Button>
+                  </Space>
+                </>
+              )}
             >
               {techstacks &&
                 JSON.parse(techstacks)?.map((tech: any, index: number) => (

@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import Profile from './pages/Profile/Profile'
 import Ranking from './pages/Ranking/Ranking'
+import Info from './pages/Information/Info'
 
 function App() {
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/login/*" element={<Login />} />
           <Route path="/sign-up/*" element={<SignUp />} />
+          <Route path="/info/*" element={<Info />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/ranking/*" element={<Ranking />} />
           <Route path="/projects" element={<Projects />} />

@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #ba55d3;
+  background-color: #291659;
   backdrop-filter: blur(15px);
   min-height: 60px;
 }
@@ -33,6 +33,6 @@
 }
 
 .logout__btn {
-  background-color: #ba55d3;
+  background-color: #291659;
   border: none;
 }
