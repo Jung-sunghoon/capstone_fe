@@ -3,6 +3,10 @@ body {
   font-size: 20px;
 }
 
+a {
+  color: black;
+}
+
 /* 공통 스타일 */
 table {
   border-collapse: collapse;

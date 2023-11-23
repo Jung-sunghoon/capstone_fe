@@ -12,6 +12,8 @@ import axios from 'axios'
 import Profile from './pages/Profile/Profile'
 import Ranking from './pages/Ranking/Ranking'
 import Info from './pages/Information/Info'
+import InfoDetails from './pages/Information/InfoDetails'
+import InfoGenerate from './pages/Information/InfoGenerate'
 
 function App() {
   useEffect(() => {
@@ -42,6 +44,9 @@ function App() {
           <Route path="/login/*" element={<Login />} />
           <Route path="/sign-up/*" element={<SignUp />} />
           <Route path="/info/*" element={<Info />} />
+          <Route path="/infodetails/:id" element={<InfoDetails />} />
+          <Route path="/infogenerate/*" element={<InfoGenerate />} />
+          <Route path="/infoedit/*" element={<InfoGenerate />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/ranking/*" element={<Ranking />} />
           <Route path="/projects" element={<Projects />} />
