@@ -55,12 +55,6 @@ button {
   margin: 0em;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .hide-expand-icon .ant-table-row-expand-icon-cell {
   display: none;
 }

@@ -465,16 +465,16 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
   }
 
   const columns: ColumnsType<ApplyData> = [
-    { title: 'userId', dataIndex: 'userId', key: 'userId' },
+    { title: '유저 ID', dataIndex: 'userId', key: 'userId' },
 
-    { title: 'department', dataIndex: 'department', key: 'department' },
+    { title: '학과', dataIndex: 'department', key: 'department' },
     {
-      title: 'applyDate',
+      title: '신청 날짜',
       dataIndex: 'applyDate',
       key: 'applyDate',
     },
     {
-      title: 'applyStatus',
+      title: '신청 상태',
       dataIndex: 'status',
       key: 'status',
       render: (status: string | undefined) => {
@@ -494,7 +494,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       width: 70,
     },
     {
-      title: 'Action',
+      title: '승인',
       dataIndex: 'action',
       key: 'action',
       render: (_text: any, record) => (
@@ -522,7 +522,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
       width: 100,
     },
     {
-      title: 'ViewDetails',
+      title: '자세히 보기',
       dataIndex: 'viewDetails',
       key: 'viewDetails',
       render: (_text: any, record: any) => (
@@ -533,7 +533,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             color="#ba55d3"
             onClick={() => setSelectedRecord(record)}
           >
-            View Details
+            자세히 보기
           </Tag>
         </div>
       ),
@@ -807,7 +807,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
     <div id="root">
       {contextHolder}
       <div className="projectDetails__wraaper">
-        {/* <div className="projectDetails__likeBtn">
+        <div className="projectDetails__likeBtn">
           <Button
             type="primary"
             shape="circle"
@@ -815,7 +815,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
             size="large"
             onClick={handleLikeClick}
           />
-        </div> */}
+        </div>
         <section className="projectDetails__header">
           <div className="projectDetails__title">{project?.projectTitle}</div>
           <div className="projectDetails__userAndDate">
@@ -1016,7 +1016,7 @@ const ProjectDetails: React.FC<ProjectDetails> = () => {
               <th>e-mail</th>
               <th>학번</th>
               <th>Git 주소</th>
-              <th> 기술 스택 </th>
+              <th>기술 스택</th>
             </tr>
             <tr>
               <td>{selectedRecord?.name}</td>

@@ -47,6 +47,7 @@ function App() {
           <Route path="/infodetails/:itInfoId" element={<InfoDetails />} />
           <Route path="/infogenerate/*" element={<InfoGenerate />} />
           <Route path="/infoedit/*" element={<InfoGenerate />} />
+          <Route path="/infoedit/*" element={<InfoGenerate />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/ranking/*" element={<Ranking />} />
           <Route path="/projects" element={<Projects />} />

@@ -50,13 +50,13 @@ const Profile: React.FC<UserProps> = ({}) => {
 
   const columns = [
     {
-      title: 'ProjectTitle',
+      title: '프로젝트 제목',
       dataIndex: 'projectTitle',
       key: 'projectTitle',
       width: '200px',
     },
     {
-      title: 'TechIds',
+      title: '기술 스택',
       dataIndex: 'techIds',
       key: 'techIds',
       render: (techIds: number[] | undefined) => {
@@ -79,7 +79,7 @@ const Profile: React.FC<UserProps> = ({}) => {
       },
     },
     {
-      title: 'Applystatus',
+      title: '신청 상태',
       dataIndex: 'applystatus',
       key: 'applystatus',
       render: (status: string | undefined) => {
@@ -98,12 +98,12 @@ const Profile: React.FC<UserProps> = ({}) => {
       },
     },
     {
-      title: 'recruitmentCount',
+      title: '모집 인원',
       dataIndex: 'recruitmentCount',
       key: 'recruitmentCount',
     },
     {
-      title: 'Action',
+      title: '취소',
       dataIndex: 'Action',
       key: 'Action',
       render: (_text: any, record: any) => (
