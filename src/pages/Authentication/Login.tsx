@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import './Login.css'
 import { Link } from 'react-router-dom'
-import Logo from '@assets/images/Login/logo.png'
+import Logo from '@assets/images/Login/logoBlack.png'
 import { useAuth } from '../../AuthContext'
 import { Input } from 'antd'
 

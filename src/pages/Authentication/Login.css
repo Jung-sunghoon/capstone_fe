@@ -6,6 +6,7 @@
 .logo__img {
   justify-content: center;
   align-items: center;
+  margin-right: 30px;
 }
 
 .login__form {

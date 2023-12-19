@@ -1,7 +1,7 @@
 import React from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
-import Logo from '@assets/images/Login/logo.png'
+import Logo from '@assets/images/Login/logoWhite.png'
 import { useAuth } from '../../../AuthContext'
 
 const Header: React.FC = () => {

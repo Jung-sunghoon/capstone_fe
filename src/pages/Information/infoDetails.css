@@ -105,5 +105,10 @@ button {
 .infoDetails__description {
   font-size: 1em;
   margin: 25px 0;
-  text-align: center;
+}
+
+.infoDetails__btnWrapper {
+  display: flex;
+  margin-top: 10px;
+  justify-content: end;
 }

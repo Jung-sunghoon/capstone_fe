@@ -6,6 +6,7 @@ import { InfoType } from './Info'
 import './infoDetails.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { formatDate } from '@src/utils/common'
 
 export interface InfoDetails {}
 
@@ -54,6 +55,27 @@ const InfoDetails: React.FC<InfoDetails> = () => {
     fetchData()
   }, [])
 
+  const renderInfoEditAndDeleteBtn = () => {
+    if (localStorage.userId === 'master') {
+      return (
+        <div className="infoDetails__btnWrapper">
+          <Button
+            className="projectDetails__projectEditBtn"
+            onClick={handleEditInfo}
+          >
+            <EditOutlined />
+          </Button>
+          <Button
+            onClick={handleDeleteInfo}
+            className="projectDetails__projectDeleteBtn"
+          >
+            <DeleteOutlined />
+          </Button>
+        </div>
+      )
+    }
+  }
+
   return (
     <div id="root">
       {contextHolder}
@@ -63,7 +85,9 @@ const InfoDetails: React.FC<InfoDetails> = () => {
             <div className="infoDetails__dateAndViews">
               <span>작성일</span>
               <div className="infoDetails__generateDate">
-                {infoDetails?.generateDate}
+                {infoDetails?.generateDate
+                  ? formatDate(new Date(infoDetails?.generateDate))
+                  : ''}
               </div>
               <span style={{ padding: '0 0.5em' }}>조회수</span>
               <div className="infoDetails__views">{infoDetails?.views}</div>
@@ -72,22 +96,13 @@ const InfoDetails: React.FC<InfoDetails> = () => {
           <div className="infoDetails__titleWrap">
             <div className="infoDetails__title">{infoDetails?.title}</div>
           </div>
-          <div className="infoDetails__btnWrapper">
-            <Button
-              className="projectDetails__projectEditBtn"
-              onClick={handleEditInfo}
-            >
-              <EditOutlined />
-            </Button>
-            <Button
-              onClick={handleDeleteInfo}
-              className="projectDetails__projectDeleteBtn"
-            >
-              <DeleteOutlined />
-            </Button>
-          </div>
+          {renderInfoEditAndDeleteBtn()}
           <div className="infoDetails__description">
-            {infoDetails?.description}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: infoDetails?.description || '',
+              }}
+            />
           </div>
           <div className="projectDetails__commentBtnWrapper">
             <Link to="/info">

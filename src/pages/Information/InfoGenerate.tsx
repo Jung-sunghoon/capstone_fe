@@ -9,11 +9,8 @@ const InfoGenerate: React.FC = () => {
   const [editButton, setEditButton] = useState(false)
   const [form] = Form.useForm()
   const [initialValue] = useState({
-    itInfoId: 0,
     title: '',
     description: '',
-    generateDate: '',
-    views: 0,
   })
   const [messageApi, contextHolder] = message.useMessage()
   const [textEditor, setTextEditor] = useState('')
@@ -50,7 +47,6 @@ const InfoGenerate: React.FC = () => {
 
         form.setFieldsValue({
           title: itInfo.title,
-          generateData: itInfo.generateData,
           description: itInfo.description,
         })
         setTextEditor(itInfo.description)
@@ -70,7 +66,6 @@ const InfoGenerate: React.FC = () => {
     const requestData = {
       itInfoId: type === 'edit' ? itInfoId : null,
       title: values.title,
-      generateData: values.generateData,
       description: textEditor,
     }
 
@@ -94,15 +89,15 @@ const InfoGenerate: React.FC = () => {
       const response = await createOrUpdateItInfo(type, values, textEditor)
 
       if (response.status === 200) {
-        messageApi.success('프로젝트가 성공적으로 생성되었습니다.')
+        messageApi.success('IT 정보가 성공적으로 생성되었습니다.')
         form.resetFields()
-        navigate('/projects')
+        navigate('/info')
       } else {
-        messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
+        messageApi.error('IT 정보 생성 중 오류가 발생했습니다.')
       }
     } catch (error) {
-      messageApi.error('프로젝트 생성 중 오류가 발생했습니다.')
-      console.error('프로젝트 생성 중 오류:', error)
+      messageApi.error('IT 정보 생성 중 오류가 발생했습니다.')
+      console.error('IT 정보 생성 중 오류:', error)
     }
   }
 
@@ -152,7 +147,7 @@ const InfoGenerate: React.FC = () => {
                       }}
                       icon={<FormOutlined />}
                     >
-                      Click to Edit Description
+                      수정 시 클릭
                     </Button>
                   </div>
                   <TextEditor

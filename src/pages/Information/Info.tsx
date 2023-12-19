@@ -5,6 +5,7 @@ import Search from '../Projects/Search'
 import { Button, Pagination } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { PlusOutlined } from '@ant-design/icons'
+import { formatDate } from '@src/utils/common'
 
 export interface InfoType {
   itInfoId: number
@@ -31,9 +32,6 @@ const Info: React.FC = () => {
   )
 
   const handleSearch = (text: string) => setSearchText(text)
-  const handleFilterChange = () => {
-    performSearchAndSort()
-  }
 
   const performSearchAndSort = useCallback(() => {
     let filtered = [...infos] // 원본 데이터를 보존하기 위해 복사
@@ -115,13 +113,19 @@ const Info: React.FC = () => {
           </thead>
           <tbody>
             {slicedData?.map(item => (
-              <tr key={item.itInfoId}>
-                <td>{item.itInfoId}</td>
+              <tr key={item?.itInfoId}>
+                <td>{item?.itInfoId}</td>
                 <td>
-                  <Link to={`/infodetails/${item.itInfoId}`}>{item.title}</Link>
+                  <Link to={`/infodetails/${item?.itInfoId}`}>
+                    {item?.title}
+                  </Link>
                 </td>
-                <td>{item.generateDate}</td>
-                <td>{item.views}</td>
+                <td>
+                  {item?.generateDate
+                    ? formatDate(new Date(item?.generateDate))
+                    : ''}
+                </td>
+                <td>{item?.views}</td>
               </tr>
             ))}
           </tbody>
