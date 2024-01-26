@@ -14,7 +14,7 @@ import {
 import axios from 'axios'
 import TextEditor from '@src/Components/TextEditor'
 import { useNavigate } from 'react-router-dom'
-import { FormOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface'
 
 type ProjectStatusType = { label: string; value: string }
@@ -24,7 +24,6 @@ type TechstackType = { techId: number; techName: string }
 const { Option } = Select
 
 const Generate: React.FC = () => {
-  const [editButton, setEditButton] = useState(false)
   const [form] = Form.useForm()
   const [initialValue] = useState({
     projectTitle: '',
@@ -361,34 +360,16 @@ const Generate: React.FC = () => {
             <div>
               {type === 'generate' ? (
                 <TextEditor
-                  isNew={false}
-                  edit={true}
+                  isNew={true}
                   setTextEditor={setTextEditor}
                   html={''}
                 />
               ) : (
-                <div>
-                  <div>
-                    <Button
-                      style={{
-                        display: editButton ? 'none' : 'block',
-                        marginBottom: '10px',
-                      }}
-                      onClick={() => {
-                        setEditButton(true)
-                      }}
-                      icon={<FormOutlined />}
-                    >
-                      Click to Edit Description
-                    </Button>
-                  </div>
-                  <TextEditor
-                    isNew={false}
-                    edit={editButton}
-                    setTextEditor={setTextEditor}
-                    html={textEditor}
-                  />
-                </div>
+                <TextEditor
+                  isNew={false}
+                  setTextEditor={setTextEditor}
+                  html={textEditor}
+                />
               )}
             </div>
           </Form.Item>
