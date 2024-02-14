@@ -3,7 +3,7 @@
 <br />
 로컬 환경이기 때문에 백엔드도 같이 실행하여야 합니다.
 <br />
-<a href='https://github.com/Jung-sunghoon/capstone_backend'>https://github.com/Jung-sunghoon/capstone_backend</a>
+<a href='https://github.com/Jung-sunghoon/capstone_backend' target="_blank">https://github.com/Jung-sunghoon/capstone_backend</a>
 <h2>1. 구동 환경 설치</h2>
 <pre>
   <code>
