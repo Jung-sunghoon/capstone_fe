@@ -5,6 +5,7 @@ import Logo from '@assets/images/Login/logoWhite.png'
 import { useAuth } from '../../../AuthContext'
 
 const Header: React.FC = () => {
+  // AuthContext 사용하여 로그인 여부 확인
   const { isLoggedIn, logout }: { isLoggedIn: boolean; logout: () => void } =
     useAuth()
 

@@ -10,6 +10,7 @@ import {
   PlusOutlined,
 } from '@ant-design/icons'
 
+// UserData interfae 정의
 interface UserData {
   userId: string
   password: string
@@ -42,12 +43,13 @@ const SignUp: React.FC = () => {
     techStacks: '',
   })
 
+  // 입력 값 변경 이벤트 핸들러
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
 
-  //아이디 중복체크
+  //아이디 중복 체크
   const handleUserIdCheck = async () => {
     if (!userData.userId) {
       messageApi.error('아이디를 입력하세요.')
@@ -72,7 +74,7 @@ const SignUp: React.FC = () => {
     }
   }
 
-  //닉네임 중복체크 api
+  //닉네임 중복 체크
   const handleNicknameCheck = async () => {
     if (!userData.nickname) {
       messageApi.error('닉네임을 입력하세요.')
@@ -99,6 +101,7 @@ const SignUp: React.FC = () => {
     }
   }
 
+  // 학번 중복 체크
   const handleStudentNumberCheck = async () => {
     if (!userData.studentNumber) {
       messageApi.error('학번을 입력하세요.')
@@ -127,6 +130,7 @@ const SignUp: React.FC = () => {
     }
   }
 
+  // 회원가입 폼 제출 이벤트 핸들러
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -176,11 +180,13 @@ const SignUp: React.FC = () => {
     }
   }
 
+  // 기술 스택 함수 및 상태
   const [items, setItems] = useState<any>([])
   const [name, setName] = useState('')
   const inputRef = useRef<InputRef>(null)
   let index = 0
 
+  // 기술 스택 추가
   const addItem = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
@@ -191,6 +197,8 @@ const SignUp: React.FC = () => {
       inputRef.current?.focus()
     }, 0)
   }
+
+  // 기술 스택 추가 이름 변경 이벤트 핸들러
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
   }

@@ -18,6 +18,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
   const techstacks = localStorage.getItem('techstacks')
 
   return (
+    // Antd 카드 컴포넌트
     <Card
       style={{
         marginBottom: '30px',
@@ -25,7 +26,6 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
         maxHeight: '300px',
       }}
       cover={
-        //@ts-ignore
         <img
           height={160}
           style={{
@@ -33,7 +33,6 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
             cursor: 'pointer',
           }}
           alt="example"
-          //@ts-ignore
           src={info?.thumbnail}
           onClick={() => {
             navigate(`/project/${info?.projectId}`)
@@ -77,6 +76,7 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
       <Link to={`/project/${info?.projectId}`}>
         <Meta
           title={info?.projectTitle}
+          // 기술 스택 태그를 위한 map 함수
           description={
             techstacks &&
             JSON.parse(techstacks)
@@ -84,9 +84,8 @@ const Project: React.FC<ProjectProps> = ({ projectData }) => {
                 projectData?.techIds.includes(item.techId),
               )
               .map((tech: any, index: number) => {
-                if (index > 3) return
-
-                return index === 3 ? (
+                // 태그의 갯수가 3개 이상이면 + (length - 3) 태그 추가
+                return index >= 3 ? (
                   <Tag key={'tag_' + index} color="magenta">
                     +{' '}
                     {JSON.parse(techstacks)?.filter((item: any) =>
